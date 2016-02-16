@@ -20,7 +20,7 @@ import models.TDMap;
  *  load an existing map to play on, choose one of the pre-existing maps, or
  *  to create a new game map according to his preference.
  * 
- *  @author yaomeng
+ *  @author Xingjian Zhang
  *  @version 1.0.0
  */
 public class MenuApplicationFrame extends JFrame implements ActionListener{

@@ -38,6 +38,10 @@ import views.MenuApplicationFrame;
  *  This class belongs to the Game Logic layer and handles
  *  all the complex interfacing between the map, the 
  *  numerous towers placed on the map 
+ *  
+ *  @author Meng Yao
+ *  
+ *  @version 1.0.0
  *
  */
 public class GameController extends MapPanel implements ActionListener, ChangeListener, ItemListener, IObserver {
@@ -45,7 +49,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	//declare game specific variables
 
     /**
-     *  The Map Panel. It deals with the Tiles, Towers and the Critter Path.
+     *  The Map Panel. It deals with the Tiles, Towers and the Path.
      */
     	protected MapPanel gamePanel;
 
@@ -265,13 +269,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		new MenuApplicationFrame();
 		Player.getInstance().resetStats();
 	}
-	//when start wave is clicked
-	private void doStartWave(){
-		clock.unPause();
-		gamePaused =false;
-		
-		startNewWave();
-	}
+	
 	//when one of the tower buttons is clicked
 	private void doSelectTower(ActionEvent arg0){
 		if(drawableEntities.contains(towerBeingPreviewed)){
@@ -279,27 +277,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		}
 		selectedTowerToBuild = ((JToggleButton) arg0.getSource()).getName();
 	}
-	//when upgrade is clicked
-	private void doUpgrade(){
-		spendMoney(this.selectedTower.getUpPrice());
-		this.selectedTower.upgradeTower();
-		this.updateSelectedTowerInfoAndButtons();
-	}
-	//when sell is clicked
-	private void doSell(){
-		//give the player the money by spending the negative amount.
-		this.spendMoney((-1)*selectedTower.getSellPrice());
-		//remove this tower from our two lists, and delete it
-		towersOnMap.remove(selectedTower);
-		drawableEntities.remove(selectedTower);
-		selectedTower = null;
-		if(selectedTile != null){
-			selectedTile.setTowerOnTile(null);
-		}
-		//update buttons
-		this.updateSelectedTowerInfoAndButtons();
-		this.Draw(); //redraw
-	}
+	
 	
 	//end of button calls
 	
@@ -323,67 +301,41 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}else if(!gameOver){
 				if(gamePaused == false){
 					
-				Draw();
+				
 				}
 			}
 			
 		
 	}
+	//when upgrade is clicked
+		private void doUpgrade(){
+			spendMoney(this.selectedTower.getUpPrice());
+			this.selectedTower.upgradeTower();
+			this.updateSelectedTowerInfoAndButtons();
+		}
+		//when sell is clicked
+		private void doSell(){
+			//give the player the money by spending the negative amount.
+			this.spendMoney((-1)*selectedTower.getSellPrice());
+			//remove this tower from our two lists, and delete it
+			towersOnMap.remove(selectedTower);
+			drawableEntities.remove(selectedTower);
+			selectedTower = null;
+			if(selectedTile != null){
+				selectedTile.setTowerOnTile(null);
+			}
+			//update buttons
+			this.updateSelectedTowerInfoAndButtons();
+			this.Draw(); //redraw
+		}
+		
 	//calls the repaint method
 	private void Draw(){
 		gamePanel.repaint();
 	}
 
-    /**
-     *  This will update the game whenever one of the subjects (Critters)of the Game Controller is changed,
-     *  e.g. if a critter dies or a tower is upgraded.
-     */
-    	public void observerUpdate(){
-		if(gamePaused ==false){
-			//we want to reset the wave stats, and then  check each critter to see what happended
-			resetPlayerWaveStats();
-			boolean anyCrittersLeft = false;
-			//go through subjects and see if we have a critter
-			for(Subject s : subjects){
-				
-			}
-			//if no critters are left, allow the player to start a new wave
-			
-			//if it isn't Game Over, then update the information labels.
-			if(!gameOver){
-			updateInfoLabelText();
-			updateSelectedTowerInfoAndButtons();
-			}
-		}
-	}
-    	
-    /*
-     * Ends the game by disabling buttons, and pausing the clock.
-     */
-	private void endGame(){
-		gameOver = true;
-		gamePaused =true;
-		clock.pause();
-		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with $" + gamePlayer.getMoney() + ".");
-		disableAllGameButtons();
-	}
-	/*
-	 * disables all of the game buttons
-	 */
-	private void disableAllGameButtons(){
-		
-		bPause.setEnabled(false);
-		bUpgrade.setEnabled(false);
-		bSell.setEnabled(false);
-		cbStrategies.setEnabled(false);
-	}
-	/*
-	 * resets the player's stats (so that a new game can be started with the same instance
-	 */
-	private void resetPlayerWaveStats() {
-		gamePlayer.setLives(waveStartLives);
-		gamePlayer.setMoney(waveStartMoney);
-	}
+    
+	
 	//spends a certain amount of money of the Player
 	private void spendMoney(int amount){
 		gamePlayer.addToMoney((-1)*amount);
@@ -604,6 +556,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		}
 		@Override
 		public void stateChanged(ChangeEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void observerUpdate() {
 			// TODO Auto-generated method stub
 			
 		}

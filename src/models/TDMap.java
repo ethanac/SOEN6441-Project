@@ -8,17 +8,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * The map model.
- * It defines the size of map and initializes the grid.
  * 
- * @author HaoZhang
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ * 
+ * @author Hao Zhang
+ * @author Meng Yao
+ * 
+ * @version 1.0.0
  */
 public class TDMap implements DrawableEntity{
 	//final variables
@@ -52,12 +51,13 @@ public class TDMap implements DrawableEntity{
     /**
      *
      */
-    public static final int TOWER= 4;
+    public static final int TOWER = 4;
+    
 
     /**
      *
      */
-    public static final int PATH= 2;
+    public static final int PATH = 2;
     private final int PIXELWIDTH = Artist_Swing.PIXELWIDTH;
     private final int PIXELHEIGHT = Artist_Swing.GAMEPIXELHEIGHT;
     
@@ -269,7 +269,7 @@ public class TDMap implements DrawableEntity{
     {
     	//if we are on the start path or the end path, do nothing
     	if((((i==start1) && (j==start2))) || (((i==end1) && (j==end2)))){
-    		
+  
         }else{ //otherwise, toggle the path
         	//make sure we are in bounds
     		if((i<gridWidth)&&(j<gridHeight))
@@ -382,8 +382,7 @@ public class TDMap implements DrawableEntity{
 * from the starting cell and then checking if the ending cell has been
 * explored or not. If the ending cell has been explored, then the PATH is
 * valid. This BFS also explores the shortest path from the End Cell to the
-* Start Cell to get rid of Loops, and the Critters optimize their attack.
-* This will be stored in shortestPath, as a LinkedList.
+* Start Cell to get rid of Loops.
 * This method also initializes the boolean isMapValid to a T/F value.
 * @return
 */
@@ -609,181 +608,8 @@ public class TDMap implements DrawableEntity{
      *
      * @return
      */
-    public ArrayList<Point> getPath_ListOfPixels(){
-    	//this returns a list of pixels that make up the path
-		ArrayList<Point> pixelPathToTravel = new ArrayList<Point>();
-		ArrayList<Point> pathToTravel = getPointsOfShortestPath();
-		String fromWhere = "";
-		String toWhere = "";
-		//First, get the first position in the path (where we start).
-		Point firstPos = pathToTravel.get(0);
-		//if we are along the y axis, start by default from the left
-		if(firstPos.getX() == 0){
-			fromWhere = "left";
-		}else if(firstPos.getY() == 0){ //if along the x axis, start from the top
-			fromWhere = "top";
-		}else if(firstPos.getX() == this.getGridWidth()-1){ //if on the other side parallel to y axis, start right
-			fromWhere = "right";
-		}else if(firstPos.getY() == this.getGridWidth()-1){ //if on bottom parallel to x axis, start bot
-			fromWhere = "bot";
-		}
-		//our current position is our first position
-		Point currPos = firstPos;
-		
-		//our default start pixel position is by default the location (in pixels) of our block
-		Point startBlockTopLeftPixel = this.getPosOfBlock_pixel(currPos.getX(), currPos.getY());
-		//TODO: move to the start pixel Position from off the map
-		Point startPixelPosition = null;
-		//go through all of the blocks that we need to travel on.
-		for(int i = 1; i < pathToTravel.size(); i++){
-			//the next block we want to travel to is the one at i (starts at 1)
-			Point nextPos = pathToTravel.get(i);
-			
-			//Figure out where we need to travel to (we already have where from)
-			//if our x stays the same, we move vertically.
-			if(nextPos.getX() == currPos.getX()){
-				if(nextPos.getY() - currPos.getY() == 1){
-					//we are moving downwards... So our toWhere will be bot
-					toWhere = "bot";
-				}else{
-					//we are moving upwards.
-					toWhere = "top";
-				}
-				//if our y stays the same, we move horizontally (either left or right)
-			}else if(nextPos.getY() == currPos.getY()){
-				if(nextPos.getX() - currPos.getX() ==1){
-					toWhere = "right";
-				}else{
-					toWhere = "left";
-				}
-			}else{
-				System.out.println("Error, point moves too much...");
-			}
-			//our default end position is the position of our next block.
-			Point endBlockTopLeft = this.getPosOfBlock_pixel(nextPos.getX(), nextPos.getY());
-			Point endPixelPosition;
-			
-			//now we can get the center of our current block
-			Point pixelCenterOfBlock = new Point((int)(startBlockTopLeftPixel.getX() + this.tileWidth_Pixel/2), (int)(startBlockTopLeftPixel.getY() + this.tileHeight_Pixel/2));
-			
-			//the  start pixel position is now adjusted to be either top middle, right middle, left middle or bottom middle (depending on fromwhere)
-			startPixelPosition = getPixelPositionFirstMove(fromWhere, startBlockTopLeftPixel, pixelCenterOfBlock);
-			
-			//the end pixel position is now adjusted to be either top middle, right middle, left middle, or bottom middle (depending on towhere)
-			endPixelPosition = getPixelPositionSecondMove(toWhere, endBlockTopLeft, pixelCenterOfBlock );
-
-			addPixelPoints(pixelPathToTravel, startPixelPosition, pixelCenterOfBlock);
-			addPixelPoints(pixelPathToTravel, pixelCenterOfBlock, endPixelPosition);
-			//We can now move the critter from the start position to the center position
-			//Then we can move the critter from the center position to the end position
-			//Maybe method like: MoveCritter(critter, toPosition);
-			
-			//after being moved, we now set our fromWhere to be where we were going to, 
-			fromWhere = invertWhere(toWhere);
-			currPos = nextPos; //and now our current position is our next position.
-			startBlockTopLeftPixel = endBlockTopLeft;
-			
-			//LOOP.
-		}
-		//now that we are outside loop, it means we are at the beginning of our last block. 
-		//we must travel to the middle of the last block, and then travel to the appropriate side.
-		Point lastPos = pathToTravel.get(pathToTravel.size()-1);
-		//if we are along the y axis, start by default from the left
-		if(lastPos.getX() == 0){
-			toWhere = "left";
-		}else if(lastPos.getY() == 0){ //if along the x axis, start from the top
-			toWhere = "top";
-		}else if(lastPos.getX() == this.getGridWidth()-1){ //if on the other side parallel to y axis, start right
-			toWhere = "right";
-		}else if(lastPos.getY() == this.getGridWidth()-1){ //if on bottom parallel to x axis, start bot
-			toWhere = "bot";
-		}
-		
-		Point finalPixelPosition = this.getPosOfBlock_pixel(lastPos.getX(), lastPos.getY());
-		Point finalPixelCenterOfBlock = new Point((int)(finalPixelPosition.getX() + this.tileWidth_Pixel/2), (int)(finalPixelPosition.getY() + this.tileHeight_Pixel/2));
-		finalPixelPosition = getPixelPositionFirstMove(toWhere, finalPixelPosition, finalPixelCenterOfBlock);
-		startPixelPosition = getPixelPositionFirstMove(fromWhere, startBlockTopLeftPixel, finalPixelCenterOfBlock);
-		
-		addPixelPoints(pixelPathToTravel, startPixelPosition, finalPixelCenterOfBlock);
-		addPixelPoints(pixelPathToTravel, finalPixelCenterOfBlock, finalPixelPosition);
-		return pixelPathToTravel;
-	}
-	/*
-	 * a method that makes the method to find the critter path simpler.
-	 * This method "inverts" the "where" variable. If we are going to the "left", 
-	 * the invert("left") = "right", and etc.
-	 */
-	private String invertWhere(String where){
-		String result = "";
-		if(where.equals("left")){
-			result = "right";
-		}else if(where.equals("right")){
-			result = "left";
-		}else if(where.equals("top")){
-			result = "bot";
-		}else if(where.equals("bot")){
-			result = "top";
-		}else{
-			System.out.println("issue with where");
-		}
-		return result;
-	}
+   
 	
-	private Point getPixelPositionFirstMove(String where, Point position, Point center){
-		//this gets the pixel position of the first move (from x to center)
-		Point result = null;
-		if(where.equals("left")){
-			result = new Point(position.getX(),center.getY());
-		}else if(where.equals("top")){
-			result = new Point(center.getX() , position.getY());
-		}else if(where.equals("bot")){
-			result = new Point(center.getX(),position.getY() + this.tileHeight_Pixel);
-		}else if(where.equals("right")){
-			result = new Point(position.getX() + this.tileWidth_Pixel, center.getY());
-		}
-		
-		return result;
-	}
-	private Point getPixelPositionSecondMove(String where, Point position, Point center){
-		//this gets the pixel position of the second move (from center to x)
-		Point result = null;
-		if(where.equals("left")){
-			result = new Point(position.getX() + this.tileWidth_Pixel,center.getY());
-		}else if(where.equals("top")){
-			result = new Point(center.getX() , position.getY()+ this.tileHeight_Pixel);
-		}else if(where.equals("bot")){
-			result = new Point(center.getX(),position.getY());
-		}else if(where.equals("right")){
-			result = new Point(position.getX(), center.getY());
-		}
-		
-		return result;
-	}
-	
-	private void addPixelPoints(ArrayList<Point> listToAdd, Point p1, Point p2){
-		//adds all of the points from one point to another
-		listToAdd.add(p1);
-		if(p1.getX() == p2.getX()){
-			int step = 1;
-			if(p2.getY() < p1.getY()){
-				step = -1;
-			}
-			for(int i = 0; i < Math.abs(p2.getY() - p1.getY()); i++){
-				listToAdd.add(new Point(p1.getX(), p1.getY() + (i+1)*step));
-			}
-			
-		}else if(p1.getY() == p2.getY()){
-			int step = 1;
-			if(p2.getX() < p1.getX()){
-				step = -1;
-			}
-			for(int i = 0; i < Math.abs(p2.getX() - p1.getX()); i++){
-				listToAdd.add(new Point(p1.getX() + (i+1)*step, p1.getY()));
-			}
-		}else{
-			System.out.println("Error with path points not lining up");
-		}
-	}
 	
     /**
      *
@@ -795,8 +621,7 @@ public class TDMap implements DrawableEntity{
 	}
 
 	    // This method provides an easy way to print out the grid to display the
-	    // map. It also prints out the shortest path the critters will take to move
-	    // from the Start cell to the End Cell.
+	    // map. 
     public void print()
     {
         System.out.println("Grid Size is "+gridWidth+" in horizontal width by "+gridHeight+" in vertical height:");
@@ -822,5 +647,6 @@ public class TDMap implements DrawableEntity{
         }
         System.out.println();
     }
+
 }
 

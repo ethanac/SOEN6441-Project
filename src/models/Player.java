@@ -1,15 +1,14 @@
 package models;
 
 /**
- * Record the info of the player
- * including money, life.
+ *
  * 
- * @author HaoZhang
+ * 
  */
 public class Player {
 	//Final constants (changed for balancing game)
 	private static final int STARTINGLIVES = 10;
-	private static final int STARTINGMONEY = 1000;
+	private static final int STARTINGMONEY = 5000;
 	//default the lives and money to the constants above
 	private int lives = STARTINGLIVES;
 	private int money = STARTINGMONEY;

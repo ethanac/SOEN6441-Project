@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import models.Tower_Fire;
 import models.Tower_IceBeam;
@@ -40,14 +40,14 @@ public class GameControlPanel extends JPanel  {
 	//this includes tower buttons, upgrading, selling, etc
 	JButton bSellTower = new JButton("Sell");
 	JButton bUpgradeTower = new JButton("Upgrade");
-	JLabel lblTowerInfo = new JLabel("No tower selected");
-	JLabel lblBuildTowerPrompt = new JLabel("| Build:  ");
+	JTextArea lblTowerInfo = new JTextArea("No tower selected");
+	JLabel lblBuildTowerPrompt = new JLabel("Tower:");
 	ButtonGroup towerGroup = new ButtonGroup();
 	JToggleButton bSpread = new JToggleButton("Spread (" + Tower_SpreadShot.getBuyPrice() + ")");
 	JToggleButton bFire = new JToggleButton("Fire (" + Tower_Fire.getBuyPrice() + ")");
 	JToggleButton bIceBeam = new JToggleButton("Ice (" + Tower_IceBeam.getBuyPrice() + ")");
 	JToggleButton bLaser = new JToggleButton("Laser (" + Tower_Laser.getBuyPrice() + ")");
-	JToggleButton bNone = new JToggleButton("N");
+	JToggleButton bNone = new JToggleButton("Check");
 	
 	
 	//our general control panel will have general info (lives, money)
@@ -69,13 +69,14 @@ public class GameControlPanel extends JPanel  {
 		towerGroup.add(bIceBeam);
 		towerGroup.add(bLaser);
 		towerGroup.add(bNone);
+		
 		bUpgradeTower.setPreferredSize(new Dimension(buttonSize+30,20));
 		bSellTower.setPreferredSize(new Dimension(buttonSize, 20));
 		bSpread.setPreferredSize(new Dimension(buttonSize+30, 20));
 		bFire.setPreferredSize(new Dimension(buttonSize, 20));
 		bIceBeam.setPreferredSize(new Dimension(buttonSize, 20));
-		bLaser.setPreferredSize(new Dimension(buttonSize+10,20));
-		bNone.setPreferredSize(new Dimension(buttonSize-50, 20));
+		bLaser.setPreferredSize(new Dimension(buttonSize+10, 20));
+		bNone.setPreferredSize(new Dimension(buttonSize-10, 20));
 		bSpread.setName("Spread");
 		bFire.setName("Fire");
 		bIceBeam.setName("IceBeam");
@@ -85,7 +86,7 @@ public class GameControlPanel extends JPanel  {
 		bLaser.setToolTipText(LASERTEXT);
 		bIceBeam.setToolTipText(ICETEXT);
 		bFire.setToolTipText(FIRETEXT);
-		//add initial strategies.
+		
 		
 		Font oldFont = lblInfo.getFont();
 		lblInfo.setFont(new Font(oldFont.getFontName(), Font.BOLD, oldFont.getSize()));
