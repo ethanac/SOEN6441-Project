@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * The Tower Class.
  * It defines the basic attributes and draws the tower.
+ * Fire, icebeam and laser tower extends this class.
  * 
  * @author HaoZhang
  */
