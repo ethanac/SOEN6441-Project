@@ -15,9 +15,10 @@ import java.util.LinkedList;
  */
 
 /**
- *
+ * The map model.
+ * It defines the size of map and initializes the grid.
  * 
- * 
+ * @author HaoZhang
  */
 public class TDMap implements DrawableEntity{
 	//final variables

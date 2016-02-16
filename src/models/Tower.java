@@ -9,9 +9,10 @@ import java.util.ArrayList;
 
 
 /**
- *
+ * The Tower Class.
+ * It defines the basic attributes and draws the tower.
  * 
- * 
+ * @author HaoZhang
  */
 public abstract class Tower implements DrawableEntity{
 	//final variables
