@@ -27,7 +27,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import models.*;
-import strategies.*;
+//import strategies.*;
 import views.GameApplicationFrame;
 import views.GameControlPanel;
 import views.MapPanel;
