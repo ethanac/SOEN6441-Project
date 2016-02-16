@@ -13,6 +13,11 @@ import java.util.ArrayList;
 
 /**
  *  This class relates to all the UI aspects of the game play.
+ *  
+ *  @author MengYao 
+ *  @author Zhoujian Lan
+ *  
+ *  @version 1.0.0
  */
 public class Artist_Swing extends Helper{
 	
@@ -150,7 +155,8 @@ public class Artist_Swing extends Helper{
 			for(int j=0; j<mapHeight; j++)
 			{
 				int tileType= tdMap.getType(i, j);
-				//if we have a path tile, draw it brown
+				
+				//if we have a path tile, draw it yellow
 				if(tileType==TDMap.PATH){
 					drawFilledQuad(g,new Color(252, 255, 191), i*scaledWidth, j*scaledHeight, scaledWidth, scaledHeight);
 					drawEmptyQuad(g,new Color(252, 255, 191), i*scaledWidth, j*scaledHeight, scaledWidth, scaledHeight);

@@ -2,6 +2,7 @@ package controllers;
 
 import views.*;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -15,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import views.MapPanel;
@@ -26,6 +28,11 @@ import models.TDMap;
  *  subtleties that are involved with creating a Game Map. The Map Controller
  *  will allow the user to resize the map, set start and end paths, validate the
  *  map and also save the map to a desired ".TDMap" file.
+ *  
+ * @author Meng Yao
+ * 
+ * @version 1.0.0
+ *  
  */
 public class MapEditorController extends MapPanel implements ActionListener, MouseListener {
 
@@ -145,16 +152,19 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 			this.controlPanel.setStartPointLabel(new Point(0,0));
 			this.controlPanel.setEndPointLabel(new Point(0,0));
 			controlPanel.repaint(); //repaint
+			this.controlPanel.setStatusText("Please set Start and End Point First.");
 		}
 		//bSave saves the current map
 		else if(e.getSource() == bSave)
 		{
 			//show a save dialog
 			int returnVal = fc.showDialog(this, "Save");
+			if(validateMap()){
 			if(returnVal ==JFileChooser.APPROVE_OPTION){ //if they choose to save, save it
 				File file = fc.getSelectedFile();
 				//we write it to a file
 				tdMap.writeMaptoFile(file.getPath() +".TDMap");
+				}
 			}
 		}
 		//bSelectStart forces user to select the start point
@@ -205,6 +215,18 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
   //  @Override
     public void TDMapReinitialized() {
 		TDMapUpdated();
+	}
+    private boolean validateMap() {
+		TDMap tdMap = this.getTDMap();
+		if (tdMap.verifyMap()) {
+			this.controlPanel.setStatusText("Validation : Path is valid");
+			return true;
+		} else {
+			this.controlPanel.setStatusText("Validation : Path is not valid");
+			JOptionPane.showMessageDialog(null, "±£¥Ê ß∞‹");
+			return false;
+		}
+
 	}
 
     /**

@@ -4,7 +4,8 @@ package models;
  *
  * This class refers to the Tiles that are associated to the TDMap class.
  * 
- * @author HaoZhang
+ * @author Hao Zhang
+ * 
  */
 public class MapTile {
 	private int tileValue;
