@@ -6,7 +6,7 @@ import java.awt.Graphics;
  * This is an interface from which all game entities much implement.
  * This is so that all entities have an updateAndDraw() method, for chronology.
  * 
- * @author Hao Zhang
+ * @author Haozhang
  * @version 1.0.0
  */
 public interface DrawableEntity {

@@ -1,9 +1,10 @@
 package models;
 
 /**
- *
+ * Record the info of the player
+ * including money, life.
  * 
- * 
+ * @author HaoZhang
  */
 public class Player {
 	//Final constants (changed for balancing game)
