@@ -120,7 +120,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bSellTower
      */
     public JButton getSellButton(){
 		return this.bSellTower;
@@ -128,7 +128,7 @@ public class GameControlPanel extends JPanel  {
 	
     /**
      *
-     * @return
+     * @return bUpgradeTower
      */
     public JButton getUpgradeButton(){
 		return this.bUpgradeTower;
@@ -136,15 +136,15 @@ public class GameControlPanel extends JPanel  {
     
     /**
      *
-     * @return
+     * @return CONTROLPANELHEIGHT
      */
     public static int getControlPanelHeight(){
 		return CONTROLPANELHEIGHT;
 	}
-
+    
     /**
      *
-     * @return
+     * @return lblInfo
      */
     public JLabel getInfoLabel(){
 		return lblInfo;
@@ -168,7 +168,7 @@ public class GameControlPanel extends JPanel  {
 	
     /**
      *
-     * @return
+     * @return bPause
      */
     public JButton getPauseButton(){
 		return bPause;
@@ -176,7 +176,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bReturn
      */
     public JButton getReturnButton(){
 		return bReturn;
@@ -184,7 +184,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return 
      */
     public JButton getStartWaveButton(){
 		return null;
@@ -192,7 +192,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bSpread
      */
     public JToggleButton getSpreadButton(){
 		return bSpread;
@@ -200,7 +200,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bFire 
      */
     public JToggleButton getFireButton(){
 		return bFire;
@@ -208,7 +208,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bIceBeam
      */
     public JToggleButton getIceButton(){
 		return bIceBeam;
@@ -216,7 +216,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bLaser
      */
     public JToggleButton getLaserButton(){
 		return bLaser;
@@ -224,7 +224,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return bNone
      */
     public JToggleButton getNoneButton(){
 		return bNone;
@@ -234,7 +234,7 @@ public class GameControlPanel extends JPanel  {
 
     /**
      *
-     * @return
+     * @return null
      */
     public JComboBox<String> getCBStrategy(){
 		return null;
