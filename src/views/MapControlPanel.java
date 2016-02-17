@@ -57,11 +57,11 @@ public class MapControlPanel extends JPanel{
 
 	}
     public void setStatusText(String text){
-    	lblStatus.setText(text);
+    		lblStatus.setText(text);
     }
     /**
      *
-     * @return
+     * @return bInitialize
      */
     public JButton getInitializeButton(){
 		return bInitialize;
@@ -69,7 +69,7 @@ public class MapControlPanel extends JPanel{
 
     /**
      *
-     * @return
+     * @return bReturn
      */
     public JButton getReturnButton(){
 		return bReturn;
@@ -85,7 +85,7 @@ public class MapControlPanel extends JPanel{
 
     /**
      *
-     * @return
+     * @return bSave
      */
     public JButton getSaveButton()
 	{
@@ -107,7 +107,7 @@ public class MapControlPanel extends JPanel{
 
     /**
      *
-     * @return
+     * @return widthList
      */
     public JComboBox getWidthIndexes()
 	{
@@ -129,7 +129,7 @@ public class MapControlPanel extends JPanel{
 
     /**
      *
-     * @return
+     * @return heightList
      */
     public JComboBox getHeightIndexes()
 	{

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import views.GameControlPanel;
 
 public class ViewTestGameControlPanel {
-	private ArrayList<GameControlPanel> Agcp;
+	private ArrayList<GameControlPanel> Agcp = new ArrayList<>();
 
 	@Before
 	public void setUp() {
@@ -74,7 +74,7 @@ public class ViewTestGameControlPanel {
     @Test
     public void testGetStartWaveButton(){
     		for(int i=0; i<100; i++){
-			assertNotNull(Agcp.get(i).getStartWaveButton());
+			assertNull(Agcp.get(i).getStartWaveButton());
 		}
 	}
 

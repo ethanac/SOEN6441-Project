@@ -5,9 +5,10 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 public class ViewSuite {
-	@RunWith(Suite.class)
-	@SuiteClasses({  })
-	public class SuiteCommon {
-
-	}
+//	@RunWith(Suite.class)
+//	@SuiteClasses({ViewTestGameControlPanel.class,
+//					ViewTestMapControlPanel.class})
+//	public class SuiteCommon {
+//
+//	}
 }
