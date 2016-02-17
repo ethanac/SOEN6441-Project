@@ -5,7 +5,7 @@ public class Point {
 	private int y;
 	//constructors
 
-    /**
+    /** Constructor
      *
      * @param x
      * @param y
@@ -18,7 +18,7 @@ public class Point {
 
     /**
      *
-     * @return
+     * @return x Get the value of y axis.
      */
     	public int getX() {
 		return x;
@@ -26,7 +26,7 @@ public class Point {
 
     /**
      *
-     * @param x
+     * @param x Set the value of y axis.
      */
     public void setX(int x) {
 		this.x = x;
@@ -34,7 +34,7 @@ public class Point {
 
     /**
      *
-     * @return
+     * @return y Get the value of y axis.
      */
     public int getY() {
 		return y;
@@ -42,7 +42,7 @@ public class Point {
 
     /**
      *
-     * @param y
+     * @param y Set the value of y axis
      */
     public void setY(int y) {
 		this.y = y;
