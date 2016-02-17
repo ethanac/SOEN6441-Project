@@ -1,7 +1,7 @@
 package models;
 
-/**
- *
+/** Create the player including the value of life, money etc.
+ *  Applying singleton pattern to ensure there is only one player at any time.
  * 
  * 
  */
@@ -22,7 +22,7 @@ public class Player {
 	
     /**
      *
-     * @return
+     * @return playerInstance
      */
     public static Player getInstance(){
 		return playerInstance;
@@ -30,7 +30,7 @@ public class Player {
 
     /**
      *
-     * @return
+     * @return lives
      */
     public int getLives(){
 		return this.lives;
@@ -38,7 +38,7 @@ public class Player {
 
     /**
      *
-     * @return
+     * @return money
      */
     public int getMoney(){
 		return this.money;
@@ -75,23 +75,23 @@ public class Player {
 		this.lives -=1; 
 	}
 
-    /**
+    /** Get the value of life at the beginning
      *
-     * @return
+     * @return STARTINGLIVES
      */
     public static int getStartingLives(){
 		return STARTINGLIVES;
 	}
 
-    /**
+    /** Get the value of money at the beginning
      *
-     * @return
+     * @return STARTINGMONEY
      */
     public static int getStartingMoney(){
 		return STARTINGMONEY;
 	}
 
-    /**
+    /** Reset the start value of life and money
      *
      */
     public void resetStats(){
