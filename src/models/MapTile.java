@@ -5,13 +5,13 @@ package models;
  * This class refers to the Tiles that are associated to the TDMap class.
  * 
  * @author Hao Zhang
- * 
+ * @version v1.0.0
  */
 public class MapTile {
 	private int tileValue;
 	private Tower towerOnTile;
 	
-    /**
+    /**Constructor
      *
      */
     public MapTile(){
@@ -21,7 +21,7 @@ public class MapTile {
 
     /**
      *
-     * @return
+     * @return tileValue
      */
     public int getTileValue(){
 		return tileValue;
