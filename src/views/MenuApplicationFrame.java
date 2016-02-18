@@ -66,7 +66,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		bQuit.addActionListener(this);
 		bLoadMap.addActionListener(this);
 		bDefault.addActionListener(this);
-		mapToLoad = new TDMap("res/DIRTMAP1.TDMap"); //set default map
+		mapToLoad = new TDMap("src/res/Try1.TDMap"); //set default map
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "TDMap");
 		fc.setFileFilter(filter);
 	}
@@ -93,7 +93,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		        }
 			}else if(e.getSource() == bDefault){
 				this.setMapName("Default");
-				mapToLoad = new TDMap("res/Try1.TDMap");
+				mapToLoad = new TDMap("src/res/Try1.TDMap");
 				bDefault.setEnabled(false);
 			}
 	}
