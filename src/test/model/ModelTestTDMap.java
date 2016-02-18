@@ -9,15 +9,19 @@ import static org.junit.Assert.*;
 import models.TDMap;;
 
 /**
+ *  The test for TDMap class in models
  * 
- * 
- *
+ *	@author Xingjian Zhang
+ *	@version 1.0.0
  */
 public class ModelTestTDMap {
 
 	private String mapAddress1, mapAddress2;
 	private TDMap testTDMap1, testTDMap2;
 	
+	/**
+	 *  Initializing two TDMaps, one with valid path, the other with invalid path
+	 */
 	@Before
 	public void setUp(){
 		mapAddress1 = "src/res/Try1.TDMap";
@@ -26,6 +30,9 @@ public class ModelTestTDMap {
 		testTDMap2 = new TDMap(mapAddress2);
 	}
 	
+	/**
+	 *  Tear down the TDMaps after every test execution
+	 */
 	@After
 	public void tearDown(){
 		
@@ -35,6 +42,9 @@ public class ModelTestTDMap {
 		testTDMap2 = null;
 	}
 	
+	/**
+	 *  Test for valid map path
+	 */
 	@Test
 	public void testValidMapPath(){
 		
@@ -42,6 +52,9 @@ public class ModelTestTDMap {
 		
 	}
 	
+	/**
+	 *  Test for invalid map path
+	 */
 	@Test
 	public void testInvalidMapPath(){
 		
@@ -49,6 +62,9 @@ public class ModelTestTDMap {
 		
 	}
 	
+	/**
+	 *  Test for writing the map to file
+	 */
 	@Test
 	public void testWriteMapTofile(){
 		
@@ -56,6 +72,9 @@ public class ModelTestTDMap {
 		
 	}
 	
+	/**
+	 *  Test for TDMap verification
+	 */
 	@Test
 	public void testVerifyMap_valid(){
 
@@ -64,6 +83,10 @@ public class ModelTestTDMap {
 		
 	}
 	
+	/**
+	 *  Refresh the map and create only the start and end points without any path, 
+	 *  and test this invalid map 
+	 */
 	@Test
 	public void testVerifyMap_invalid(){
 		
@@ -74,6 +97,9 @@ public class ModelTestTDMap {
 	
 	}
 	
+	/**
+	 *  Test the algorithm of getting the shortest path
+	 */
 	@Test
 	public void testGetPointsOfShortestPath(){
 

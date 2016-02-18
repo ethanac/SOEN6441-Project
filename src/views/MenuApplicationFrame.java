@@ -36,12 +36,12 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
     public static final int PIXELHEIGHT=200;
 
     /**
-     *
+     *	The title of the application
      */
     public static final String APP_NAME = "Tower Defense Game!";
 
     /**
-     *
+     *	Interface for future build
      */
     public static final int TIMEOUT = 30 ;
 
@@ -71,6 +71,10 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		fc.setFileFilter(filter);
 	}
 
+    /**
+     * 	Get and response to an action
+     * 	@param e The mouse action
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == bPlay){
@@ -98,6 +102,9 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 			}
 	}
 		
+	/**
+	 * 	Initialize the Main Menu of the game
+	 */
 	private void init(){
 		//set panel properties
 		//mainPanel.setBackground(Color.BLACK);
@@ -130,7 +137,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 
     /**
      *	This displays which map is loaded for use on the menu.
-     * @param name
+     *  @param name
      */
     public void setMapName(String name){
 		this.lblMapToLoad.setText("Map: " + name);

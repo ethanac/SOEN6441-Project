@@ -9,9 +9,12 @@ import models.Point;
 import models.TDMap;
 
 /**
- *
+ *	This is the map control panel of map editor
+ *	It creates map control panel by setting its combo boxes and buttons
  * 
- * 
+ *	@author Meng Yao
+ *	@author Xingjian Zhang
+ *	@version 1.0.0 
  */
 public class MapControlPanel extends JPanel{
 
@@ -32,8 +35,8 @@ public class MapControlPanel extends JPanel{
 	JButton bSelectEnd = new JButton("Select end");
 	
     /**
-     *
-     * @param map
+     *	Constructor of MapControlPanel
+     *  @param map
      */
     public MapControlPanel(TDMap map){
         //add the info label to this panel
@@ -56,58 +59,79 @@ public class MapControlPanel extends JPanel{
         this.add(lblStatus);
 
 	}
+    
+    /**
+     *	Setter of status
+     * 	@param text
+     */
     public void setStatusText(String text){
     		lblStatus.setText(text);
     }
+    
     /**
-     *
-     * @return bInitialize
+     *	Getter of initialize button
+     *  @return bInitialize
      */
     public JButton getInitializeButton(){
 		return bInitialize;
 	}
 
     /**
-     *
-     * @return bReturn
+     *	Getter of return button
+     *  @return bReturn
      */
     public JButton getReturnButton(){
 		return bReturn;
 	}
 
-    /**
-     *
-     * @return
-     */
    /* public JButton getSetStartAndEndButton() {
 		return bSetStartAndEnd;
 	}*/
 
     /**
-     *
-     * @return bSave
+     * 	Getter of save button
+     *  @return bSave
      */
     public JButton getSaveButton()
 	{
 		return bSave;
 	}
+    
+    /**
+     *  Getter of select start point button
+     *  @return bSelectStart
+     */
     public JButton getSelectStartButton(){
     	return bSelectStart;
     }
+    
+    /**
+     *  Getter of select end point button
+     *  @return
+     */
     public JButton getSelectEndButton(){
     	return bSelectEnd;
     }
-
+    
+    /**
+     *  Setter of start point text on label
+     *  @param p
+     */
     public void setStartPointLabel(Point p){
     	lblStartLabel.setText("Start (" + p.getX() + ", " + p.getY() + ")");
     }
+    
+    /**
+     *  Setter of end point text on label
+     *  @param p
+     */
     public void setEndPointLabel(Point p){
     	lblEndLabel.setText("End (" + p.getX() + ", " + p.getY() + ")");
     }
 
     /**
-     *
-     * @return widthList
+     *	Getter of width indexes
+     *  @return widthList
      */
     public JComboBox getWidthIndexes()
 	{
@@ -115,7 +139,7 @@ public class MapControlPanel extends JPanel{
 	}
 
     /**
-     *sets all of the indices for the widths and puts them into an existing JCOmbobox
+     *	Sets all of the indices for the widths and puts them into an existing JCOmbobox
      */
     public void setWidthIndexes()
 	{
@@ -128,8 +152,8 @@ public class MapControlPanel extends JPanel{
 	}
 
     /**
-     *
-     * @return heightList
+     *	Getter of height indexes
+     *  @return heightList
      */
     public JComboBox getHeightIndexes()
 	{
@@ -137,7 +161,7 @@ public class MapControlPanel extends JPanel{
 	}
 
     /**
-     *sets all of the indices for the heights and puts them into an existing JCombobox
+     *	Sets all of the indices for the heights and puts them into an existing JCombobox
      */
     public void setHeightIndexes()
 	{
