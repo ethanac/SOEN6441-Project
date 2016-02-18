@@ -7,12 +7,14 @@ import javax.swing.JPanel;
 /**
  *  This class sets the background frame for both the GameApplicationFrame and
  *  the MapEditorApplicationFrame.
- * 
+ *  
+ *  @author Xingjian Zhang
+ * 	@version 1.0.0
  */
 public class MapPanel extends JPanel {
     
     /**
-     *
+     *	Constructor of MapPanel
      */
     public MapPanel(){
 		

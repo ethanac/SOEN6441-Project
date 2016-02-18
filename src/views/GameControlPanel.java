@@ -227,22 +227,11 @@ public class GameControlPanel extends JPanel  {
 	}
 
     /**
-     *	Getter of none button
+     *	Getter of check button
      *  @return bNone
      */
     public JToggleButton getNoneButton(){
 		return bNone;
 	}
-
-    
-
-    /**
-     *	Getter of combo box strategy
-     *  @return null
-     */
-    public JComboBox<String> getCBStrategy(){
-		return null;
-	}
-
 
 }
