@@ -85,7 +85,12 @@ public class TDMap implements DrawableEntity{
      *
      */
     public int tileHeight_Pixel;
-	
+    
+    /**
+     * 
+     */
+    //used to test address of TDMap,deletable after testing
+	public boolean existedMapPath;
 	
     // Constructors
 
@@ -119,11 +124,13 @@ public class TDMap implements DrawableEntity{
     	gridHeight = DEFAULTGRIDHEIGHT;
     	//read the map from the file and see if it is good
     	boolean goodMap = readMapFromFile(add);
+    	existedMapPath = true;
     	//set the tile width and height (after reading)
     	tileWidth_Pixel = (int) (((double)PIXELWIDTH)/((double)gridWidth));
         tileHeight_Pixel = (int) (((double)PIXELHEIGHT)/((double)gridHeight));
          //if the map is bad, we want to set a default path.
     	if(!goodMap){
+    		existedMapPath = false;
     		//still try to recalculate the tilewidth and height
             tileWidth_Pixel = (int) (((double)PIXELWIDTH)/((double)gridWidth));
             tileHeight_Pixel = (int) (((double)PIXELHEIGHT)/((double)gridHeight));

@@ -9,18 +9,15 @@ import java.util.ArrayList;
 
 
 /**
-<<<<<<< HEAD
  * The Tower Class.
  * It defines the basic attributes and draws the tower.
  * Fire, icebeam and laser tower extends this class.
-=======
  * Set the basic info for Towers
  * 
  * @author Hao Zhang
  * @author Meng Yao
  * 
  * @version 1.0.0
->>>>>>> pr/2
  * 
  */
 public abstract class Tower implements DrawableEntity{

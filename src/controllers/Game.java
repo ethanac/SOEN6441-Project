@@ -5,7 +5,7 @@ import views.MenuApplicationFrame;
 /**
  *  THE PRIMARY CLASS FROM WHERE THE GAME STARTS
  *  
- *  @author yaomeng
+ *  @author Meng Yao
  *  @version 1.0.0
  */
 public class Game {
