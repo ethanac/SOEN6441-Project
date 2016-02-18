@@ -18,9 +18,12 @@ import models.Tower_Laser;
 import models.Tower_SpreadShot;
 
 /**
- *
- * 
- * 
+ *	This is the control panel of playing the game.
+ *  It contains two control panels, <code>towerControlPanel</code>
+ *  and <code>generalControlPanel</code>
+ * 	
+ *  @author Xingjian Zhang
+ *  @version 1.0.0
  */
 public class GameControlPanel extends JPanel  {
 	private final int buttonSize = 90;
@@ -60,7 +63,7 @@ public class GameControlPanel extends JPanel  {
 	
 
     /**
-     *
+     *	Constructor of GameControlPanel
      */
     public GameControlPanel(){
 		//add our buttons to a group so only one can be selected at once.
@@ -119,112 +122,113 @@ public class GameControlPanel extends JPanel  {
 	}
 
     /**
-     *
-     * @return bSellTower
+     *	Getter of tower sell button
+     *	@return bSellTower
      */
     public JButton getSellButton(){
 		return this.bSellTower;
 	}
 	
     /**
-     *
-     * @return bUpgradeTower
+     *	Getter of tower upgrade button
+     * 	@return bUpgradeTower
      */
     public JButton getUpgradeButton(){
 		return this.bUpgradeTower;
 	}
     
     /**
-     *
-     * @return CONTROLPANELHEIGHT
+     *	Getter of control panel height
+     *  @return CONTROLPANELHEIGHT
      */
     public static int getControlPanelHeight(){
 		return CONTROLPANELHEIGHT;
 	}
     
     /**
-     *
-     * @return lblInfo
+     *	Getter of information label
+     *  @return lblInfo
      */
     public JLabel getInfoLabel(){
 		return lblInfo;
 	}
 
     /**
-     *
-     * @param text
+     *	Setter of tower information label
+     *  @param text
      */
     public void setTowerInfoLabelText(String text){
 		lblTowerInfo.setText(text);
 	}
 
     /**
-     *
-     * @param text
+     *	Setter of information label
+     *  @param text
      */
     public void setInfoLabelText(String text){
 		lblInfo.setText(text);
 	}
 	
     /**
-     *
-     * @return bPause
+     *	Getter of pause game button
+     * 	@return bPause
      */
     public JButton getPauseButton(){
 		return bPause;
 	}
 
     /**
-     *
-     * @return bReturn
+     *	Getter of return game button
+     *  @return bReturn
      */
     public JButton getReturnButton(){
 		return bReturn;
 	}
 
     /**
-     *
-     * @return 
+     *	Getter of start wave button
+     *  Interface for future build, to be continue
+     *  @return null
      */
     public JButton getStartWaveButton(){
 		return null;
 	}
 
     /**
-     *
-     * @return bSpread
+     *	Getter of spread tower button
+     *  @return bSpread
      */
     public JToggleButton getSpreadButton(){
 		return bSpread;
 	}
 
     /**
-     *
-     * @return bFire 
+     *	Getter of fire tower button
+     *  @return bFire 
      */
     public JToggleButton getFireButton(){
 		return bFire;
 	}
 
     /**
-     *
-     * @return bIceBeam
+     *	Getter of ice tower button
+     *  @return bIceBeam
      */
     public JToggleButton getIceButton(){
 		return bIceBeam;
 	}
 
     /**
-     *
-     * @return bLaser
+     *	Getter of laser tower button
+     *  @return bLaser
      */
     public JToggleButton getLaserButton(){
 		return bLaser;
 	}
 
     /**
-     *
-     * @return bNone
+     *	Getter of none button
+     *  @return bNone
      */
     public JToggleButton getNoneButton(){
 		return bNone;
@@ -233,8 +237,8 @@ public class GameControlPanel extends JPanel  {
     
 
     /**
-     *
-     * @return null
+     *	Getter of combo box strategy
+     *  @return null
      */
     public JComboBox<String> getCBStrategy(){
 		return null;

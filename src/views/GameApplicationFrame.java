@@ -15,40 +15,42 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
+ *	This is the class of game application frame.
+ *	It creates a game controller and initialize the main game frame.
  * 
- * 
+ * 	@author Xingjian Zhang
+ *  @version 1.0.0
  */
 public class GameApplicationFrame extends JFrame {
 
 	// constants
 
     /**
-     *
+     *	Pixel width of game frame
      */
-    	public static final int PIXELWIDTH=Artist_Swing.PIXELWIDTH;
+    public static final int PIXELWIDTH=Artist_Swing.PIXELWIDTH;
 
     /**
-     *
+     *	Pixel height of game frame
      */
     public static final int PIXELHEIGHT=Artist_Swing.PIXELHEIGHT;
 
     /**
-     *
+     *	Title of game frame
      */
     public static final String APP_NAME = "Team 8 -- Tower Defense";
 	private GameControlPanel controlPanel;
 	private MapPanel mapPanel;
                           		
     /**
-     *
+     *	Interface to future build
      */
     public static final int TIMEOUT = 30;                          		
 	GameController gameController;
 		
     /**
-     *
-     * @param tdMap
+     *	Constructor of GameApplicationFrame
+     *  @param tdMap
      */
     public  GameApplicationFrame(TDMap tdMap){
 		gameController = new GameController(tdMap);
@@ -57,7 +59,7 @@ public class GameApplicationFrame extends JFrame {
 	}
 	
 	/**
-	 * Initialize the window
+	 *  Initialize the window
 	 */
 	private void init(){
 		
