@@ -9,9 +9,18 @@ import java.util.ArrayList;
 
 import views.GameControlPanel;
 
+/**
+ *  The test for GameControlPanel class in the view package.
+ * 
+ *	@author HaoZhang
+ *	@version 1.0.0
+ */
 public class ViewTestGameControlPanel {
 	private ArrayList<GameControlPanel> Agcp = new ArrayList<>();
 
+	/**
+	 *  Initializing an ArrayList of TDMap.
+	 */
 	@Before
 	public void setUp() {
 		for (int i=0; i<100; i++){
@@ -19,6 +28,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+	/**
+	 *  test getSellButton.
+	 */
 	@Test
 	public void testgetSellButton() {
 		for(int i=0; i<100; i++){
@@ -26,6 +38,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+	/**
+	 * test GetUpgradeButton.
+	 */
 	@Test
 	public void testGetUpgradeButton() {
 		for(int i=0; i<100; i++){
@@ -33,6 +48,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+	/**
+	 * test GetInfoLabel.
+	 */
 	@Test
 	public void testGetInfoLabel() {
 		for(int i=0; i<100; i++){

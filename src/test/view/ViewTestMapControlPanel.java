@@ -11,12 +11,21 @@ import models.Point;
 import models.TDMap;
 import views.MapControlPanel;
 
+/**
+ *  The test for MapControlPanel class in the view package.
+ * 
+ *	@author HaoZhang
+ *	@version 1.0.0
+ */
 public class ViewTestMapControlPanel {
 	
 	private TDMap map = new TDMap();
 	private ArrayList<MapControlPanel> Amcp = new ArrayList<MapControlPanel>();
 	private Point point = new Point(20,10);
 	
+	/**
+	 *  Initializing an ArrayList of TDMap.
+	 */
 	@Before
 	public void setUp() {
 		map = new TDMap();
@@ -27,6 +36,9 @@ public class ViewTestMapControlPanel {
 		}
 	}
 
+	/**
+	 *  test SetStatusText
+	 */
 	@Test
 	public void testSetStatusText(){
     		for(int i=0; i<100; i++){
@@ -34,6 +46,9 @@ public class ViewTestMapControlPanel {
     		}
     }
     
+	/**
+	 *  test GetInitializeButton
+	 */
 	@Test
     public void testGetInitializeButton(){
     		for(int i=0; i<100; i++){
@@ -41,6 +56,9 @@ public class ViewTestMapControlPanel {
 		}
 	}
 
+	/**
+	 *  test GetReturnButton
+	 */
     @Test
     public void testGetReturnButton(){
 		for(int i=0; i<100; i++){
@@ -48,6 +66,9 @@ public class ViewTestMapControlPanel {
 		}
     }	
 
+    /**
+	 *  test GetSaveButton
+	 */
     @Test
     public void testGetSaveButton(){
 		for(int i=0; i<100; i++){
@@ -55,6 +76,9 @@ public class ViewTestMapControlPanel {
 		}
     }	
     
+    /**
+     * test GetSelectStartButton
+     */
     @Test
     public void testGetSelectStartButton(){
 		for(int i=0; i<100; i++){
@@ -62,6 +86,9 @@ public class ViewTestMapControlPanel {
 		}
     }
     
+    /**
+     * test GetSelectEndButton
+     */
     @Test
     public void testGetSelectEndButton(){
 		for(int i=0; i<100; i++){
@@ -69,6 +96,9 @@ public class ViewTestMapControlPanel {
 		}
     }
     
+    /**
+     * testSetStartPointLabel
+     */
     @Test
     public void testSetStartPointLabel(){
     		for(int i=0; i<100; i++){
@@ -76,6 +106,9 @@ public class ViewTestMapControlPanel {
     		}
     }
 
+    /**
+     * test SetWidthIndexes
+     */
     @Test
     public void testSetWidthIndexes()
 	{
@@ -87,6 +120,9 @@ public class ViewTestMapControlPanel {
 		}
 	}
 
+    /**
+     * test SetHeightIndexes.
+     */
     @Test
     public void testSetHeightIndexes()
 	{
