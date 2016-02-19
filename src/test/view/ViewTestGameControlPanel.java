@@ -58,6 +58,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+	/**
+	 * test SetTowerInfoLabelText
+	 */
 	@Test
 	public void testSetTowerInfoLabelText() {
 		for(int i=0; i<100; i++){
@@ -65,6 +68,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 	
+	/**
+	 * test SetInfoLabelText
+	 */
 	@Test
 	public void testSetInfoLabelText() {
 		for(int i=0; i<100; i++){
@@ -75,6 +81,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 	
+	/**
+	 * test GetPauseButton
+	 */
 	@Test
 	public void testGetPauseButton(){
 		for(int i=0; i<100; i++){
@@ -82,6 +91,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+	/**
+	 * test GetReturnButton
+	 */
     @Test
     public void testGetReturnButton(){
     	for(int i=0; i<100; i++){
@@ -96,6 +108,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+    /**
+     * test GetSpreadButton.
+     */
     @Test
     public void testGetSpreadButton(){
     		for(int i=0; i<100; i++){
@@ -103,6 +118,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+    /** 
+     * test GetFireButton.
+     */
     @Test
     public void testGetFireButton(){
     		for(int i=0; i<100; i++){
@@ -110,6 +128,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+    /** 
+     * test GetIceButton.
+     */
     @Test
     public void testGetIceButton(){
     		for(int i=0; i<100; i++){
@@ -117,6 +138,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+    /**
+     * test GetLaserButton.
+     */
     @Test
     public void testGetLaserButton(){
     		for(int i=0; i<100; i++){
@@ -124,6 +148,9 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
+    /**
+     * test GetNoneButton.
+     */
     @Test
     public void testGetNoneButton(){
     		for(int i=0; i<100; i++){
