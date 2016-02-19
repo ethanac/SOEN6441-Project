@@ -4,15 +4,16 @@ package models;
  *
  * This class refers to the Tiles that are associated to the TDMap class.
  * 
- * @author Hao Zhang
+ * @author HaoZhang
  * @version v1.0.0
  */
 public class MapTile {
 	private int tileValue;
 	private Tower towerOnTile;
 	
-    /**Constructor
-     *
+    /**
+     * This is the Constructor.
+     * It sets the tileValue to 0.
      */
     public MapTile(){
 		tileValue = 0;
@@ -20,7 +21,8 @@ public class MapTile {
 	}
 
     /**
-     *
+     * The method to get the tileValue.
+     * 
      * @return tileValue
      */
     public int getTileValue(){
@@ -28,24 +30,27 @@ public class MapTile {
 	}
 
     /**
-     *
-     * @param tv
+     * The method to set the tileValue.
+     * 
+     * @param tv  An integer as the tileValue.
      */
     public void setTileValue(int tv){
 		tileValue = tv;
 	}
 
     /**
-     *
-     * @return
+     * The method to get the TowerOnTile.
+     * 
+     * @return towerOnTile
      */
     public Tower getTowerOnTile(){
 		return towerOnTile;
 	}
 
     /**
-     *
-     * @param tow
+     * The method to set the towerOnTile.
+     * 
+     * @param tow  A Tower object as the towerOnTile.
      */
     public void setTowerOnTile(Tower tow){
 		towerOnTile = tow;

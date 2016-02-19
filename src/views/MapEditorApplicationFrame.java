@@ -36,21 +36,19 @@ public class MapEditorApplicationFrame extends JFrame{
      */
     public static final int PIXELHEIGHT=Artist_Swing.PIXELHEIGHT;
 
-    /**
-     *
-     */
+  
     public static final String APP_NAME = "Map Editor";
 
-    /**
-     *
-     */
+   
     public static final int TIMEOUT = 30;
 	private MapControlPanel controlPanel;
 	private MapPanel mapPanel;
 	
 	MapEditorController mapController;
+	
 	/**
-     *
+     * The method to create the frame of the map editor.
+     * 
      * @param tdMap
      */
     public MapEditorApplicationFrame(TDMap tdMap){

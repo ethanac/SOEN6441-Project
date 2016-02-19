@@ -3,6 +3,13 @@ package models;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This class defines the Laser tower. 
+ * It extends the SpreadShot class.
+ * 
+ * @author HaoZhang
+ * @version v1.0.0
+ */
 public class Tower_SpreadShot extends Tower{
 
 	private int amountOfTargets = 3;
@@ -22,6 +29,11 @@ public class Tower_SpreadShot extends Tower{
 				buyCost = 900;
 	}
 
+	/**
+	 * The method to get the price of a tower you want to buy.
+	 * 
+	 * @return The cost to buy a SpreadShot tower.
+	 */
 	public static int getBuyPrice(){	
 		return buyCost;
 	}

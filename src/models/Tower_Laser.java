@@ -3,6 +3,13 @@ package models;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This class defines the Laser tower. 
+ * It extends the Tower class.
+ * 
+ * @author HaoZhang
+ * @version v1.0.0
+ */
 public class Tower_Laser extends Tower{
 	
 	static int buyCost = 200;
@@ -22,9 +29,10 @@ public class Tower_Laser extends Tower{
 	}
 
 	/**
-    *
-    * @return
-    */
+	 * The method to get the price of a tower you want to buy.
+	 * 
+	 * @return The cost to buy a Laser tower.
+	 */
    public static int getBuyPrice(){	
 		return buyCost;
 	}

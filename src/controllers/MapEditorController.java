@@ -49,14 +49,8 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
      */
     protected MapControlPanel controlPanel;
 
-    /**
-     *
-     */
     protected MapEditorApplicationFrame activity;
 
-    /**
-     *
-     */
     protected TDMap tdMap;
 	
 	private Timer timer;
@@ -70,9 +64,6 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	private boolean selectingEnd;
 	//private int tileWidth_Pixel, tileHeight_Pixel;
 	
-    /**
-     *
-     */ 
 	JFileChooser fc = new JFileChooser();
 	
     /**
@@ -223,21 +214,24 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 			return true;
 		} else {
 			this.controlPanel.setStatusText("Validation : Path is not valid");
-			JOptionPane.showMessageDialog(null, "±£´æÊ§°Ü");
+			JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 			return false;
 		}
 
 	}
 
-    /**
-     *  This will update the indexes of the Start(,) and End(,) ComboBoxes to
-     *  match with the new initialized size of the map.
-     * @param widthOfMap    The new width of the map
-     * @param heightOfMap   The new height of the map
-     */
-   /* public void updateStartAndEnd(int widthOfMap, int heightOfMap){
-		controlPanel.updateStartAndEnd(widthOfMap, heightOfMap);
-	}*/
+   
+//    /**
+//     *  This will update the indexes of the Start(,) and End(,) ComboBoxes to
+//     *  match with the new initialized size of the map.
+//     *  
+//     * @param widthOfMap    The new width of the map
+//     * @param heightOfMap   The new height of the map
+//     */
+    /* public void updateStartAndEnd(int widthOfMap, int heightOfMap){
+   	controlPanel.updateStartAndEnd(widthOfMap, heightOfMap);
+   }*/
+    
 	@Override
 	public void mouseClicked(MouseEvent e) {		
 		

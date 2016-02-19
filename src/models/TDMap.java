@@ -23,40 +23,19 @@ public class TDMap implements DrawableEntity{
 	//final variables
 	public static final int MINWIDTH = 5, 
 
-    /**
-     *
-     */
+    
     MAXWIDTH = 80, 
 
-    /**
-     *
-     */
     MINHEIGHT = 5, 
 
-    /**
-     *
-     */
     MAXHEIGHT = 80;
 
-    /**
-     *
-     */
     public static final int DEFAULTGRIDWIDTH = 40;
 
-    /**
-     *
-     */
     public static final int DEFAULTGRIDHEIGHT = 24;
 
-    /**
-     *
-     */
     public static final int TOWER = 4;
     
-
-    /**
-     *
-     */
     public static final int PATH = 2;
     private final int PIXELWIDTH = Artist_Swing.PIXELWIDTH;
     private final int PIXELHEIGHT = Artist_Swing.GAMEPIXELHEIGHT;
@@ -76,14 +55,8 @@ public class TDMap implements DrawableEntity{
 
     private LinkedList<Integer> shortestPath;
 
-    /**
-     *
-     */
     public int tileWidth_Pixel;
 
-    /**
-     *
-     */
     public int tileHeight_Pixel;
     
     /**
@@ -92,10 +65,10 @@ public class TDMap implements DrawableEntity{
     //used to test address of TDMap,deletable after testing
 	public boolean existedMapPath;
 	
-    // Constructors
 
     /**
-     *
+     * This is the constructor without parameter.
+     * It initializes the variables to default values.
      */
     public TDMap()
     {
@@ -114,8 +87,9 @@ public class TDMap implements DrawableEntity{
    
     
     /**
-     *
-     * @param add
+     * This the constructor with a parameter.
+     * 
+     * @param add  A string as the path of the map file to be opened.
      */
     public TDMap(String add)
     {
@@ -159,6 +133,10 @@ public class TDMap implements DrawableEntity{
         }
 
     }
+    
+    /**
+     * The method to initialize the grid.
+     */
     private void initializeGrid() {
 		//initializes the gridTile array to be all new MapTile objects
          gridTile = new MapTile[gridWidth][gridHeight];
@@ -168,7 +146,15 @@ public class TDMap implements DrawableEntity{
         	 }
          }
 	}
-    // This method initializes a new TDMap from a file.
+    
+    /**
+     * The method to initialize a new TDMap from a file.
+     * 
+     * @param add A string as the path of the map file.
+     * @return result A boolean value. If the map file does not exist, return false;
+     * 				  If the the map file is OK to use, return true;
+     * 				  Otherwise, return false.			
+     */
     private boolean readMapFromFile(String add)
     {
     	boolean result;
@@ -219,13 +205,13 @@ public class TDMap implements DrawableEntity{
             return result;
         }
     }
-    
-    // This method instantiates the current TDMap to a file.
 
     /**
-     *
-     * @param add
-     * @return
+     * The method to save the current TDMap to a file.
+     * 
+     * @param add 	A string as the path where you want to save the map.
+     * @return booleanvalue If the map is saved successfully, return true.
+     * 						Otherwise, return false.
      */
     public boolean writeMaptoFile(String add)
     {
@@ -264,13 +250,12 @@ public class TDMap implements DrawableEntity{
         return true;
     }
 
-    
-    // By convention, I will denote PATH cells to be 2.
-
     /**
-     *
-     * @param i
-     * @param j
+     * The method to set one grid on the map to path or tower.
+     * Path cells are denoted to be 2.
+     * 
+     * @param i An integer as the x value.
+     * @param j An integer as the y value.
      */
     public void toggleGrid(int i, int j)
     {
@@ -292,13 +277,14 @@ public class TDMap implements DrawableEntity{
         }
 
     }
-    // By convention, I will denote background/TOWER cells to be 4.
-
+    
     /**
-     *
-     * @param gridWidth
-     * @param gridHeight
-     * @param backdrop
+     * The method to reinitialize the grid.
+     * Background and Tower cells are denoted to be 4.
+     * 
+     * @param gridWidth An integer as the width of the grid.
+     * @param gridHeight An integer as the height of the grid.
+     * @param backdrop A String as the backdrop
      */
     public void reinitialize(int gridWidth, int gridHeight, String backdrop) {
 			this.gridWidth= gridWidth;
@@ -306,12 +292,13 @@ public class TDMap implements DrawableEntity{
 			this.backdrop= backdrop;
 			refresh();
 	}
-    // By convention, I will denote PATH cells to be 2.
-
-    /**
+   
+    /** 
+     * The method to set a grid to path.
+     * Path cells is denoted to be 2.
      *
-     * @param i
-     * @param j
+     * @param i An integer as the x axis value.
+     * @param j An integer as the y axis value.
      */
     public void setAsPath(int i, int j)
     {	//make sure in bounds
@@ -321,10 +308,10 @@ public class TDMap implements DrawableEntity{
         }
     }
     
-    // By convention, I will denote background/TOWER cells to be 4.
-
+    
     /**
-     *
+     * The method to refresh the grids.
+     * Set the value of width, height, start point and end point to default value.
      */
         public void refresh()
     {
@@ -348,10 +335,11 @@ public class TDMap implements DrawableEntity{
         tileHeight_Pixel = PIXELHEIGHT/gridHeight;
     }
     
-    /**
+    /** 
+     * The method to set the start point.
      *
-     * @param i
-     * @param j
+     * @param i An integer as the x axis value.
+     * @param j An integer as the y axis value.
      */
     public void setStart(int i, int j)
     {
@@ -369,9 +357,10 @@ public class TDMap implements DrawableEntity{
     }
     
     /**
-     *
-     * @param i
-     * @param j
+     * The method to set the end point.
+     * 
+     * @param i An integer as the x axis value.
+     * @param j An integer as the y axis value.
      */
     public void setEnd(int i, int j)
     {
@@ -391,7 +380,9 @@ public class TDMap implements DrawableEntity{
 * valid. This BFS also explores the shortest path from the End Cell to the
 * Start Cell to get rid of Loops.
 * This method also initializes the boolean isMapValid to a T/F value.
-* @return
+* 
+* @return isMapValid If the path on the map connects the start point and the end point, return true;
+* 					 Otherwise, return false.
 */
     public boolean verifyMap(){
         LinkedList<Integer> explored= new LinkedList<>();
@@ -458,10 +449,11 @@ public class TDMap implements DrawableEntity{
     // individual cell in the grid and allow conversions between them.
 
     /**
-     *
-     * @param i
-     * @param j
-     * @return
+     * To get the key for the verifyMap method.
+     * 
+     * @param i An integer as the x axis value.
+     * @param j An integer as the y axis value.
+     * @return gridWidth*j+i+1 get the key value.
      */
         public int key(int i, int j)
     {
@@ -469,9 +461,10 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @param k
-     * @return
+     * The method to get the next x axis value to find a path.
+     * 
+     * @param k An integer as the key value.
+     * @return ((k-1)%gridWidth  The next x value.
      */
     public int arckeyi(int k)
     {
@@ -479,9 +472,10 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @param k
-     * @return
+     * The method to get the next y axis value to find a path.
+     * 
+     * @param k An integer as the key value.
+     * @return ((k-1)%gridWidth  The next y value.
      */
     public int arckeyj(int k)
     {
@@ -490,40 +484,45 @@ public class TDMap implements DrawableEntity{
     
     
     /**
-     *
-     * @return
+     * The method to get the width of a tile
+     * 
+     * @return tileWidth_Pixel the width of the tile.
      */
     public int getTileWidth_pixel(){
     	return this.tileWidth_Pixel;
     }
 
     /**
-     *
-     * @return
+     * The method to get the height of a tile
+     * 
+     * @return tileHeight_Pixel the height of the tile.
      */
     public int getTileHeight_pixel(){
     	return this.tileHeight_Pixel;
     }
 
     /**
-     *
-     * @return
+     * The method to get the pixelWidth.
+     * 
+     * @return PIXELWIDTH  the pixelWidth.
      */
     public int getPixelWidth(){
     	return PIXELWIDTH;
     }
 
     /**
-     *
-     * @return
+     * The method to get the pixelHeight.
+     * 
+     * @return PIXELHEIGHT  the pixelHeight.
      */
     public int getPixelHeight(){
     	return PIXELHEIGHT;
     }
 
     /**
-     *
-     * @return
+     * The method to get the gridWidth.
+     * 
+     * @return gridWidth  the gridWidth.
      */
     public int getGridWidth()
     {
@@ -531,8 +530,9 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @return
+     * The method to get the gridHeight.
+     * 
+     * @return gridHeight  the gridHeight.
      */
     public int getGridHeight()
     {
@@ -540,10 +540,12 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @return
+     * The method to get the type of a tile.
+     * It could be 0, 1, 2, 4.
+     * 
+     * @param x An integer as the x axis value of a tile.
+     * @param y An integer as the y axis value of a tile.
+     * @return The type of this tile.
      */
     public int getType(int x, int y)
     {
@@ -552,10 +554,11 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @return
+     * The method to get a tile.
+     * 
+     * @param x An integer as the x axis value of a tile.
+     * @param y An integer as the y axis value of a tile.
+     * @return The tile in the given position.
      */
     public MapTile getTile(int x, int y){
     	MapTile tile = gridTile[x][y];
@@ -563,8 +566,9 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @return
+     * The method to get the backdrop.
+     * 
+     * @return backdrop The backdrop returned
      */
     public String getBackdrop()
     {
@@ -572,8 +576,9 @@ public class TDMap implements DrawableEntity{
     }
 
     /**
-     *
-     * @return
+     * The method to get the Points of shortest path.
+     * 
+     * @return pointsShortestPath An arraylist of Points as the shortest path.
      */
     public ArrayList<Point> getPointsOfShortestPath(){
     	//initialize the arraylist
@@ -600,10 +605,11 @@ public class TDMap implements DrawableEntity{
 	}
 
     /**
-     *
-     * @param x
-     * @param y
-     * @return
+     * The method to get the position of a block.
+     * 
+     * @param x An integer as the x axis value of a tile.
+     * @param y An integer as the y axis value of a tile.
+     * @return result The Point object.
      */
     public Point getPosOfBlock_pixel(int x, int y){
 		//we return the pixel position of a block, based on the tile width and height
@@ -611,24 +617,20 @@ public class TDMap implements DrawableEntity{
 		return result;
 	}
 	
-    /**
-     *
-     * @return
-     */
-   
-	
 	
     /**
-     *
-     * @param g
+     * The method to update and draw the map.
+     * 
+     * @param g The graphics object need to draw.
      */
     public void updateAndDraw(Graphics g){
     	//uses the artist to draw the map
 		Artist_Swing.drawMap(this, g);
 	}
 
-	    // This method provides an easy way to print out the grid to display the
-	    // map. 
+    /**
+     * The method to provide an easy way to print out the grid to display the map. 
+     */
     public void print()
     {
         System.out.println("Grid Size is "+gridWidth+" in horizontal width by "+gridHeight+" in vertical height:");

@@ -1,4 +1,6 @@
 controllers
 helpers
 models
+test.model
+test.view
 views

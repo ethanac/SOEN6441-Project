@@ -1,14 +1,21 @@
 package models;
 
+/**
+ * This class defines the position of a grid using a pair of x and y.
+ * 
+ * @author HaoZhang
+ * @version v1.0.0
+ */
 public class Point {
 	private int x;
 	private int y;
 	//constructors
 
-    /** Constructor
+    /** 
+     * This is the Constructor.
      *
-     * @param x
-     * @param y
+     * @param x An integer as the value of x axis.
+     * @param y An integer as the value of y axis.
      */
     	public Point(int x, int y){
 		this.x = x;
@@ -17,22 +24,25 @@ public class Point {
 	//getters and setters
 
     /**
-     *
-     * @return x Get the value of y axis.
+     * The method to get the x value.
+     * 
+     * @return x Get the value of x axis.
      */
     	public int getX() {
 		return x;
 	}
 
     /**
+     * The method to set the x value.
      *
-     * @param x Set the value of y axis.
+     * @param x An integer as the value of y axis.
      */
     public void setX(int x) {
 		this.x = x;
 	}
 
     /**
+     * The method to get the y value.
      *
      * @return y Get the value of y axis.
      */
@@ -41,29 +51,34 @@ public class Point {
 	}
 
     /**
+     * The method to set the y value.
      *
-     * @param y Set the value of y axis
+     * @param y An integer as the value of y axis.
      */
     public void setY(int y) {
 		this.y = y;
 	}
-	//allows you to set both coords of a point at once.
+
 
     /**
+     * The method to set both of the x value and y value.
      *
-     * @param x
-     * @param y
+     * @param x 	An integer as the value of x axis.
+     * @param y 	An integer as the value of y axis.
      */
     	public void setPoint(int x, int y){
 		this.x = x;
 		this.y = y;
 	}
-	//see if one point equals another
 
     /**
+     * The method to check if one point equals to another.
+     * If the two points are equal, return true,
+     * otherwise return false.
      *
-     * @param P
-     * @return
+     * @param P A Point object as the point to compare with.
+     * @return result   The result of comparing, 
+     * 					true if the two points are equal, otherwise false.
      */
 	public boolean equals(Point P){
 		boolean result = false;
@@ -74,7 +89,10 @@ public class Point {
 		return result;
 	}
 	
-	//tostring
+	/**
+	 * The method to change the value of x and y to String.
+	 * Its format of output is "Position: ( $x value$, $y value$)".
+	 */
 	public String toString(){
 		String result = "Position: (" + this.x + ", " + this.y + ")";
 		

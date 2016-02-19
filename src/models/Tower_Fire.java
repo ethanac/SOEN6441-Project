@@ -4,15 +4,23 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/**
+ * This class defines the fire tower. 
+ * It extends the Tower class.
+ * 
+ * @author HaoZhang
+ * @version v1.0.0
+ */
 public class Tower_Fire extends Tower{
 	
 	//properties for the fire tower
 	static int buyCost = 200;
 	
 	/**
-    *
-    * @param n
-    * @param p
+    * This is the constructor.
+    * 
+    * @param n A string as the name of the tower.
+    * @param p A Point object as the position of the tower.
     * 
     */
 	public Tower_Fire(String n, Point p) {
@@ -32,19 +40,24 @@ public class Tower_Fire extends Tower{
 	}
 
 	/**
-    *
-    * @return
+    * The method to get the price of a tower you want to buy.
+    * 
+    * @return The cost to buy a fire tower.
     */
    public static int getBuyPrice(){	
 		return buyCost;
 	}
    
+   /**
+    * Upgrade the tower if its current level is under the maximum level.
+    */
    public void upgradeTower(){
    	if(level < MAXTOWERLEVEL){
 	    	super.upgradeTower();
    	}
    }
-	@Override
+	
+   @Override
 	public void updateAndDraw(Graphics g) {
 		this.drawTower(g);
 		
