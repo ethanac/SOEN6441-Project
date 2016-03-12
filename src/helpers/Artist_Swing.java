@@ -49,8 +49,8 @@ public class Artist_Swing extends Helper{
 	}
 	
     /**
-     *
-     * @param width
+     * Get grid width.
+     * @param width  An integer.
      */
     public void setGridWidth(int width){
 		this.gridWidth = width;
