@@ -1,6 +1,7 @@
 package helpers;
 import javax.swing.JFrame;
 
+import models.Critter;
 import models.Point;
 import models.TDMap;
 import models.Tower;
@@ -203,6 +204,64 @@ public class Artist_Swing extends Helper{
 		for(int i = 1; i < tow.getLevel(); i++){
 			drawEmptyCircle(g, Color.white, tow.getPosX() + tileWidth/2, tow.getPosY() + tileHeight/2, tileWidth/4 + i*spaceBetweenCircles);
 		}
+	}
+
+	/**
+     *  Draws the critter and it's current health bar above it.
+     * @param crit
+     * @param g
+     */
+    	public static void drawCritter(Critter crit, Graphics g){
+    	
+    		//gets the critter attribuets
+	    	int size = crit.getSize();
+			int posX = crit.getPixelPosition().getX();
+			int posY = crit.getPixelPosition().getY();
+			int healthBarGap = 3;
+			int healthBarHeight = 2;
+			int bufferSize = 2;
+			double currHP = crit.getHitPoints();
+			double maxHP = crit.getMaxHitPoints();
+			
+			//drawing the space behind the critter.
+			drawFilledQuad(g, new Color(102, 51, 0), posX - bufferSize, posY - bufferSize - healthBarGap - healthBarHeight,  size + 2*bufferSize,size + healthBarGap + healthBarHeight + 2*bufferSize);
+			//Drawing the actual critter
+			drawFilledQuad(g, crit.getColor(),posX, posY, size, size);
+			//if the critter is burning, we draw an Orange around it
+			if(crit.isBurning()){
+				drawEmptyQuad(g, Color.orange, posX, posY, size, size);
+			}
+			
+			//Healthbar:
+			//we draw a green rectangle, and then draw a red rectangle of size depending on how damaged
+			drawFilledQuad(g, Color.GREEN,posX, posY - healthBarGap - bufferSize,size, healthBarHeight);
+			//calculate the ratio of the Critter's health
+			int redAmount = (int) (size*(1-currHP/maxHP));
+			//supposing the critter is damaged,
+			if(redAmount != 0){
+				//draw the red part.
+				drawFilledQuad(g, Color.RED,posX, posY - healthBarGap - bufferSize,redAmount, healthBarHeight);
+			}
+		
+	}
+
+	/**
+     *  Draws a shot from a tower to a critter.
+     * @param tow
+     * @param crit
+     * @param g
+     */
+    public static void drawShot(Tower tow, Critter crit, Graphics g){
+    	//gets the tile width and height
+		int tileWidth = PIXELWIDTH/Artist_Swing.getInstance().gridWidth;
+		int tileHeight = (GAMEPIXELHEIGHT)/Artist_Swing.getInstance().gridHeight;
+		//get tower color info,
+		g.setColor(tow.getShotColor());
+		//we set the stroke to be thicker than usually (2)
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setStroke(new BasicStroke(2));
+		//and we draw the line
+		g2d.drawLine(tow.getPosX() +tileWidth/2, tow.getPosY() + tileHeight/2, crit.getPixelPosition().getX() + crit.getSize()/2, crit.getPixelPosition().getY() + crit.getSize()/2);
 	}
 	
 
