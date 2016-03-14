@@ -57,8 +57,8 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *
-     * @param height
+     * Set the height of grid
+     * @param height  Integer for height
      */
     public void setGridHeight(int height){
 		this.gridHeight = height;
