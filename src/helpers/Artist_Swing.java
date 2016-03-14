@@ -65,8 +65,8 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *
-     * @return
+     * Get an instance.
+     * @return artist  Returns the artist
      */
     public static Artist_Swing getInstance(){
 		return artist;
