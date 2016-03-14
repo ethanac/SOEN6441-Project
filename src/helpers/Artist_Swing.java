@@ -73,12 +73,12 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *
-     * @param g
-     * @param c
-     * @param x
-     * @param y
-     * @param radius
+     * Draw empty circle.
+     * @param g  Graphics obj to draw
+     * @param c  Color c to draw
+     * @param x  X value of the start point.
+     * @param y  Y value of the start point.
+     * @param radius  radius of the circle.
      */
     public static void drawEmptyCircle(Graphics g, Color c, int x, int y, int radius){
     	//Sets the color, and draws a circle (oval with equal radii)
