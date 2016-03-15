@@ -141,9 +141,9 @@ public abstract class Critter extends Subject implements DrawableEntity {
     	this.level = level;
     	setInitialValues();
     	//set the level from input
-		pixelPathToFollow = m.getPath_ListOfPixels();
-		//sets the size to scale with the grid size (bigger blocks = bigger critters)
-		size = Math.min(m.getTileWidth_pixel(), m.getTileHeight_pixel())/5; 
+	pixelPathToFollow = m.getPath_ListOfPixels();
+	//sets the size to scale with the grid size (bigger blocks = bigger critters)
+	size = Math.min(m.getTileWidth_pixel(), m.getTileHeight_pixel())/5; 
     }
     
     /**
