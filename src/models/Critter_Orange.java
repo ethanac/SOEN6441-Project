@@ -11,9 +11,9 @@ import java.awt.Color;
 public class Critter_Orange extends Critter {
 
     /**
-     *
-     * @param level
-     * @param m
+     * The constructor of orange critter.
+     * @param level  The initial level.
+     * @param m  The map of the game.
      */
     public Critter_Orange(int level, TDMap m) {
 		super(level, m);

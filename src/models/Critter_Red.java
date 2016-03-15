@@ -12,7 +12,7 @@ public class Critter_Red extends Critter{
 
     /**
      * The constructor of red critter.
-     * @param level  The intial level.
+     * @param level  The initial level.
      * @param m  The map of the game.
      */
     public Critter_Red(int level, TDMap m) {
