@@ -3,22 +3,17 @@ package models;
 import java.awt.Color;
 
 
-/*
- * Red Critters are weak 
- */
-
 /**
- *
- * 
- * 
+ * The red critter.
+ * Red Critters are weak. 
  */
 
 public class Critter_Red extends Critter{
 
     /**
-     *
-     * @param level
-     * @param m
+     * The constructor of red critter.
+     * @param level  The intial level.
+     * @param m  The map of the game.
      */
     public Critter_Red(int level, TDMap m) {
 		super(level, m);

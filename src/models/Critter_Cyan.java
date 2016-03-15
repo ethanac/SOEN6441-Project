@@ -2,13 +2,10 @@ package models;
 
 import java.awt.Color;
 
-/*
- * Circle critter is average, run of the mill critter
- */
 
 /**
- *
- * 
+ * The Cyan critter.
+ * Circle critter is average, run of the mill critter
  */
 
 public class Critter_Cyan extends Critter{
