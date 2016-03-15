@@ -311,88 +311,87 @@ public abstract class Critter extends Subject implements DrawableEntity {
 
     /**
      * The getter of regen
-     * @return
+     * @return regen  return the regen.
      */
     public double getRegen() {
 		return regen;
 	}
 
     /**
-     *
-     * @param regen
+     * The setter of regen.
+     * @param regen  The value of regen.
      */
     public void setRegen(double regen) {
 		this.regen = regen;
 	}
 
     /**
-     *
-     * @return
+     * The getter of raw speed.
+     * @return speed  Return the raw speed.
      */
     public double getRawSpeed() {
 		return speed;
 	}
 
     /**
-     *
-     * @param speed
+     * The setter of raw speed.
+     * @param speed  The value of speed.
      */
     public void setRawSpeed(int speed) {
 		this.speed = speed;
 	}
 
     /**
-     *
-     * @return
+     * The getter of level
+     * @return level  Return the value of level.
      */
     public int getLevel() {
 		return level;
 	}
 
     /**
-     *
-     * @param level
+     * The setter of level
+     * @param level  The value of level.
      */
     public void setLevel(int level) {
 		this.level = level;
 	}
 
     /**
-     *
-     * @return
+     * The getter of state of active.
+     * @return active  Return the state of active.
      */
     public boolean isActive(){
 		return active;
 	}
 
     /**
-     *
-     * @param act
+     * The setter of state of active.
+     * @param act  The boolean value of state of active.
      */
     public void setActive(boolean act){
 		active = act;
 	}
 
     /**
-     *
-     * @return
+     * The getter of speed.
+     * @return speed  Return the value of speed.
      */
     public double getSpeed(){
 		return speed;
 	}
 	//END OF Getters and Setters
     
-	/*
+	/**
 	 * @see entities.DrawableEntity#updateAndDraw()
 	 * This must have all properties of the critter that change with time
 	 * These properties are its position and its health.
 	 */
 
     /**
-     *
-     * @param g
+     * Update and draw.
+     * @param g  The graphics g.
      */
-    
 	public void updateAndDraw(Graphics g){
 		//we only want to do something if the critter is active
 		if(this.isActive()){
@@ -416,7 +415,8 @@ public abstract class Critter extends Subject implements DrawableEntity {
 			updatePositionAndDraw(g);
 		}
 	}
-	/*
+	
+	/**
 	 * updates the health of the critter (called on every "tick" of the clock)
 	 */
 	private void updateHealth(){
@@ -440,7 +440,8 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		}
 		
 	}
-	/*
+	
+	/**
 	 * updates the position (and draws it), called on every tick of clock
 	 */
 	private void updatePositionAndDraw(Graphics g){
@@ -467,7 +468,8 @@ public abstract class Critter extends Subject implements DrawableEntity {
 			this.notifyObs();
 		}
 	}
-	/*
+	
+	/**
 	 * Moves the critter to a given position and draws it as it moves.
 	 */
 	private void moveAndDrawCritter(int index, Graphics g){
@@ -484,6 +486,10 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		}
 	}
 	
+	/**
+	 * The method to draw.
+	 * @param g  The graphics g to draw
+	 */
 	private void drawCritter(Graphics g) {
 		//draws the critter using the artist class
 		Artist_Swing.drawCritter(this,g);
@@ -492,8 +498,8 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	//Damages the critter for a certain amount 
 
     /**
-     *
-     * @param dam
+     * Get the damage.
+     * @param dam  The value of damage the critter gets
      */
     	public void damage(double dam){
 	    	//Check to see if we will not die.
@@ -508,9 +514,9 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	}
 
     /**
-     *
-     * @param sFactor
-     * @param sTime
+     * Slow the critter.
+     * @param sFactor  The slow factor.
+     * @param sTime  The lasting time.
      */
     public void slowCritter(double sFactor, int sTime){
     	//set the slow factor and slow time
@@ -519,9 +525,9 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	}
 
     /**
-     *
-     * @param dot
-     * @param damageOverTimeLength
+     * Set DOT amount and DOT time.
+     * @param dot  The value of DOT.
+     * @param damageOverTimeLength  The value of DOT time.
      */
     public void damageOverTimeCritter(double dot, int damageOverTimeLength) {
     	//set the damage over time factor and time
@@ -530,7 +536,10 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		
 	}
 	
-	//ToString
+	/**
+	 * Convert the health points and regen to string.
+	 * @return result  Return the string of hp and regen
+	 */
 	public String toString(){
 		String result = "";
 		result += "\nHP: " + currHitPoints + "/" + maxHitPoints + "\n";
