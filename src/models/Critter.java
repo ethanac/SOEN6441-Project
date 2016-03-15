@@ -102,43 +102,40 @@ public abstract class Critter extends Subject implements DrawableEntity {
     	protected Point _pixelPosition;
 
     /**
-     *
+     * The state of critter.
      */
     protected boolean active;
 
     /**
-     *
+     * The health of critter
      */
     protected boolean alive;
 
     /**
-     *
+     * The state if critter reaches the end.
      */
     protected boolean reachedEnd;
 
     /**
-     *
+     * The array of points of the path.
      */
     protected ArrayList<Point> pixelPathToFollow;
 
     /**
-     *
+     * The index of pixel path.
      */
     	protected double indexInPixelPath;
 
     /**
-     *
+     * The integer index of pixel path.
      */
     protected int intIndexInPixelPath;
 
-	
-	 
-	//constructor
 
     /**
-     *
-     * @param level
-     * @param m
+     * The constructor.
+     * @param level The level of critter.
+     * @param m  The map of the game.
      */
     public Critter(int level, TDMap m){
     	this.level = level;
@@ -148,7 +145,8 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		//sets the size to scale with the grid size (bigger blocks = bigger critters)
 		size = Math.min(m.getTileWidth_pixel(), m.getTileHeight_pixel())/5; 
     }
-    /*
+    
+    /**
      * sets the initial values of the critter attributes.
      */
 	public void setInitialValues(){
@@ -165,9 +163,9 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		beenDOTFor = 0;
 		burning =false;
 	}
-	/*
+	/**
 	 * calculates the current level multiplier of the critter
-	 * This will be called by extending critters, usually
+	 * This will be called by extending critters, usually.
 	 */
     protected double calculateLevelMultiplier(){
     	double i = 1 + 1*((double)(level-1))/((double)MAXCRITTERLEVEL);
@@ -181,27 +179,28 @@ public abstract class Critter extends Subject implements DrawableEntity {
     	}
     	return i;
     }
-	//getters and setters
+	
+    //getters and setters
 
     /**
-     *
-     * @return
+     * The getter of index in pixel path.
+     * @return indexInPixelPath  Return the index.
      */
     	public double getIndexInPixelPath(){
 		return this.indexInPixelPath;
 	}
 
     /**
-     *
-     * @return
+     * The getter of list pixel path.
+     * @return pixelPathToFollow  Return pixel path.
      */
     public ArrayList<Point> getListPixelPath(){
 		return this.pixelPathToFollow;
 	}
 
     /**
-     *
-     * @param slowFactor
+     * The setter of slow factor.
+     * @param slowFactor  The slow factor.
      */
     
 	public void setSlowFactor(double slowFactor){
@@ -210,6 +209,11 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		}
 		beenSlowedFor = 0;
 	}
+	
+	/**
+	 * The setter of DOT amount
+	 * @param dot  The value of DOT.
+	 */
 	private void setDOTAmount(double dot) {
 		if(this.damageOverTimeVal < dot){
 			this.damageOverTimeVal = dot;
@@ -218,55 +222,55 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	}
 	
     /**
-     *
-     * @return
+     * The getter of color.
+     * @return cColor  The color of critter.
      */
     public Color getColor(){
 		return cColor;
 	}
 	
     /**
-     *
-     * @return
+     * The getter of pixel position.
+     * @return _pixelPosition  Return pixel position
      */
     public Point getPixelPosition(){
 		return _pixelPosition;
 	}
 
     /**
-     *
-     * @return
+     * Check if the critter reaches the end.
+     * @return reachedEnd  Return the state.
      */
     public boolean hasReachedEnd(){
 		return reachedEnd;
 	}
 
     /**
-     *
-     * @return
+     * Check if the critter is still alive.
+     * @return alive  Return true or false about alive.
      */
     public boolean isAlive(){
 		return alive;
 	}
 
     /**
-     *
-     * @return
+     * Check if the critter is on fire.
+     * @return burning  Return the state.
      */
     public boolean isBurning() {
 		return burning;
 	}
 
     /**
-     *
-     * @return
+     * The getter of size.
+     * @return size  The size.
      */
     public int getSize(){
 		return size;
 	}
 
     /**
-     *
+     * 
      * @return
      */
     public int getLoot(){
