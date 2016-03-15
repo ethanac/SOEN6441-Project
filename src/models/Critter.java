@@ -538,7 +538,7 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	
 	/**
 	 * Convert the health points and regen to string.
-	 * @return result  Return the string of hp and regen
+	 * @return result  Return the string of hp and regen.
 	 */
 	public String toString(){
 		String result = "";
