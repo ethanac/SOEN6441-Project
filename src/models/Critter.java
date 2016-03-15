@@ -6,21 +6,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-/*
+/**
  * Critter abstract class from which all critters extend. Has certain attributes and methods including 
  * taking a step, getting damaged, etc.
- */
-
-/**
- *
- * 
  */
 
 public abstract class Critter extends Subject implements DrawableEntity {
 	//Constants
 
     /**
-     *
+     * Constants defines the maximum level, maximum speed of critters and the info of them.
      */
 	public static final int MAXCRITTERLEVEL = 50;
 	public static final int MAXSPEED = 15;
@@ -29,27 +24,27 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	//tangible properties of critter
 
     /**
-     *
+     * The points of current hit.
      */
 	protected double currHitPoints;
 
     /**
-     *
+     * The maximum hit points.
      */
     protected double maxHitPoints;
 
     /**
-     *
+     * The speed of critters.
      */
     protected double speed;
 
     /**
-     *
+     * The size.
      */
     protected int size;
 
     /**
-     *
+     * The regen.
      */
     protected double regen;
 
@@ -59,39 +54,39 @@ public abstract class Critter extends Subject implements DrawableEntity {
     protected double resistance;
 
     /**
-     *
+     * The color of the critter.
      */
     protected Color cColor;
 	
 	//intangible properties
 
     /**
-     *
+     * The reward of killing the critter.
      */
     protected int reward;
 
     /**
-     *
+     * The level of the critter.
      */
     protected int level;
 
     /**
-     *
+     * The name of the critter.
      */
     protected String name;
 
     /**
-     *
+     * The factor of slowing effect.
      */
     protected double slowFactor;
 
     /**
-     *
+     * The last time of the slowing effect.
      */
     protected int slowTime;
 
     /**
-     *
+     * The attributes for computing the lasting effect of damage.
      */
     protected int beenSlowedFor;
 	private double damageOverTimeVal;
@@ -102,7 +97,7 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	//state properties
 
     /**
-     *
+     * The position of pixel.
      */
     	protected Point _pixelPosition;
 
