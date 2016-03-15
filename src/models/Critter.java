@@ -270,47 +270,47 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	}
 
     /**
-     * 
-     * @return
+     * The getter of loot.
+     * @return reward  The value of reward.
      */
     public int getLoot(){
 		return reward;
 	}
 
     /**
-     *
-     * @param size
+     * The setter of hit box radius.
+     * @param size  The value of size.
      */
     public void setHitboxRadius(int size){
 		this.size = size;
 	}
 
     /**
-     *
-     * @return
+     * The getter of hit points.
+     * @return currHitPoints  Return the current hit points.
      */
     public double getHitPoints() {
 		return currHitPoints;
 	}
 
     /**
-     *
-     * @param hitPoints
+     * The setter of hit points.
+     * @param hitPoints  The value of hit points.
      */
     public void setHitPoints(double hitPoints) {
 		this.currHitPoints = hitPoints;
 	}
 
     /**
-     *
-     * @return
+     * The getter of max hit points.
+     * @return maxHitPoints  Return the max hit points.
      */
     public double getMaxHitPoints(){
 		return maxHitPoints;
 	}
 
     /**
-     *
+     * The getter of regen
      * @return
      */
     public double getRegen() {
