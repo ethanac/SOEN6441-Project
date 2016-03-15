@@ -12,6 +12,11 @@ import models.TDMap;
 
 /**
  *  This class generates a group of critters for a certain wave number.
+ *  
+ *  @author Meng Yao
+ *  @author Zhoujian Lan
+ *  
+ *  @version 2.0.0
  */
 
 public class CritterGenerator extends Helper {
@@ -42,7 +47,7 @@ public class CritterGenerator extends Helper {
 		//for a level that is a multiple of 5:
 		//BOSS level
 		if(waveLevel % 5 ==0){
-			for(int i = 0; i < 0.5*amountOfCritters; i ++){
+			for(int i = 0; i < amountOfCritters; i ++){
 				critterGroup.add(new Critter_Yellow(waveLevel, exampleMap));
 				critterGroup.add(new Critter_Pink(waveLevel, exampleMap));
 			}

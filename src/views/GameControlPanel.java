@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import models.Tower_Fire;
@@ -23,7 +24,8 @@ import models.Tower_SpreadShot;
  *  and <code>generalControlPanel</code>
  * 	
  *  @author Xingjian Zhang
- *  @version 1.0.0
+ *  @author Zhoujian Lan
+ *  @version 2.0.0
  */
 public class GameControlPanel extends JPanel  {
 	private final int buttonSize = 90;
@@ -55,12 +57,12 @@ public class GameControlPanel extends JPanel  {
 	
 	//our general control panel will have general info (lives, money)
 	//this also includes main menu button, pausing, speeding up game, etc.
-	JButton bStartWave = new JButton("Game Start!");
+	JButton bStartWave = new JButton("Start Wave!");
 	JLabel lblInfo = new JLabel("| Lives = " + ", Money = " + ", Wavenumber =  |");
 	JButton bPause = new JButton("Pause");
 	JButton bReturn = new JButton("Main Menu");
-	
-	
+	JButton bCritInfo = new JButton("Critter Info");
+	JComboBox<String> cbStrategy = new JComboBox<String>();
 
     /**
      *	Constructor of GameControlPanel
@@ -89,14 +91,17 @@ public class GameControlPanel extends JPanel  {
 		bLaser.setToolTipText(LASERTEXT);
 		bIceBeam.setToolTipText(ICETEXT);
 		bFire.setToolTipText(FIRETEXT);
-		
+		//add initial strategies.
+		cbStrategy.addItem("Closest");
+		cbStrategy.addItem("Farthest");
+		cbStrategy.addItem("Weakest");
+		cbStrategy.addItem("Strongest");
 		
 		Font oldFont = lblInfo.getFont();
 		lblInfo.setFont(new Font(oldFont.getFontName(), Font.BOLD, oldFont.getSize()));
 		//format the slider
 		
 		towerControlPanel.add(lblTowerInfo);
-		
 		towerControlPanel.add(bUpgradeTower);
 		towerControlPanel.add(bSellTower);
 		towerControlPanel.add(lblBuildTowerPrompt);
@@ -107,10 +112,10 @@ public class GameControlPanel extends JPanel  {
 		towerControlPanel.add(bSpread);
 		towerControlPanel.add(bNone);
         //add everything to this panel.
-		
+		generalControlPanel.add(bCritInfo);
+		generalControlPanel.add(cbStrategy);
 		generalControlPanel.add(bStartWave);
 		generalControlPanel.add(lblInfo);
-		
 		generalControlPanel.add(bPause);
 		generalControlPanel.add(bReturn);
         
@@ -191,7 +196,7 @@ public class GameControlPanel extends JPanel  {
      *  @return null
      */
     public JButton getStartWaveButton(){
-		return null;
+		return bStartWave;
 	}
 
     /**
@@ -233,5 +238,29 @@ public class GameControlPanel extends JPanel  {
     public JToggleButton getNoneButton(){
 		return bNone;
 	}
+    
+    /**
+    * select attack strategy of tower
+    * @return
+    */
+   public JComboBox<String> getCBStrategy(){
+		return cbStrategy;
+	}
+   /**
+    * Getter of critter information button
+    * @return bCritInfo
+    */
+   public JButton getCritterInfoButton(){
+   	return this.bCritInfo;
+   }
+   /**
+    * Getter of speed slider
+    * @return null
+    */
+   public JSlider getSpeedSlider(){
+		return null;
+	}
+
+
 
 }
