@@ -2,8 +2,12 @@ package helpers;
 import java.time.*;
 
 /**
- *
+ * Set the defult unit time for the game.
  * 
+ * @author Meng Yao
+ * @author Zhoujian Lan 
+ * 
+ * @version 2.0.0
  */
 public class GameClock extends Helper {
 	//dTime is the amount of time that occurs per tick. E.g. to pause game, dTime = 0
@@ -19,7 +23,7 @@ public class GameClock extends Helper {
 	//returns the instance (OF WHICH THERE IS ONLY 1) of the clock
 
     /**
-     *
+     *Getter of an instance
      * @return
      */
     	public static GameClock getInstance(){
@@ -28,7 +32,7 @@ public class GameClock extends Helper {
 	//getter and setter for deltaTime
 
     /**
-     *
+     *Getter of deltaTime
      * @return
      */
     	public int deltaTime(){
@@ -36,7 +40,7 @@ public class GameClock extends Helper {
 	}
 	
     /**
-     *
+     *Setter of deltaTime
      * @param dt
      */
     public void setDeltaTime(int dt){
@@ -44,14 +48,14 @@ public class GameClock extends Helper {
 	}
 
     /**
-     *
+     *This method aims to pause
      */
     public void pause(){
 		setDeltaTime(0); //we pause by setting deltaTime to 0
 	}
 
     /**
-     *
+     *This method aims not to pause
      */
     public void unPause(){
 		setDeltaTime(1); //we unpause by setting deltaTime to 1.

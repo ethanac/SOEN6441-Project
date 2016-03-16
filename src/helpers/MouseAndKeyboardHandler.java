@@ -13,8 +13,12 @@ import models.Tower_IceBeam;
 import controllers.GameController;
 
 /**
+ *This method relates to usage of mouse aiming to control game
  *
- * 
+ *@author Meng Yao
+ *@author Zhoujian Lan
+ *
+ *@version 2.0.0
  */
 public class MouseAndKeyboardHandler extends Helper implements MouseListener, MouseMotionListener{
 	

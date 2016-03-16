@@ -15,10 +15,10 @@ import java.util.ArrayList;
 /**
  *  This class relates to all the UI aspects of the game play.
  *  
- *  @author MengYao 
+ *  @author Meng Yao 
  *  @author Zhoujian Lan
  *  
- *  @version 1.0.0
+ *  @version 2.0.0
  */
 public class Artist_Swing extends Helper{
 	
@@ -49,36 +49,36 @@ public class Artist_Swing extends Helper{
 	}
 	
     /**
-     * Get grid width.
-     * @param width  An integer.
+     *Setter of grid width
+     * @param width
      */
     public void setGridWidth(int width){
 		this.gridWidth = width;
 	}
 
     /**
-     * Set the height of grid
-     * @param height  Integer for height
+     *Setter of grid height
+     * @param height
      */
     public void setGridHeight(int height){
 		this.gridHeight = height;
 	}
 
     /**
-     * Get an instance.
-     * @return artist  Returns the artist
+     *Getter of an instance
+     * @return
      */
     public static Artist_Swing getInstance(){
 		return artist;
 	}
 
     /**
-     * Draw empty circle.
-     * @param g  Graphics obj to draw
-     * @param c  Color c to draw
-     * @param x  X value of the start point.
-     * @param y  Y value of the start point.
-     * @param radius  radius of the circle.
+     *This is a method of drawing a circle
+     * @param g
+     * @param c
+     * @param x
+     * @param y
+     * @param radius
      */
     public static void drawEmptyCircle(Graphics g, Color c, int x, int y, int radius){
     	//Sets the color, and draws a circle (oval with equal radii)
@@ -87,7 +87,7 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *
+     *This is a method of drawing a filled circle
      * @param g
      * @param c
      * @param x
@@ -102,7 +102,7 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *
+     *This is a method of drawing a filled rectangle
      * @param g
      * @param c
      * @param x
@@ -119,7 +119,7 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *
+     *This is a method of drawing an empty rectangle 
      * @param g
      * @param c
      * @param x
@@ -213,7 +213,7 @@ public class Artist_Swing extends Helper{
      */
     	public static void drawCritter(Critter crit, Graphics g){
     	
-    		//gets the critter attribuets
+    		//gets the critter attributes
 	    	int size = crit.getSize();
 			int posX = crit.getPixelPosition().getX();
 			int posY = crit.getPixelPosition().getY();
@@ -246,7 +246,7 @@ public class Artist_Swing extends Helper{
 	}
 
 	/**
-     *  Draws a shot from a tower to a critter.
+     * Draws a shot from a tower to a critter.
      * @param tow
      * @param crit
      * @param g

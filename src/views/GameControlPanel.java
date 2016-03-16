@@ -24,7 +24,8 @@ import models.Tower_SpreadShot;
  *  and <code>generalControlPanel</code>
  * 	
  *  @author Xingjian Zhang
- *  @version 1.0.0
+ *  @author Zhoujian Lan
+ *  @version 2.0.0
  */
 public class GameControlPanel extends JPanel  {
 	private final int buttonSize = 90;
@@ -245,6 +246,7 @@ public class GameControlPanel extends JPanel  {
    public JComboBox<String> getCBStrategy(){
 		return cbStrategy;
 	}
+<<<<<<< HEAD
    
    public JButton getCritterInfoButton(){
    	return this.bCritInfo;
@@ -261,5 +263,23 @@ public class GameControlPanel extends JPanel  {
    public String getTowerInfo(){
 	   return lblTowerInfo.getText();
    }
+=======
+   /**
+    * Getter of critter information button
+    * @return bCritInfo
+    */
+   public JButton getCritterInfoButton(){
+   	return this.bCritInfo;
+   }
+   /**
+    * Getter of speed slider
+    * @return null
+    */
+   public JSlider getSpeedSlider(){
+		return null;
+	}
+
+
+>>>>>>> origin/master
 
 }
