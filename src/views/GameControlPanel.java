@@ -246,24 +246,7 @@ public class GameControlPanel extends JPanel  {
    public JComboBox<String> getCBStrategy(){
 		return cbStrategy;
 	}
-<<<<<<< HEAD
    
-   public JButton getCritterInfoButton(){
-   	return this.bCritInfo;
-   }
-
-   public JSlider getSpeedSlider(){
-		return null;
-   }
-   
-   /**
-    * This method is only for testing purpose.
-    * @return towerinfo  Return the lblTowerInfo.
-    */
-   public String getTowerInfo(){
-	   return lblTowerInfo.getText();
-   }
-=======
    /**
     * Getter of critter information button
     * @return bCritInfo
@@ -278,8 +261,13 @@ public class GameControlPanel extends JPanel  {
    public JSlider getSpeedSlider(){
 		return null;
 	}
-
-
->>>>>>> origin/master
+   
+   /**
+    * This method is only used for testing purpose.
+    * @return towerinfo  Return the lblTowerInfo.
+    */
+   public String getTowerInfo(){
+	   return lblTowerInfo.getText();
+   }
 
 }
