@@ -254,6 +254,7 @@ public class GameControlPanel extends JPanel  {
    public JButton getCritterInfoButton(){
    	return this.bCritInfo;
    }
+   
    /**
     * Getter of speed slider
     * @return null
@@ -263,7 +264,8 @@ public class GameControlPanel extends JPanel  {
 	}
    
    /**
-    * This method is only used for testing purpose.
+    * This method is only used for testing purpose. 
+    * by Hao
     * @return towerinfo  Return the lblTowerInfo.
     */
    public String getTowerInfo(){
