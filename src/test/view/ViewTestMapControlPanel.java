@@ -18,7 +18,7 @@ import views.MapControlPanel;
  *  The test for MapControlPanel class in the view package.
  * 
  *	@author HaoZhang
- *	@version 1.0.0
+ *	@version 1.1.0
  */
 public class ViewTestMapControlPanel {
 	
