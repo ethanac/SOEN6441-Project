@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +24,16 @@ public class ViewTestMapControlPanel {
 	
 	private TDMap map = new TDMap();
 	private ArrayList<MapControlPanel> Amcp = new ArrayList<MapControlPanel>();
-	private Point point = new Point(20,10);
+	private Point point = new Point(64,41);
+	/**
+	 * An array of string for any test case which needs a string as a parameter.
+	 */
+	private String[] s = {"I am string 1",
+						"I am string 2",
+						"I am string 3",
+						"I am string 4",
+						"I am string 5"
+	};
 	
 	/**
 	 *  Initializing an ArrayList of TDMap.
@@ -41,8 +53,9 @@ public class ViewTestMapControlPanel {
 	 */
 	@Test
 	public void testSetStatusText(){
-    		for(int i=0; i<100; i++){
-    			Amcp.get(i).setStatusText("I am status text.");
+		for(int i=0; i<100; i++){
+    			Amcp.get(i).setStatusText(s[i%5]);
+    			assertEquals(s[i%5], Amcp.get(i).getStatusText());
     		}
     }
     
@@ -51,8 +64,10 @@ public class ViewTestMapControlPanel {
 	 */
 	@Test
     public void testGetInitializeButton(){
-    		for(int i=0; i<100; i++){
-			assertNotNull(Amcp.get(i).getInitializeButton());
+		JButton bInitialize = new JButton("Re-Initialize the Map");
+		for(int i=0; i<100; i++){
+			JButton b = Amcp.get(i).getInitializeButton();
+			assertEquals(b.getText(), bInitialize.getText());
 		}
 	}
 
@@ -61,8 +76,10 @@ public class ViewTestMapControlPanel {
 	 */
     @Test
     public void testGetReturnButton(){
-		for(int i=0; i<100; i++){
-			assertNotNull(Amcp.get(i).getReturnButton());
+    		JButton bReturn = new JButton("Main Menu");
+    		for(int i=0; i<100; i++){
+			JButton b = Amcp.get(i).getReturnButton();
+    			assertEquals(b.getText(), bReturn.getText());
 		}
     }	
 
@@ -71,8 +88,10 @@ public class ViewTestMapControlPanel {
 	 */
     @Test
     public void testGetSaveButton(){
-		for(int i=0; i<100; i++){
-			assertNotNull(Amcp.get(i).getSaveButton());
+    		JButton bSave = new JButton("Save Map");
+    		for(int i=0; i<100; i++){
+			JButton b = Amcp.get(i).getSaveButton();
+    			assertEquals(b.getText(), bSave.getText());
 		}
     }	
     
@@ -81,8 +100,10 @@ public class ViewTestMapControlPanel {
      */
     @Test
     public void testGetSelectStartButton(){
-		for(int i=0; i<100; i++){
-			assertNotNull(Amcp.get(i).getSelectStartButton());
+    		JButton bSelectStart = new JButton("Select start");
+    		for(int i=0; i<100; i++){
+			JButton b = Amcp.get(i).getSelectStartButton();
+    			assertEquals(b.getText(), bSelectStart.getText());
 		}
     }
     
@@ -91,18 +112,34 @@ public class ViewTestMapControlPanel {
      */
     @Test
     public void testGetSelectEndButton(){
-		for(int i=0; i<100; i++){
-			assertNotNull(Amcp.get(i).getSelectEndButton());
+    		JButton bSelectEnd = new JButton("Select end");
+    		for(int i=0; i<100; i++){
+			JButton b = Amcp.get(i).getSelectEndButton();
+    			assertEquals(b.getText(), bSelectEnd.getText());
 		}
     }
     
     /**
-     * testSetStartPointLabel
+     * test SetStartPointLabel
      */
     @Test
     public void testSetStartPointLabel(){
+    		String info = "Start (" + point.getX() + ", " + point.getY() + ")";
     		for(int i=0; i<100; i++){
     			Amcp.get(i).setStartPointLabel(point);
+    			assertEquals(info, Amcp.get(i).getStartPointLabel());
+    		}
+    }
+    
+    /**
+     * test SetEndPointLabel
+     */
+    @Test
+    public void testSetEndPointLabel(){
+    		String info = "End (" + point.getX() + ", " + point.getY() + ")";
+    		for(int i=0; i<100; i++){
+    			Amcp.get(i).setEndPointLabel(point);
+    			assertEquals(info, Amcp.get(i).getEndPointLabel());
     		}
     }
 
@@ -116,7 +153,11 @@ public class ViewTestMapControlPanel {
 			Amcp.get(i).setWidthIndexes();
 		}
     		for(int i=1; i<100; i++){
-			assertNotNull(Amcp.get(i).getWidthIndexes());
+    			JComboBox<?> w = Amcp.get(i).getWidthIndexes();
+    			for(int k=TDMap.MINWIDTH, j=0; k<=TDMap.MAXWIDTH; k++, j++)
+    			{
+    				assertEquals(w.getItemAt(j),Integer.toString(k));
+    			}
 		}
 	}
 
@@ -130,7 +171,11 @@ public class ViewTestMapControlPanel {
 			Amcp.get(i).setHeightIndexes();
 		}
     		for(int i=1; i<100; i++){
-			assertNotNull(Amcp.get(i).getHeightIndexes());
+    			JComboBox<?> w = Amcp.get(i).getWidthIndexes();
+    			for(int k=TDMap.MINWIDTH, j=0; k<=TDMap.MAXWIDTH; k++, j++)
+    			{
+    				assertEquals(w.getItemAt(j),Integer.toString(k));
+    			}
 		}
 	}
 }
