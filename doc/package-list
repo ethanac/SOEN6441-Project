@@ -1,6 +1,7 @@
 controllers
 helpers
 models
+strategies
 test.model
 test.view
 views
