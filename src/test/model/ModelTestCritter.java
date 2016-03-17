@@ -267,7 +267,7 @@ public class ModelTestCritter {
 	 * Test for checking the critters' active state
 	 */
 	@Test
-	public void test(){
+	public void testIsActive(){
 
 		assertFalse(testCyanCritter.isActive());
 		assertFalse(testOrangeCritter.isActive());
@@ -277,5 +277,50 @@ public class ModelTestCritter {
 		assertFalse(testYellowCritter.isActive());
 		
 	}
+	
+	/**
+	 * Test for method checking the critter is alive
+	 */
+	@Test
+	public void testIsAlive(){
+
+		assertTrue(testCyanCritter.isAlive());
+		assertTrue(testOrangeCritter.isAlive());
+		assertTrue(testPinkCritter.isAlive());
+		assertTrue(testRedCritter.isAlive());
+		assertTrue(testWhiteCritter.isAlive());
+		assertTrue(testYellowCritter.isAlive());
+		
+	}
+
+	/**
+	 * Test for checking critter being burning
+	 */
+	@Test
+	public void testIsBurning(){
+
+		assertFalse(testCyanCritter.isBurning());
+		assertFalse(testOrangeCritter.isBurning());
+		assertFalse(testPinkCritter.isBurning());
+		assertFalse(testRedCritter.isBurning());
+		assertFalse(testWhiteCritter.isBurning());
+		assertFalse(testYellowCritter.isBurning());
+		
+	}
+
+	/**
+	 * Test for method that makes critter info into string
+	 */
+	@Test
+	public void test(){
+
+		assertEquals("\nHP: 140.0/140.0\nRegen = 0.5\n", testCyanCritter.toString());
+		assertEquals("\nHP: 175.0/175.0\nRegen = 1.0\n", testOrangeCritter.toString());
+		assertEquals("\nHP: 300.0/300.0\nRegen = 2.0\n", testPinkCritter.toString());
+		assertEquals("\nHP: 180.0/180.0\nRegen = 0.0\n", testRedCritter.toString());
+		assertEquals("\nHP: 140.0/140.0\nRegen = 0.0\n", testWhiteCritter.toString());
+		assertEquals("\nHP: 150.0/150.0\nRegen = 2.0\n", testYellowCritter.toString());
+	}
+
 	
 }
