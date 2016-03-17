@@ -102,7 +102,7 @@ public class MapControlPanel extends JPanel{
      *  @return bSelectStart
      */
     public JButton getSelectStartButton(){
-    	return bSelectStart;
+    		return bSelectStart;
     }
     
     /**
@@ -110,7 +110,7 @@ public class MapControlPanel extends JPanel{
      *  @return
      */
     public JButton getSelectEndButton(){
-    	return bSelectEnd;
+    		return bSelectEnd;
     }
     
     /**
@@ -118,7 +118,7 @@ public class MapControlPanel extends JPanel{
      *  @param p
      */
     public void setStartPointLabel(Point p){
-    	lblStartLabel.setText("Start (" + p.getX() + ", " + p.getY() + ")");
+    		lblStartLabel.setText("Start (" + p.getX() + ", " + p.getY() + ")");
     }
     
     /**
@@ -126,7 +126,7 @@ public class MapControlPanel extends JPanel{
      *  @param p
      */
     public void setEndPointLabel(Point p){
-    	lblEndLabel.setText("End (" + p.getX() + ", " + p.getY() + ")");
+    		lblEndLabel.setText("End (" + p.getX() + ", " + p.getY() + ")");
     }
 
     /**
@@ -174,5 +174,27 @@ public class MapControlPanel extends JPanel{
 		heightList = new JComboBox(heights);
 	}
 	
+    /**
+     * This method is only used for testing purpose.
+     * @return text  The status text.
+     */
+	public String getStatusText(){
+    		return lblStatus.getText();
+	}
 	
+	/**
+     * This method is only used for testing purpose.
+     * @return text  The start label text.
+     */
+	public String getStartPointLabel(){
+		return lblStartLabel.getText();
+    }
+	
+	/**
+     * This method is only used for testing method.
+     * @return text  The end label text.
+     */
+	public String getEndPointLabel(){
+		return lblEndLabel.getText();
+    }
 }

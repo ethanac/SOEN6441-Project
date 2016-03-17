@@ -31,7 +31,7 @@ public class GameControlPanel extends JPanel  {
 	private final int buttonSize = 90;
 
     /**
-     *
+     * The constants of the info of different towers.
      */
 	private static final String SPREADTEXT = "A Spread-beam tower. Shoot multiple enemies with a slightly less powerful beam.";
 	private static final String LASERTEXT = "A Laser-beam tower. Normal attack.";
@@ -246,6 +246,7 @@ public class GameControlPanel extends JPanel  {
    public JComboBox<String> getCBStrategy(){
 		return cbStrategy;
 	}
+   
    /**
     * Getter of critter information button
     * @return bCritInfo
@@ -253,6 +254,7 @@ public class GameControlPanel extends JPanel  {
    public JButton getCritterInfoButton(){
    	return this.bCritInfo;
    }
+   
    /**
     * Getter of speed slider
     * @return null
@@ -260,7 +262,14 @@ public class GameControlPanel extends JPanel  {
    public JSlider getSpeedSlider(){
 		return null;
 	}
-
-
+   
+   /**
+    * This method is only used for testing purpose. 
+    * by Hao
+    * @return towerinfo  Return the lblTowerInfo.
+    */
+   public String getTowerInfo(){
+	   return lblTowerInfo.getText();
+   }
 
 }

@@ -133,7 +133,7 @@ public abstract class Critter extends Subject implements DrawableEntity {
 
 
     /**
-     * The constructor.
+     * The constructor of Critter.
      * @param level The level of critter.
      * @param m  The map of the game.
      */
@@ -163,6 +163,7 @@ public abstract class Critter extends Subject implements DrawableEntity {
 		beenDOTFor = 0;
 		burning =false;
 	}
+	
 	/**
 	 * calculates the current level multiplier of the critter
 	 * This will be called by extending critters, usually.

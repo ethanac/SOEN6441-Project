@@ -42,43 +42,46 @@ public class Artist_Swing extends Helper{
 	//public GameController controller = new GameController();
 	private static Artist_Swing artist = new Artist_Swing();
 	
-	//the artist needs to have a grid and height of the map. It starts by setting the defaults.
+	/**
+	 * The constructor of Artist_Swing.
+	 * the artist needs to have a grid and height of the map. It starts by setting the defaults.
+	 */
 	private Artist_Swing(){
 		gridWidth = TDMap.DEFAULTGRIDWIDTH;
 		gridHeight = TDMap.DEFAULTGRIDHEIGHT;
 	}
 	
     /**
-     *Setter of grid width
-     * @param width
+     * Setter of grid width
+     * @param width  The value of width.
      */
     public void setGridWidth(int width){
 		this.gridWidth = width;
 	}
 
     /**
-     *Setter of grid height
-     * @param height
+     * Setter of grid height
+     * @param height  The value of height.
      */
     public void setGridHeight(int height){
 		this.gridHeight = height;
 	}
 
     /**
-     *Getter of an instance
-     * @return
+     * Getter of an instance
+     * @return artist  Return the instance of artist swing.
      */
     public static Artist_Swing getInstance(){
 		return artist;
 	}
 
     /**
-     *This is a method of drawing a circle
-     * @param g
-     * @param c
-     * @param x
-     * @param y
-     * @param radius
+     * This is a method of drawing a circle
+     * @param g  The graphics instance to draw.
+     * @param c  The color.
+     * @param x  The x value of start point of the circle.
+     * @param y  The y value of start point of the circle.
+     * @param radius  The radius of the circle to draw.
      */
     public static void drawEmptyCircle(Graphics g, Color c, int x, int y, int radius){
     	//Sets the color, and draws a circle (oval with equal radii)
@@ -87,45 +90,45 @@ public class Artist_Swing extends Helper{
 	}
 
     /**
-     *This is a method of drawing a filled circle
-     * @param g
-     * @param c
-     * @param x
-     * @param y
-     * @param radius
+     * This is a method of drawing a filled circle
+     * @param g  The graphics instance to fill.
+     * @param c  The color.
+     * @param x  The x value of start point of the circle.
+     * @param y  The y value of start point of the circle.
+     * @param radius  The radius of the circle to fill.
      */
     public static void drawFilledCircle(Graphics g, Color c, int x, int y, int radius){
 		//sets the color, and draws a filled circle (oval with radii equal)
-    	g.setColor(c);
+    		g.setColor(c);
 		g.drawOval(x-radius, y-radius, radius*2, radius*2);
 		g.fillOval(x-radius, y-radius, radius*2, radius*2);
 	}
 
     /**
-     *This is a method of drawing a filled rectangle
-     * @param g
-     * @param c
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * This is a method of drawing a filled rectangle
+     * @param g  The graphics instance to fill.
+     * @param c  The color.
+     * @param x  The x value of start point of the rectangle.
+     * @param y  The y value of start point of the rectangle.
+     * @param width  The width of the rectangle to fill.
+     * @param height The height of the rectangle to fill.
      */
     public static void drawFilledQuad(Graphics g, Color c, int x, int y, int width, int height)
 	{
     	//sets the color and draws the rectangle
 		g.setColor(c);
 		g.drawRect(x,y, width, height);
-    	g.fillRect(x,y, width, height);
+    		g.fillRect(x,y, width, height);
 	}
 
     /**
-     *This is a method of drawing an empty rectangle 
-     * @param g
-     * @param c
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * This is a method of drawing an empty rectangle 
+     * @param g  The graphics instance to draw.
+     * @param c  The color.
+     * @param x  The x value of start point of the rectangle.
+     * @param y  The y value of start point of the rectangle.
+     * @param width  The width of the rectangle to draw.
+     * @param height The height of the rectangle to draw.
      */
     public static void drawEmptyQuad(Graphics g, Color c, int x, int y, int width, int height){
     	//sets the color and draws the empty rectangle
@@ -135,8 +138,8 @@ public class Artist_Swing extends Helper{
 	
     /**
      * Draws the map in the background. All the other objects are drawn over it.
-     * @param tdMap
-     * @param g
+     * @param tdMap  The map of the game.
+     * @param g  The graphics instance to draw on.
      */
     public static void drawMap(TDMap tdMap, Graphics g)
 	{
@@ -170,14 +173,12 @@ public class Artist_Swing extends Helper{
 		}
 	}
 	
-
-    
+   
     /**
-     *  Draws a Tower, and indicates its current level by Squares inside of it.
-     * @param tow
-     * @param g
+     * Draws a Tower, and indicates its current level by Squares inside of it.
+     * @param tow  The Tower to draw.
+     * @param g  The graphics instance to draw on.
      */
-    
 	public static void drawTower(Tower tow, Graphics g){
 		//sets our stroke to be size 1.
 		Graphics2D g2d = (Graphics2D) g;
@@ -207,9 +208,9 @@ public class Artist_Swing extends Helper{
 	}
 
 	/**
-     *  Draws the critter and it's current health bar above it.
-     * @param crit
-     * @param g
+     * Draws the critter and it's current health bar above it.
+     * @param crit  The critter to draw.
+     * @param g  The graphics instance to draw on.
      */
     	public static void drawCritter(Critter crit, Graphics g){
     	
@@ -247,9 +248,9 @@ public class Artist_Swing extends Helper{
 
 	/**
      * Draws a shot from a tower to a critter.
-     * @param tow
-     * @param crit
-     * @param g
+     * @param tow  The tower which shoots.
+     * @param crit  The critter which gets shot.
+     * @param g  The graphics instance to draw on.
      */
     public static void drawShot(Tower tow, Critter crit, Graphics g){
     	//gets the tile width and height
@@ -263,10 +264,5 @@ public class Artist_Swing extends Helper{
 		//and we draw the line
 		g2d.drawLine(tow.getPosX() +tileWidth/2, tow.getPosY() + tileHeight/2, crit.getPixelPosition().getX() + crit.getSize()/2, crit.getPixelPosition().getY() + crit.getSize()/2);
 	}
-	
-
-    
-	
-
-	
+		
 }

@@ -1,5 +1,6 @@
 package controllers;
 import helpers.Artist_Swing;
+import helpers.CritterGenerator;
 import helpers.GameClock;
 import helpers.Helper;
 import helpers.MouseAndKeyboardHandler;
@@ -27,6 +28,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import models.*;
+import strategies.Closest;
+import strategies.Farthest;
+import strategies.Strongest;
+import strategies.Weakest;
 //import strategies.*;
 import views.GameApplicationFrame;
 import views.GameControlPanel;
@@ -59,10 +64,10 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
     protected GameControlPanel controlPanel;
 	
 	//Below are all of our Swing elements
-	JFrame mainFrame;
+    JFrame mainFrame;
 	private JButton bPause;
 	private JButton bReturn;
-	
+	private JButton bStartWave;
 	private JToggleButton bSpread;
 	private JToggleButton bFire;
 	private JToggleButton bIceBeam;
@@ -70,19 +75,21 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	private JToggleButton bNone;
 	private JButton bUpgrade;
 	private JButton bSell;
-	
 	private JComboBox<String> cbStrategies;
-	
+	private JButton bCritterInfo;
 	
 	//declare frame specific variables
 	private Timer timer;
 	private Player gamePlayer;
 	private int waveStartMoney, waveStartLives;
 	private int waveNumber;
+	
+	private int activeCritterIndex;
 	ArrayList<DrawableEntity> drawableEntities;
 	
 	//Next we have our drawable entities. We have the Map and towers.
 	private TDMap tdMap;
+	ArrayList<Critter> crittersInWave;
 	ArrayList<Tower> towersOnMap;
 	
 	//Some game states (used to determine what buttons we allow the player to click)
@@ -132,7 +139,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 		
 	}
-	private void setPanelAndButtonProperties(){
+    private void setPanelAndButtonProperties(){
 		//So we set this to be our game panel (for mouse click purposes)
 		gamePanel = this;
 		controlPanel = new GameControlPanel();
@@ -142,7 +149,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		bPause.addActionListener(this);
 		bReturn = this.getControlPanel().getReturnButton();
 		bReturn.addActionListener(this);
-		
+		bStartWave = this.getControlPanel().getStartWaveButton();
+		bStartWave.addActionListener(this);
 		bSpread = this.getControlPanel().getSpreadButton();
 		bSpread.addActionListener(this);
 		bFire = this.getControlPanel().getFireButton();
@@ -159,9 +167,14 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		bSell = this.getControlPanel().getSellButton();
 		bSell.addActionListener(this);
 		bSell.setEnabled(false);
+		bCritterInfo = this.getControlPanel().getCritterInfoButton();
+		bCritterInfo.addActionListener(this);
 		
-		
-		
+		//we initialize the strategy box and set its selected index to the first.
+		cbStrategies = this.getControlPanel().getCBStrategy();
+		cbStrategies.setSelectedIndex(0);
+		cbStrategies.setEnabled(false); //disable it (until a tower is selected)
+		cbStrategies.addItemListener(this);
 		
 	}
 	/*
@@ -199,39 +212,52 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	}
 
     /**
-     *
+     * sets the JFrame that the game is displayed on
      * @param mFrame
      */
-	//sets the JFrame that the game is displayed on
+	
     public void setMainFrame(JFrame mFrame){
 		mainFrame = mFrame;
 	}
-    //starts a new wave
-	private void startNewWave(){
-		
-		//increment the wave number
-		waveNumber +=1;
-		
-		this.updateInfoLabelText();
-		
-		//record the amount of money they have as the start wave money (and same for lives)
-		waveStartMoney = gamePlayer.getMoney();
-		waveStartLives = gamePlayer.getLives();
-		//remove all current entities
-		drawableEntities.clear();
-		//remove all current subjects
-		subjects.clear();
+  //starts a new wave
+  	private void startNewWave(){
+  		this.setPlaybackSpeed();
+  		//increment the wave number
+  		waveNumber +=1;
+  		bStartWave.setText("Start Wave " + (waveNumber+1));
+  		this.updateInfoLabelText();
+  		//reset the active critter index
+  		activeCritterIndex = 0;
+  		//record the amount of money they have as the start wave money (and same for lives)
+  		waveStartMoney = gamePlayer.getMoney();
+  		waveStartLives = gamePlayer.getLives();
+  		//remove all current entities
+  		drawableEntities.clear();
+  		//remove all current subjects
+  		subjects.clear();
 
-		drawableEntities.add(tdMap);
-		
-		//add all of the towers back into the drawable entities
-		for(Tower t : towersOnMap){
-			drawableEntities.add(t);
-			
-		}
-		
+  		drawableEntities.add(tdMap);
+  		
+  		//get the critters for this wave level
+  		crittersInWave = CritterGenerator.getGeneratedCritterWave(waveNumber, tdMap);
+  		for(int i = 0; i < crittersInWave.size(); i++){
+  			//add them to the drawableEntitiesList
+  			drawableEntities.add(crittersInWave.get(i));
+  			crittersInWave.get(i).addObs(this); //makes this an observer of critter
+  			subjects.add(crittersInWave.get(i));
+  		}
+  		//add all of the towers back into the drawable entities
+  		for(Tower t : towersOnMap){
+  			drawableEntities.add(t);
+  			t.setCrittersOnMap(crittersInWave);
+  		}
+  		
+  	}
+
+  	public void setPlaybackSpeed(){
+		clock.setDeltaTime(1);
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
@@ -292,22 +318,47 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				doPause();
 			}else if(arg0.getSource() == bReturn){
 				doReturnToMainMenu();
+			}else if(arg0.getSource() == bStartWave ){
+				doStartWave();
 			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread || arg0.getSource() ==bNone){
 				doSelectTower(arg0);
 			}else if(arg0.getSource() == bUpgrade){
 				doUpgrade();
 			}else if(arg0.getSource() == bSell){
 				doSell();
+			}else if(arg0.getSource() == bCritterInfo){
+				doDisplayCritterInfo();
 			}else if(!gameOver){
 				if(gamePaused == false){
-					
-				
+					if(activeCritterIndex == 0){
+						crittersInWave.get(activeCritterIndex).setActive(true);
+						activeCritterIndex +=1;
+					}else if(activeCritterIndex < crittersInWave.size()){
+						Critter curr = crittersInWave.get(activeCritterIndex -1);
+						Point currPos = curr.getPixelPosition();
+						if(Math.abs(currPos.getX() - curr.getListPixelPath().get(1).getX()) > 50 || Math.abs(currPos.getY() - curr.getListPixelPath().get(1).getY()) > 50 || curr.isAlive()==false || curr.hasReachedEnd()){
+							crittersInWave.get(activeCritterIndex).setActive(true);
+							activeCritterIndex +=1;
+						}
+					}
 				}
+				Draw();
 			}
 			
 		
 	}
-	//when upgrade is clicked
+	private void doDisplayCritterInfo(){
+		JOptionPane.showMessageDialog(null, Critter.CRITTERMESSAGE, "Critters", JOptionPane.PLAIN_MESSAGE);
+	}
+	//when start wave is clicked
+	private void doStartWave(){
+			clock.unPause();
+			gamePaused =false;
+			bStartWave.setEnabled(false);
+			startNewWave();
+		}
+		
+		//when upgrade is clicked
 		private void doUpgrade(){
 			spendMoney(this.selectedTower.getUpPrice());
 			this.selectedTower.upgradeTower();
@@ -377,7 +428,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 	//This method is called from the click handler when we get a click at a point
 
-    /**
+	/**
      *  This method selects an existing tower to upgrade it, or puts a new tower
      *  on the selected tile, of the desired type. Hence, react to left click
      * @param point
@@ -405,22 +456,22 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			//check which tower we want to place, and only build it if we have enough money.
 			if(selectedTowerToBuild.equalsIgnoreCase("Spread")){
 				if(playerMoney >= Tower_SpreadShot.getBuyPrice()){
-					towToBuild =new Tower_SpreadShot("Spread", adjustedTowerPoint);
+					towToBuild =new Tower_SpreadShot("Spread", adjustedTowerPoint, crittersInWave);
 					moneyToSpend = Tower_SpreadShot.getBuyPrice();
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("Fire")){
 				if(playerMoney >= Tower_Fire.getBuyPrice()){
-					towToBuild = new Tower_Fire("Fire", adjustedTowerPoint);
+					towToBuild = new Tower_Fire("Fire", adjustedTowerPoint, crittersInWave);
 					moneyToSpend = Tower_Fire.getBuyPrice();
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("IceBeam")){
 				if(playerMoney >= Tower_IceBeam.getBuyPrice()){
-					towToBuild = new Tower_IceBeam("Ice", adjustedTowerPoint);
+					towToBuild = new Tower_IceBeam("Ice", adjustedTowerPoint, crittersInWave);
 					moneyToSpend = Tower_IceBeam.getBuyPrice();
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("Laser")){
 				if(playerMoney >= Tower_Laser.getBuyPrice()){
-					towToBuild = new Tower_Laser("Laser", adjustedTowerPoint);
+					towToBuild = new Tower_Laser("Laser", adjustedTowerPoint, crittersInWave);
 					moneyToSpend = Tower_Laser.getBuyPrice();
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("None")){
@@ -466,10 +517,12 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}
 			//we always want to enable the sell button.
 			bSell.setEnabled(true);
-
+			cbStrategies.setEnabled(true);
+			cbStrategies.setSelectedItem(selectedTower.getStrategy().toString());
 		}else{
 			bUpgrade.setEnabled(false);
 			bSell.setEnabled(false); //if there is no tower, don't allow them to sell it.
+			cbStrategies.setEnabled(false);
 			bSell.setText("Sell");
 			bUpgrade.setText("Upgrade");
 		}
@@ -477,11 +530,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	}
 	
 	
-    /**
-     *
-     * @param point
-     */
-    public void reactToMouseMove(Point point){
+	/**
+    *
+    * @param point
+    */
+   public void reactToMouseMove(Point point){
 		//first, get the point of the grid where we clicked.
 		double XPixels = tdMap.getGridWidth()*tdMap.tileWidth_Pixel;
 		double YPixels = tdMap.getGridHeight()*tdMap.tileHeight_Pixel;
@@ -503,19 +556,19 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			//check which tower we want to place --This could be nicer (if we can somehow get the classtype?)
 			if(selectedTowerToBuild.equalsIgnoreCase("Spread")){
 				if(playerMoney >= Tower_SpreadShot.getBuyPrice()){
-					towToPreview =new Tower_SpreadShot("Spread", adjustedTowerPoint);
+					towToPreview =new Tower_SpreadShot("Spread", adjustedTowerPoint, crittersInWave);
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("Fire")){
 				if(playerMoney >= Tower_Fire.getBuyPrice()){
-					towToPreview = new Tower_Fire("Fire", adjustedTowerPoint);
+					towToPreview = new Tower_Fire("Fire", adjustedTowerPoint, crittersInWave);
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("IceBeam")){
 				if(playerMoney >= Tower_IceBeam.getBuyPrice()){
-					towToPreview = new Tower_IceBeam("IceBeam", adjustedTowerPoint);
+					towToPreview = new Tower_IceBeam("IceBeam", adjustedTowerPoint, crittersInWave);
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("Laser")){
 				if(playerMoney >= Tower_Laser.getBuyPrice()){
-					towToPreview = new Tower_Laser("Laser", adjustedTowerPoint);
+					towToPreview = new Tower_Laser("Laser", adjustedTowerPoint, crittersInWave);
 				}
 			}else if(selectedTowerToBuild.equalsIgnoreCase("None")){
 				//no tower = don't do anything.
@@ -541,6 +594,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	}
 
 
+
 	
 	    /**
 	     *
@@ -551,19 +605,102 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		}
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			// TODO Auto-generated method stub
-			
+			//if our strategies combobox changed, we want to change the strategy of the selected tower
+			if(e.getSource() == this.cbStrategies){ 
+				String item = (String) e.getItem();
+				if(item.equalsIgnoreCase("Closest")){
+					//should we be creating a new strat? Or should we make the strats singleton?
+					selectedTower.setStrategy(new Closest()); 
+				}else if(item.equalsIgnoreCase("Farthest")){
+					selectedTower.setStrategy(new Farthest());
+				}else if(item.equalsIgnoreCase("Strongest")){
+					selectedTower.setStrategy(new Strongest());
+				}else if(item.equalsIgnoreCase("Weakest")){
+					selectedTower.setStrategy(new Weakest());
+				}else{
+					System.out.println("Error with selection of strategies: Correct name not found");
+				}
+			}
 		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+		 *This method is called everytime the slider changes.
+		 */
 		@Override
-		public void stateChanged(ChangeEvent arg0) {
+		public void stateChanged(ChangeEvent e) {
 			// TODO Auto-generated method stub
+				setPlaybackSpeed();
 			
 		}
-		@Override
-		public void observerUpdate() {
-			// TODO Auto-generated method stub
-			
+
+		/**
+	     *  This will update the game whenever one of the subjects (Critters)of the Game Controller is changed,
+	     *  e.g. if a critter dies or a tower is upgraded.
+	     */
+	    	public void observerUpdate(){
+			if(gamePaused ==false){
+				//we want to reset the wave stats, and then  check each critter to see what happended
+				resetPlayerWaveStats();
+				boolean anyCrittersLeft = false;
+				//go through subjects and see if we have a critter
+				for(Subject s : subjects){
+					if(s instanceof Critter){
+						//it is a critter. Check to see if it is dead or if it has reached the end.
+						Critter c = (Critter) s;
+						//if it is dead, give the appropriate money to the player
+						if(c.isAlive() && c.hasReachedEnd()==false){
+							anyCrittersLeft = true;
+						}else if(c.isAlive()==false){ //if it is dead, we want to give the loot to user
+							gamePlayer.addToMoney(c.getLoot()); 
+						}else if(c.hasReachedEnd()==true){//if it has reached the end, take away a life
+							gamePlayer.takeAwayALife();
+							if(gamePlayer.getLives()==0){ //if no lives, end the game
+								endGame();
+							}
+						}
+					}
+				}
+				//if no critters are left, allow the player to start a new wave
+				if(anyCrittersLeft == false){
+					bStartWave.setEnabled(true);
+				}
+				//if it isn't Game Over, then update the information labels.
+				if(!gameOver){
+				updateInfoLabelText();
+				updateSelectedTowerInfoAndButtons();
+				}
+			}
 		}
+
+	 /*
+      * Ends the game by disabling buttons, and pausing the clock.
+      */
+	private void endGame(){
+		gameOver = true;
+		gamePaused =true;
+		clock.pause();
+		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with $" + gamePlayer.getMoney() + ".");
+		disableAllGameButtons();
+	}
+	/*
+	 * disables all of the game buttons
+	 */
+	private void disableAllGameButtons(){
+		bStartWave.setEnabled(false);
+		bPause.setEnabled(false);
+		bUpgrade.setEnabled(false);
+		bSell.setEnabled(false);
+		cbStrategies.setEnabled(false);
+	}
+		/*
+	     * resets the player's stats (so that a new game can be started with the same instance
+	    */
+	    private void resetPlayerWaveStats() {
+	    	gamePlayer.setLives(waveStartLives);
+	    	gamePlayer.setMoney(waveStartMoney);
+	    }
 	
 	
 	
