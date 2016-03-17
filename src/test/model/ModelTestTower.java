@@ -25,6 +25,7 @@ import java.util.ArrayList;
  * The test for Tower class and other classes that extend it in models
  *
  * @author Xingjian Zhang
+ * @version 2.0.0
  */
 public class ModelTestTower {
 

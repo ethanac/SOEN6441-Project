@@ -12,7 +12,7 @@ import models.TDMap;;
  *  The test for TDMap class in models
  * 
  *	@author Xingjian Zhang
- *	@version 1.0.0
+ *	@version 2.0.0
  */
 public class ModelTestTDMap {
 
