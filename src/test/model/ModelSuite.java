@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @version 1.0.0
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ModelTestTDMap.class })
+@SuiteClasses({ ModelTestTDMap.class, ModelTestTower.class, ModelTestCritter.class })
 public class ModelSuite {
 
 }
