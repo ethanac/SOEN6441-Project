@@ -64,7 +64,11 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	private boolean selectingEnd;
 	//private int tileWidth_Pixel, tileHeight_Pixel;
 	
-	JFileChooser fc = new JFileChooser();
+	JFileChooser fc = new JFileChooser("F:/workspace/SOEN6441-Project-master/src/res");
+
+	private int countStart = 0;
+
+	private int countEnd = 0;
 	
     /**
      *
@@ -161,11 +165,13 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 		//bSelectStart forces user to select the start point
 		else if(e.getSource() == bSelectStart){
 			selectingStart = true;
+			countStart++;
 			setControlPanelEnabled(false);
 		}
 		//bSelectEnd forces user to select the end
 		else if(e.getSource() == bSelectEnd){
 			selectingEnd = true;
+			countEnd++;
 			setControlPanelEnabled(false);
 		}
 		//otherwise we just want to draw.
@@ -209,28 +215,18 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	}
     private boolean validateMap() {
 		TDMap tdMap = this.getTDMap();
-		if (tdMap.verifyMap()) {
+		if (hasStartPoint() == true && hasEndPoint()== true && tdMap.verifyMap() ) {
+			
 			this.controlPanel.setStatusText("Validation : Path is valid");
 			return true;
 		} else {
 			this.controlPanel.setStatusText("Validation : Path is not valid");
-			JOptionPane.showMessageDialog(null, "����ʧ��");
+			JOptionPane.showMessageDialog(null, "Save Failed!");
 			return false;
 		}
 
 	}
 
-   
-//    /**
-//     *  This will update the indexes of the Start(,) and End(,) ComboBoxes to
-//     *  match with the new initialized size of the map.
-//     *  
-//     * @param widthOfMap    The new width of the map
-//     * @param heightOfMap   The new height of the map
-//     */
-    /* public void updateStartAndEnd(int widthOfMap, int heightOfMap){
-   	controlPanel.updateStartAndEnd(widthOfMap, heightOfMap);
-   }*/
     
 	@Override
 	public void mouseClicked(MouseEvent e) {		
@@ -257,6 +253,7 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 				this.controlPanel.setStatusText("Start set to " + new Point(xGridPos, yGridPos).toString());
 			}else{//otherwise inform them to select a valid point
 				this.controlPanel.setStatusText("Please select valid start point.");
+				
 			}
 		//if we are selecting end,
 		}else if(selectingEnd){
@@ -279,6 +276,16 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 		}
 		
 	}
+	private boolean hasEndPoint() {
+		if(this.countEnd >= 1){
+			return true;
+		}else{
+			return false;
+		}
+		
+		
+	}
+
 	/*
 	 * Checks to see if we have a good start or end point (lying on one edge)
 	 */
@@ -295,6 +302,16 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 				c.setEnabled(b);
 			}
 		}
+	}
+	
+	public boolean hasStartPoint(){
+		if(this.countStart >= 1){
+			return true;
+		}else{
+			return false;
+		}
+		
+		
 	}
 
 	@Override
