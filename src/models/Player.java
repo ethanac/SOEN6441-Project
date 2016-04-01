@@ -11,9 +11,11 @@ public class Player {
 	//Final constants (changed for balancing game)
 	private static final int STARTINGLIVES = 10;
 	private static final int STARTINGMONEY = 5000;
+	private static final int STARTINGCREDIT = 0;
 	//default the lives and money to the constants above
 	private int lives = STARTINGLIVES;
 	private int money = STARTINGMONEY;
+	private int credit = STARTINGCREDIT;
 	//and we apply singleton pattern to ensure only one player
 	private static Player playerInstance = new Player();
 	
@@ -50,6 +52,15 @@ public class Player {
     public int getMoney(){
 		return this.money;
 	}
+    
+    /**
+     * The method to get the point value of this player.
+     * 
+     * @return point
+     */
+    public int getCredit(){
+		return this.credit;
+	}
 
     /**
      * The method to set the life value of this player.
@@ -61,12 +72,21 @@ public class Player {
 	}
 
     /**
-     * The method to set the life value of this player.
+     * The method to set the money value of this player.
      * 
      * @param m  An integer as the money value of this player.
      */
     public void setMoney(int m){
 		money = m;
+	}
+    
+    /**
+     * The method to set the point value of this player.
+     * 
+     * @param m  An integer as the point value of this player.
+     */
+    public void setCredit(int c){
+		credit = c;
 	}
 
     /**
@@ -76,6 +96,15 @@ public class Player {
      */
     public void addToMoney(int moneyToAdd){
 		this.money += moneyToAdd;
+	}
+    
+    /**
+     * The method to add point to the point of this player
+     * 
+     * @param PointToAdd An integer as the amount of money to add.
+     */
+    public void addToCredit(int creditToAdd){
+		this.credit += creditToAdd;
 	}
 
     /**
@@ -104,6 +133,15 @@ public class Player {
     public static int getStartingMoney(){
 		return STARTINGMONEY;
 	}
+    
+    /** 
+     * Get the start value of Point of this player.
+     *
+     * @return STARTINGMONEY
+     */
+    public static int getStartingCredit(){
+		return STARTINGCREDIT;
+	}
 
     /** 
      * Reset the value of life and money to start value.
@@ -114,5 +152,6 @@ public class Player {
     	//reset the stats of the player
 		lives = STARTINGLIVES;
 		money = STARTINGMONEY;
+		credit = STARTINGCREDIT;
 	}
 }

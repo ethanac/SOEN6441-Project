@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
@@ -24,20 +25,19 @@ import models.Tower_SpreadShot;
  *  and <code>generalControlPanel</code>
  * 	
  *  @author Xingjian Zhang
- *  @author Zhoujian Lan
- *  @version 2.0.0
+ *  @version 1.0.0
  */
 public class GameControlPanel extends JPanel  {
 	private final int buttonSize = 90;
 
     /**
-     * The constants of the info of different towers.
+     *
      */
 	private static final String SPREADTEXT = "A Spread-beam tower. Shoot multiple enemies with a slightly less powerful beam.";
 	private static final String LASERTEXT = "A Laser-beam tower. Normal attack.";
 	private static final String ICETEXT = "An Ice-beam tower. Slow enemies who are shot by it.";
 	private static final String FIRETEXT = "A Fire-beam tower. Light critters on fire and damages them over time.";
-    public static final int CONTROLPANELHEIGHT = 150;
+    public static final int CONTROLPANELHEIGHT = 250;
 	//we have our two control panels.
 	JPanel towerControlPanel = new JPanel();
 	JPanel generalControlPanel = new JPanel();
@@ -45,7 +45,10 @@ public class GameControlPanel extends JPanel  {
 	//this includes tower buttons, upgrading, selling, etc
 	JButton bSellTower = new JButton("Sell");
 	JButton bUpgradeTower = new JButton("Upgrade");
+	JTextArea lblTowerLog = new JTextArea("");
+	JScrollPane scrollTowerLog = new JScrollPane(lblTowerLog);
 	JTextArea lblTowerInfo = new JTextArea("No tower selected");
+	JScrollPane scrollTowerInfo = new JScrollPane(lblTowerInfo);
 	JLabel lblBuildTowerPrompt = new JLabel("Tower:");
 	ButtonGroup towerGroup = new ButtonGroup();
 	JToggleButton bSpread = new JToggleButton("Spread (" + Tower_SpreadShot.getBuyPrice() + ")");
@@ -58,7 +61,7 @@ public class GameControlPanel extends JPanel  {
 	//our general control panel will have general info (lives, money)
 	//this also includes main menu button, pausing, speeding up game, etc.
 	JButton bStartWave = new JButton("Start Wave!");
-	JLabel lblInfo = new JLabel("| Lives = " + ", Money = " + ", Wavenumber =  |");
+	JLabel lblInfo = new JLabel("| Lives = " + ", Money = " + ", Points =  " + ", Wavenumber =  |");
 	JButton bPause = new JButton("Pause");
 	JButton bReturn = new JButton("Main Menu");
 	JButton bCritInfo = new JButton("Critter Info");
@@ -75,8 +78,8 @@ public class GameControlPanel extends JPanel  {
 		towerGroup.add(bLaser);
 		towerGroup.add(bNone);
 		
-		bUpgradeTower.setPreferredSize(new Dimension(buttonSize+30,20));
-		bSellTower.setPreferredSize(new Dimension(buttonSize, 20));
+		bUpgradeTower.setPreferredSize(new Dimension(buttonSize+50,20));
+		bSellTower.setPreferredSize(new Dimension(buttonSize+30, 20));
 		bSpread.setPreferredSize(new Dimension(buttonSize+30, 20));
 		bFire.setPreferredSize(new Dimension(buttonSize, 20));
 		bIceBeam.setPreferredSize(new Dimension(buttonSize, 20));
@@ -101,7 +104,8 @@ public class GameControlPanel extends JPanel  {
 		lblInfo.setFont(new Font(oldFont.getFontName(), Font.BOLD, oldFont.getSize()));
 		//format the slider
 		
-		towerControlPanel.add(lblTowerInfo);
+		towerControlPanel.add(scrollTowerLog).setPreferredSize(new Dimension(250,40));;;
+		towerControlPanel.add(scrollTowerInfo).setPreferredSize(new Dimension(200,40));;
 		towerControlPanel.add(bUpgradeTower);
 		towerControlPanel.add(bSellTower);
 		towerControlPanel.add(lblBuildTowerPrompt);
@@ -110,7 +114,7 @@ public class GameControlPanel extends JPanel  {
 		towerControlPanel.add(bIceBeam);
 		towerControlPanel.add(bLaser);
 		towerControlPanel.add(bSpread);
-		towerControlPanel.add(bNone);
+		//towerControlPanel.add(bNone);
         //add everything to this panel.
 		generalControlPanel.add(bCritInfo);
 		generalControlPanel.add(cbStrategy);
@@ -162,8 +166,11 @@ public class GameControlPanel extends JPanel  {
      *	Setter of tower information label
      *  @param text
      */
-    public void setTowerInfoLabelText(String text){
-		lblTowerInfo.setText(text);
+    public void setTowerInfoLabelText(String infoText){
+		lblTowerInfo.setText(infoText);
+	}
+    public void setTowerLogLabelText(String logText){
+		lblTowerLog.setText(logText);
 	}
 
     /**
@@ -246,30 +253,11 @@ public class GameControlPanel extends JPanel  {
    public JComboBox<String> getCBStrategy(){
 		return cbStrategy;
 	}
-   
-   /**
-    * Getter of critter information button
-    * @return bCritInfo
-    */
+
    public JButton getCritterInfoButton(){
    	return this.bCritInfo;
    }
-   
-   /**
-    * Getter of speed slider
-    * @return null
-    */
-   public JSlider getSpeedSlider(){
-		return null;
-	}
-   
-   /**
-    * This method is only used for testing purpose. 
-    * by Hao
-    * @return towerinfo  Return the lblTowerInfo.
-    */
-   public String getTowerInfo(){
-	   return lblTowerInfo.getText();
-   }
+
+
 
 }

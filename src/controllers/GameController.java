@@ -81,7 +81,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	//declare frame specific variables
 	private Timer timer;
 	private Player gamePlayer;
-	private int waveStartMoney, waveStartLives;
+	private int waveStartMoney, waveStartLives, waveStartPoint;
 	private int waveNumber;
 	
 	private int activeCritterIndex;
@@ -109,6 +109,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	
 	//and we have a list of subjects that this class (as an IObserver) watches.
 	ArrayList<Subject> subjects;
+
 	
 	
 	
@@ -202,6 +203,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		//we start with the money before any is spent
 		waveStartMoney = gamePlayer.getMoney();
 		waveStartLives = gamePlayer.getLives();
+		waveStartPoint = gamePlayer.getCredit();
 		//default tower to build
 		selectedTowerToBuild = "None";
 
@@ -231,6 +233,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
   		//record the amount of money they have as the start wave money (and same for lives)
   		waveStartMoney = gamePlayer.getMoney();
   		waveStartLives = gamePlayer.getLives();
+  		waveStartPoint = gamePlayer.getCredit();
   		//remove all current entities
   		drawableEntities.clear();
   		//remove all current subjects
@@ -302,6 +305,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			drawableEntities.remove(towerBeingPreviewed);
 		}
 		selectedTowerToBuild = ((JToggleButton) arg0.getSource()).getName();
+
 	}
 	
 	
@@ -363,6 +367,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			spendMoney(this.selectedTower.getUpPrice());
 			this.selectedTower.upgradeTower();
 			this.updateSelectedTowerInfoAndButtons();
+			
 		}
 		//when sell is clicked
 		private void doSell(){
@@ -410,21 +415,31 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	}
     //updates the info text
 	private void updateInfoLabelText(){
-		this.getControlPanel().setInfoLabelText("| Lives = " + gamePlayer.getLives()+ ", Money = " + gamePlayer.getMoney()+ ", Wavenumber = " + waveNumber + " |");
+		this.getControlPanel().setInfoLabelText("| Lives = " + gamePlayer.getLives()+ ", Money = " + gamePlayer.getMoney()+ ", Credit = " + gamePlayer.getCredit()+", Wavenumber = " + waveNumber + " |");
 	}
 	//updates the tower info text
 	private void updateTowerInfoText(){
-		String text = "";
+		String infoText = "";
 		if(selectedTower != null){ //we print the tower's tostring, and show the prices
-			text += selectedTower.toString();
+			infoText += selectedTower.toString1();
 			bUpgrade.setText("Upgrade (" + selectedTower.getUpPrice() + ")");
 			bSell.setText("Sell (" + selectedTower.getSellPrice() + ")");
 		}else{
-			text += "No tower selected";
+			infoText += "No tower selected";
 		}
-		this.getControlPanel().setTowerInfoLabelText(text);
+		this.getControlPanel().setTowerInfoLabelText(infoText);
 	}
-	
+	//updates the tower Log text
+		private void updateTowerLogText(){
+			String logText = "";
+			if(selectedTower != null){ //we print the tower's tostring, and show the prices
+				logText = selectedTower.toString2();
+				
+			}else{
+				logText = "No tower selected";
+			}
+			this.getControlPanel().setTowerLogLabelText(logText);
+		}
 
 	//This method is called from the click handler when we get a click at a point
 
@@ -527,8 +542,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			bUpgrade.setText("Upgrade");
 		}
 		updateTowerInfoText();
+		updateTowerLogText();
+		
 	}
 	
+	//updates the tower log text
 	
 	/**
     *
@@ -630,7 +648,6 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		 */
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			// TODO Auto-generated method stub
 				setPlaybackSpeed();
 			
 		}
@@ -641,7 +658,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	     */
 	    	public void observerUpdate(){
 			if(gamePaused ==false){
-				//we want to reset the wave stats, and then  check each critter to see what happened
+				//we want to reset the wave stats, and then  check each critter to see what happended
 				resetPlayerWaveStats();
 				boolean anyCrittersLeft = false;
 				//go through subjects and see if we have a critter
@@ -654,6 +671,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 							anyCrittersLeft = true;
 						}else if(c.isAlive()==false){ //if it is dead, we want to give the loot to user
 							gamePlayer.addToMoney(c.getLoot()); 
+							gamePlayer.addToCredit(c.getLoot()/10);
 						}else if(c.hasReachedEnd()==true){//if it has reached the end, take away a life
 							gamePlayer.takeAwayALife();
 							if(gamePlayer.getLives()==0){ //if no lives, end the game
@@ -681,7 +699,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		gameOver = true;
 		gamePaused =true;
 		clock.pause();
-		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with $" + gamePlayer.getMoney() + ".");
+		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
 		disableAllGameButtons();
 	}
 	/*

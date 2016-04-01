@@ -4,21 +4,21 @@ import helpers.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import strategies.*;
 
 /**
- * The Tower Class.
- * It defines the basic attributes and draws the tower.
- * Fire, icebeam and laser tower extends this class.
  * Set the basic info for Towers
  * 
  * @author Hao Zhang
- * @author Meng Yao
- * @author Xingjian Zhang
- * 
- * @version 2.0.0
  * 
  */
 public abstract class Tower implements DrawableEntity{
@@ -41,12 +41,17 @@ public abstract class Tower implements DrawableEntity{
 	ArrayList<Critter> potentialCrittersInRange;
 	private boolean enabled;
 	private boolean selected;
+	Timestamp createTime;
+	Timestamp updateTime;
+	private Timestamp updateTime1;
+	private Timestamp updateTime2;
+	private Timestamp updateTime3;
+	 
 	
     /**
-     * Constructor of Tower with its basic info
-     * 
-     * @param n name of tower
-     * @param p coordinates of tower
+     *
+     * @param n
+     * @param p
      * @param crittersOnMap
      */
     public Tower(String n, Point p, ArrayList<Critter> crittersOnMap){
@@ -57,29 +62,28 @@ public abstract class Tower implements DrawableEntity{
 		strategy = new Closest();
 		enabled = true;
 		selected = false;
+		createTime = new Timestamp(System.currentTimeMillis());
+		
 	}
 	
     /**
-     * Getter of tower selling refund
-     * 
-     * @return sellPrice tower refund
+     *
+     * @return
      */
     public int getSellPrice(){	
 		return sellPrice;
 	}
 
     /**
-     * Getter of upgrade price
-     * 
-     * @return upCost
+     *
+     * @return
      */
     public int getUpPrice(){
 		return upCost;
 	}
 
     /**
-     * Setter of shotting strategy
-     * 
+     *
      * @param strategy
      */
     public void setStrategy(IStrategy strategy) {
@@ -87,43 +91,38 @@ public abstract class Tower implements DrawableEntity{
 	}
 	
     /**
-     * Getter of tower position in x axis
      *
-     * @return position.getX()
+     * @return
      */
     public int getPosX(){	
 		return position.getX();
 	}
 	
     /**
-     * Getter of tower position in y axis
-     * 
-     * @return position.getY()
+     *
+     * @return
      */
     public int getPosY(){	
 		return position.getY();
 	}
 	
     /**
-     * Getter of tower range
      *
-     * @return range
+     * @return
      */
     public int getRange(){	
 		return range;
 	}
 	
     /**
-     * Getter of tower name
      *
-     * @return name
+     * @return
      */
     public String getName(){	
 		return name;
 	}
 	
     /**
-     * Tower state getter, return the enabling state of tower
      *
      * @return
      */
@@ -132,7 +131,6 @@ public abstract class Tower implements DrawableEntity{
 	}
 
     /**
-     * Setter of tower state
      *
      * @param state
      */
@@ -141,34 +139,30 @@ public abstract class Tower implements DrawableEntity{
 	}
 
     /**
-     * Getter of tower color
      *
-     * @return tColor
+     * @return
      */
     public Color getColor(){
 		return tColor;
 	}
 
     /**
-     * Method to judge whether the tower is selected
      *
-     * @return selected
+     * @return
      */
     public boolean isSelected(){
 		return selected;
 	}
 
     /**
-     * Getter of tower shooting strategy
      *
-     * @return this.strategy
+     * @return
      */
     public IStrategy getStrategy(){
 		return this.strategy;
 	}
 
     /**
-     * Method to set the tower state to being seleted
      *
      * @param s
      */
@@ -177,17 +171,15 @@ public abstract class Tower implements DrawableEntity{
 	}
 
     /**
-     * Method to acquire the default strategy
      *
-     * @return DEFAULTSTRATEGY
+     * @return
      */
     public static String getDefaultStrategy(){
 		return DEFAULTSTRATEGY;
 	}
 
     /**
-     * Setter of the tower color
-     * 
+     *
      * @param newColor
      */
     public void setColor(Color newColor){
@@ -196,25 +188,22 @@ public abstract class Tower implements DrawableEntity{
 	}
 
     /**
-     * Getter of tower shooting color
      *
-     * @return shotColor
+     * @return
      */
     public Color getShotColor(){
 		return shotColor;
 	}
 
     /**
-     * Getter of max tower level
      *
-     * @return MAXTOWERLEVEL
+     * @return
      */
     public static int getMaxTowerLevel(){
 		return MAXTOWERLEVEL;
 	}
 
     /**
-     * Setter of critters' position that inside the tower range
      *
      * @param crittersOnMap
      */
@@ -223,9 +212,8 @@ public abstract class Tower implements DrawableEntity{
 	}
 
     /**
-     * Getter of tower current level
      *
-     * @return level
+     * @return
      */
     public int getLevel(){
 		return level;
@@ -250,56 +238,48 @@ public abstract class Tower implements DrawableEntity{
 		}
 		//draw the tower
 		this.drawTower(g);
+		
 	}
 	
     /**
-     * Method to draw the tower
-     *
+     *Draws the tower with the Artist
+     * 
      * @param g
      */
     public void drawTower(Graphics g) {
-		//Draws the tower with the Artist
-		Artist_Swing.drawTower(this,g);
+    	Artist_Swing.drawTower(this,g);
     }
 	
-    /**
-     * Method to make the critter select a target according to its strategy
+
+	/**
+     *selects the tower based on strategy
      *
      * @param tf1
      * @param crittersInR
-     * @return target
+     * @return
      */
     protected Critter selectTarget(Tower tf1, ArrayList<Critter> crittersInR){
-    	//selects the tower based on strategy
+    	
 		Critter target = strategy.findTarget(tf1, crittersInR);
 		return target;
 	}
 
     /**
-     * Method to calculate the distance between a creep and a tower
-     * 
+     *finds the distance between a creep and a tower.
+     *
      * @param a
-     * @return critterDistance
+     * @return
      */
     public double distanceToCritter(Critter a){
     	//get delta x and deltay
 	    double deltaX = a.getPixelPosition().getX()-this.getPosX();
 	    double deltaY = a.getPixelPosition().getY()-this.getPosY();
-		//finds the distance between a creep and a tower.
 		double critterDistance = Math.sqrt((deltaX)*(deltaX) + (deltaY)*(deltaY));
 		
 		return critterDistance;
 	}
-    
+	
 	//checking if a critter is in range of a tower
-    
-    /**
-     * Method to check the whether a critter is in a tower range 
-     * 
-     * @param a
-     * @return true if the critter is inside a tower range
-     * @return false if the critter is outside any tower range
-     */
 	private boolean inRange(Critter a){
 		boolean result = true;
 		//finds the distance between a creep and a tower.
@@ -312,13 +292,11 @@ public abstract class Tower implements DrawableEntity{
 		return result;
 	}
 	
-	//returns the critters that are in range of a tower
-
     /**
-     * Method to find all critter list that in a tower range
+     *returns the critters that are in range of a tower
      *
      * @param a
-     * @return crittersInRange
+     * @return
      */
     	public ArrayList<Critter> findCrittersInRange(ArrayList<Critter> a){
 		//initialize arrayList
@@ -337,10 +315,9 @@ public abstract class Tower implements DrawableEntity{
 		
 	}
 	
-	//deals damage based on amount of damage of the tower
 
     /**
-     * Tower shots and deals damage to critters
+     *deals damage based on amount of damage of the tower
      *
      * @param target
      * @param g
@@ -351,51 +328,112 @@ public abstract class Tower implements DrawableEntity{
 			Artist_Swing.drawShot(this, target, g);
 		}
 	} 
-    
-	//upgrade the towers values and level
+	
 
     /**
-     * Method to upgrade the tower level and tower attributes
+     * upgrade the towers values and level
      */
     public void upgradeTower(){
     	//upgrades the tower based on properties
-		if(level < MAXTOWERLEVEL){
+		if(level == 1){
 			level = level + 1;
 			upCost = upCost*3;
 			damage = damage*2; 
 			rateOfFire = rateOfFire + level;
 			sellPrice = sellPrice*2;
 			range = (int)(1.5*range);
+			updateTime1 =  new Timestamp(System.currentTimeMillis());
+		}else if(level == 2){
+			level = level + 1;
+			upCost = upCost*3;
+			damage = damage*2; 
+			rateOfFire = rateOfFire + level;
+			sellPrice = sellPrice*2;
+			range = (int)(1.5*range);
+			updateTime2 =  new Timestamp(System.currentTimeMillis());
+		}else if(level == 3){
+			level = level + 1;
+			upCost = upCost*3;
+			damage = damage*2; 
+			rateOfFire = rateOfFire + level;
+			sellPrice = sellPrice*2;
+			range = (int)(1.5*range);
+			updateTime3 =  new Timestamp(System.currentTimeMillis());
 		}
-	}
+		
 
+	}
+    
     /**
-     * Method to transfer tower attributes to string
+     * Show the tower info at the game control panel
+     * 
+     * @param level
+     * @param name
+     * @param range
+     * @param damage
      * 
      * @return result
      */
-    public String toString(){
+
+    public String toString1(){
 		String result = "";
 		String level = "";
 		String name = "";
 		String range = "";
 		String damage = "";
-		name = this.getName() + " Tower, ";
-		level = "Level: " + this.getLevel() + "/" + MAXTOWERLEVEL + "\n";
+		name = this.getName() + " Tower: ";
+		level = " Level:  " + this.getLevel() + " / " + MAXTOWERLEVEL + ", \n";
 		range = "Attack range: " + this.getRange() + ", ";
 		damage = "Damage: " + this.getDamage();
-		
 		result = name + level + range + damage;
 		
 		return result;
 	}
+    public String toString2(){
+		String result = "";
+		String createTime = "";
+		String updateTime1 = "";
+		String updateTime2 = "";
+		String updateTime3 = "";
+		
+		createTime = "Created at " + this.getCreateTime() ;
+		updateTime1 = "\n" + "Updated at " + this.getUpdateTime1();
+		updateTime2 = "\n" + "Updated at " + this.getUpdateTime2();
+		updateTime3 = "\n" + "Updated at " + this.getUpdateTime3();
+		
+		if(this.getLevel()==1){
+			result = createTime;
+		}else if (this.getLevel() == 2){
+			result = createTime + updateTime1;
+		}else if(this.getLevel() == 3){
+			result = createTime + updateTime1+ updateTime2;
+		}else if(this.getLevel() == 4){
+			result = createTime + updateTime1+ updateTime2 + updateTime3;
+		}
+		
+		
+		return result;
+	}
 
-    /**
-     * Getter of tower current damage
-     * 
-     * @return
-     */
-    public double getDamage(){	
+    private Timestamp getUpdateTime3() {
+		return updateTime3;
+	}
+
+	private Timestamp getUpdateTime2() {
+		
+		return updateTime2;
+	}
+
+	private Timestamp getUpdateTime1() {
+		
+		return updateTime1;
+	}
+
+	private Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public double getDamage(){	
 		return damage;
 	}
 	
