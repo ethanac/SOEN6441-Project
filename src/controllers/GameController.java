@@ -641,7 +641,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	     */
 	    	public void observerUpdate(){
 			if(gamePaused ==false){
-				//we want to reset the wave stats, and then  check each critter to see what happended
+				//we want to reset the wave stats, and then  check each critter to see what happened
 				resetPlayerWaveStats();
 				boolean anyCrittersLeft = false;
 				//go through subjects and see if we have a critter
