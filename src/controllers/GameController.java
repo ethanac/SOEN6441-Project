@@ -114,6 +114,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	//and we have a list of subjects that this class (as an IObserver) watches.
 	ArrayList<Subject> subjects;
 
+	private static int updateTowerLevel;
+
 	private static String sellTowerName;
 
 	public static String updateTowerName;
@@ -446,6 +448,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		//when upgrade is clicked
 		private void doUpgrade(){
 			updateTowerName = this.selectedTower.getName();
+			updateTowerLevel = this.selectedTower.getLevel();
 			spendMoney(this.selectedTower.getUpPrice());
 			this.selectedTower.upgradeTower();
 			this.updateSelectedTowerInfoAndButtons();
@@ -844,6 +847,9 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		return sellTowerName;
 	}
 	
-	
+	public static int getUpdateTowerLevel() {
+		
+		return updateTowerLevel;
+	}
 	
 }

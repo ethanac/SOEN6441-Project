@@ -3,6 +3,8 @@ package views;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import models.Log;
 import models.TDMap;
 
 /**
@@ -45,7 +48,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
      */
     public static final int TIMEOUT = 30 ;
 
-	final JFileChooser fc = new JFileChooser();
+	final JFileChooser fc = new JFileChooser("F:/workspace/SOEN6441-Project-master/src/res");
 	JPanel mainPanel = new JPanel();
 	JButton bPlay = new JButton("Play a game");
 	JButton bCreateMap = new JButton("Edit a map");
@@ -80,6 +83,16 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 			if(e.getSource() == bPlay){
 				this.dispose();
 				new GameApplicationFrame(mapToLoad);
+				Log start = new Log();
+				try {
+					start.createFile();
+				} catch (ParseException e1) {
+					
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
 			}else if(e.getSource() == bCreateMap){
 				this.dispose();
 				new MapEditorApplicationFrame(mapToLoad);
@@ -143,5 +156,9 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		this.lblMapToLoad.setText("Map: " + name);
 		this.repaint();
 	}
+    
+    public String getMapName(String name){
+    	return name;
+    }
 
 }

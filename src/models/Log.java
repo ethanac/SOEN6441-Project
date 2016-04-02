@@ -20,7 +20,7 @@ public class Log {
 	Date date = new Date();   //获取当前时间  
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //定义文件内容时间格式  
 	String formatDate = sdf.format(date);   //把当前时间以定义的格式 格式化  
-    String name = "C:/"+GameApplicationFrame.APP_NAME+".txt";   //获得文件名  
+    String name = "D:/"+GameApplicationFrame.APP_NAME+".txt";   //获得文件名  
 	
 	
     
@@ -90,7 +90,7 @@ public class Log {
             long fileLength = randomFile.length();   
             // 将写文件指针移到文件尾。   
             randomFile.seek(fileLength);   
-            randomFile.writeBytes(formatDate + " The " + GameController.getUpdateTowerName() + " Tower has been updated.\n ");   
+            randomFile.writeBytes(formatDate + " The " + GameController.getUpdateTowerName() + " Tower has been updated to level " + (GameController.getUpdateTowerLevel()+1) + "\n ");   
             randomFile.close();   
         } catch (IOException e) {   
             e.printStackTrace();   
