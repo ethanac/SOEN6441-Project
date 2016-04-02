@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -82,7 +84,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	private Timer timer;
 	private Player gamePlayer;
 	private int waveStartMoney, waveStartLives, waveStartPoint;
-	private int waveNumber;
+	private static int waveNumber;
 	
 	private int activeCritterIndex;
 	ArrayList<DrawableEntity> drawableEntities;
@@ -95,9 +97,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	//Some game states (used to determine what buttons we allow the player to click)
 	private boolean gamePaused;
 	private boolean gameOver;
+	
 
 	//now we have our current selections, like the tower we want to build, preview, tile, etc.
-	private String selectedTowerToBuild;
+	public static String selectedTowerToBuild;
+
 	private Tower towerBeingPreviewed;
 	private Tower selectedTower;
 	private MapTile selectedTile;
@@ -109,6 +113,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	
 	//and we have a list of subjects that this class (as an IObserver) watches.
 	ArrayList<Subject> subjects;
+
+	private static String sellTowerName;
+
+	public static String updateTowerName;
+
 
 	
 	
@@ -286,10 +295,30 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			clock.pause();
 			gamePaused = true;
 			bPause.setText("Play");
+			Log pause = new Log();
+			try {
+				pause.pause();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
 			clock.unPause();
 			gamePaused =false;
 			bPause.setText("Pause");
+			Log replay = new Log();
+			try {
+				replay.replay();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	//when main menu is clicked
@@ -322,16 +351,68 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				doPause();
 			}else if(arg0.getSource() == bReturn){
 				doReturnToMainMenu();
+				Log endGame = new Log();
+				try {
+					endGame.endGame();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(arg0.getSource() == bStartWave ){
 				doStartWave();
-			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread || arg0.getSource() ==bNone){
+				Log wave = new Log();
+				try {
+					wave.startWave();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread){
 				doSelectTower(arg0);
+				Log tower = new Log();
+				try {
+					tower.buildTower();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(arg0.getSource() == bUpgrade){
 				doUpgrade();
+				Log update = new Log();
+				try {
+					update.updateTower();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(arg0.getSource() == bSell){
 				doSell();
+				Log sell = new Log();
+				try {
+					sell.sellTower();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(arg0.getSource() == bCritterInfo){
 				doDisplayCritterInfo();
+			}else if(arg0.getSource() == bNone){
+				doSelectTower(arg0);
 			}else if(!gameOver){
 				if(gamePaused == false){
 					if(activeCritterIndex == 0){
@@ -364,6 +445,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		
 		//when upgrade is clicked
 		private void doUpgrade(){
+			updateTowerName = this.selectedTower.getName();
 			spendMoney(this.selectedTower.getUpPrice());
 			this.selectedTower.upgradeTower();
 			this.updateSelectedTowerInfoAndButtons();
@@ -372,6 +454,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		//when sell is clicked
 		private void doSell(){
 			//give the player the money by spending the negative amount.
+			sellTowerName = this.selectedTower.getName();
 			this.spendMoney((-1)*selectedTower.getSellPrice());
 			//remove this tower from our two lists, and delete it
 			towersOnMap.remove(selectedTower);
@@ -676,13 +759,35 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 							gamePlayer.takeAwayALife();
 							if(gamePlayer.getLives()==0){ //if no lives, end the game
 								endGame();
+								Log endGame = new Log();
+								try {
+									endGame.endGame();
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
 							}
 						}
 					}
 				}
 				//if no critters are left, allow the player to start a new wave
 				if(anyCrittersLeft == false){
+					Log waveEnd = new Log();
+					try {
+						waveEnd.endWave();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					bStartWave.setEnabled(true);
+					
 				}
 				//if it isn't Game Over, then update the information labels.
 				if(!gameOver){
@@ -720,10 +825,25 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	    	gamePlayer.setMoney(waveStartMoney);
 	    }
 	
+	public static int getWaveNumber(){
+		return waveNumber;
+		
+	}
+	public static String selectedTowerToBuild() {
+		
+		return selectedTowerToBuild;
+	}
+	
+	public static String getUpdateTowerName() {
+		
+		return updateTowerName;
+	}
+	
+	public static String getSellTowerName() {
+		
+		return sellTowerName;
+	}
 	
 	
-
-
-
 	
 }
