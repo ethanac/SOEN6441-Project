@@ -90,7 +90,7 @@ public class Log {
             long fileLength = randomFile.length();   
             // 将写文件指针移到文件尾。   
             randomFile.seek(fileLength);   
-            randomFile.writeBytes(formatDate + " The " + GameController.getUpdateTowerName() + " Tower has been updated to level " + (GameController.getUpdateTowerLevel()+1) + "\n ");   
+            randomFile.writeBytes(formatDate + " The " + GameController.getUpdateTowerName() + " Tower at " + GameController.getUpdateTowerPosition() + " has been updated to level " + (GameController.getUpdateTowerLevel()+1) + "\n ");   
             randomFile.close();   
         } catch (IOException e) {   
             e.printStackTrace();   
@@ -105,7 +105,7 @@ public class Log {
             long fileLength = randomFile.length();   
             // 将写文件指针移到文件尾。   
             randomFile.seek(fileLength);   
-            randomFile.writeBytes(formatDate + " The " + GameController.getSellTowerName() + " Tower has been sold.\n ");   
+            randomFile.writeBytes(formatDate + " The " + GameController.getSellTowerName() + " Tower at " + GameController.getSellTowerPosition() + " has been sold.\n ");   
             randomFile.close();   
         } catch (IOException e) {   
             e.printStackTrace();   

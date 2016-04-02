@@ -114,11 +114,19 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	//and we have a list of subjects that this class (as an IObserver) watches.
 	ArrayList<Subject> subjects;
 
+	private static int sellTowerPositionX;
+	private static int sellTowerPositionY;
+
+	private static int updateTowerPositionX;
+	private static int updateTowerPositionY;
+
 	private static int updateTowerLevel;
-
 	private static String sellTowerName;
-
 	public static String updateTowerName;
+	
+	private static String updateTowerPosition;
+
+	private static String sellTowerPosition;
 
 
 	
@@ -301,10 +309,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			try {
 				pause.pause();
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else{
@@ -315,10 +321,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			try {
 				replay.replay();
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -357,10 +361,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				try {
 					endGame.endGame();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(arg0.getSource() == bStartWave ){
@@ -369,10 +371,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				try {
 					wave.startWave();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread){
@@ -381,10 +381,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				try {
 					tower.buildTower();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(arg0.getSource() == bUpgrade){
@@ -393,10 +391,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				try {
 					update.updateTower();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(arg0.getSource() == bSell){
@@ -405,10 +401,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				try {
 					sell.sellTower();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else if(arg0.getSource() == bCritterInfo){
@@ -449,6 +443,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		private void doUpgrade(){
 			updateTowerName = this.selectedTower.getName();
 			updateTowerLevel = this.selectedTower.getLevel();
+			updateTowerPositionX = this.selectedTower.getPosX();
+			updateTowerPositionY = this.selectedTower.getPosY();
 			spendMoney(this.selectedTower.getUpPrice());
 			this.selectedTower.upgradeTower();
 			this.updateSelectedTowerInfoAndButtons();
@@ -458,6 +454,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		private void doSell(){
 			//give the player the money by spending the negative amount.
 			sellTowerName = this.selectedTower.getName();
+			sellTowerPositionX = this.selectedTower.getPosX();
+			sellTowerPositionY = this.selectedTower.getPosY();
 			this.spendMoney((-1)*selectedTower.getSellPrice());
 			//remove this tower from our two lists, and delete it
 			towersOnMap.remove(selectedTower);
@@ -646,7 +644,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		double yRatio = ((double)point.getY())/(YPixels);
 		int xGridPos = (int) Math.floor(xRatio * tdMap.getGridWidth());
 		int yGridPos = (int) Math.floor(yRatio * tdMap.getGridHeight());
-		//**TODO tile at movement
+		//tile at movement
 		MapTile tileAtClick = tdMap.getTile(xGridPos, yGridPos);
 		int tileType = tileAtClick.getTileValue();
 		//make sure it is not a path position, 
@@ -766,10 +764,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 								try {
 									endGame.endGame();
 								} catch (ParseException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								
@@ -783,10 +779,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 					try {
 						waveEnd.endWave();
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					bStartWave.setEnabled(true);
@@ -800,56 +794,69 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}
 		}
 
-	 /*
-      * Ends the game by disabling buttons, and pausing the clock.
-      */
-	private void endGame(){
-		gameOver = true;
-		gamePaused =true;
-		clock.pause();
-		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
-		disableAllGameButtons();
-	}
-	/*
-	 * disables all of the game buttons
-	 */
-	private void disableAllGameButtons(){
-		bStartWave.setEnabled(false);
-		bPause.setEnabled(false);
-		bUpgrade.setEnabled(false);
-		bSell.setEnabled(false);
-		cbStrategies.setEnabled(false);
-	}
-		/*
-	     * resets the player's stats (so that a new game can be started with the same instance
-	    */
-	    private void resetPlayerWaveStats() {
-	    	gamePlayer.setLives(waveStartLives);
-	    	gamePlayer.setMoney(waveStartMoney);
-	    }
-	
-	public static int getWaveNumber(){
-		return waveNumber;
-		
-	}
-	public static String selectedTowerToBuild() {
-		
-		return selectedTowerToBuild;
-	}
-	
-	public static String getUpdateTowerName() {
-		
-		return updateTowerName;
-	}
-	
-	public static String getSellTowerName() {
-		
-		return sellTowerName;
-	}
-	
-	public static int getUpdateTowerLevel() {
-		
-		return updateTowerLevel;
-	}
-	
+		 /*
+	      * Ends the game by disabling buttons, and pausing the clock.
+	      */
+			private void endGame(){
+				gameOver = true;
+				gamePaused =true;
+				clock.pause();
+				this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
+				disableAllGameButtons();
+			}
+			/*
+			 * disables all of the game buttons
+			 */
+			private void disableAllGameButtons(){
+				bStartWave.setEnabled(false);
+				bPause.setEnabled(false);
+				bUpgrade.setEnabled(false);
+				bSell.setEnabled(false);
+				cbStrategies.setEnabled(false);
+			}
+				/*
+			     * resets the player's stats (so that a new game can be started with the same instance
+			    */
+			    private void resetPlayerWaveStats() {
+			    	gamePlayer.setLives(waveStartLives);
+			    	gamePlayer.setMoney(waveStartMoney);
+			    }
+			
+			public static int getWaveNumber(){
+				return waveNumber;
+				
+			}
+			public static String selectedTowerToBuild() {
+				
+				return selectedTowerToBuild;
+			}
+			
+			public static String getUpdateTowerName() {
+				
+				return updateTowerName;
+			}
+			
+			public static String getSellTowerName() {
+				
+				return sellTowerName;
+			}
+			
+			public static int getUpdateTowerLevel() {
+				
+				return updateTowerLevel;
+			}
+			
+			public static String getUpdateTowerPosition() {
+				
+				updateTowerPosition = "(" + updateTowerPositionX + ", " + updateTowerPositionY + ")";
+				return updateTowerPosition;
+			}
+			
+			public static String getSellTowerPosition() {
+				
+				sellTowerPosition = "(" + sellTowerPositionX + ", " + sellTowerPositionY + ")";
+				return sellTowerPosition;
+			}
+			
+			
 }
