@@ -414,6 +414,20 @@ public abstract class Tower implements DrawableEntity{
 		
 		return result;
 	}
+    
+    /**
+     * Prepare the info of the tower for saving game.
+     * @return result
+     */
+    public String infoToSave(){
+    	String result = "";
+    	String towerP = position.getX() + ":" + position.getY();
+    	String name = this.getName();
+    	String level = this.getLevel()+"";
+    	result = towerP+","+name+","+level;
+    	
+    	return result;
+    }
 
     private Timestamp getUpdateTime3() {
 		return updateTime3;

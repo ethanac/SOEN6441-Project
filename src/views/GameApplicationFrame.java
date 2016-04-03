@@ -9,10 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import models.TDMap;
+import models.Tower;
 import controllers.GameController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *	This is the class of game application frame.
@@ -54,6 +56,16 @@ public class GameApplicationFrame extends JFrame {
      */
     public  GameApplicationFrame(TDMap tdMap){
 		gameController = new GameController(tdMap);
+		init();
+		gameController.setMainFrame(this);
+	}
+    
+    /**
+     *	Constructor of GameApplicationFrame
+     *  @param tdMap
+     */
+    public  GameApplicationFrame(TDMap tdMap, String fPath){
+		gameController = new GameController(tdMap, fPath);
 		init();
 		gameController.setMainFrame(this);
 	}

@@ -2,8 +2,10 @@ package controllers;
 import helpers.Artist_Swing;
 import helpers.CritterGenerator;
 import helpers.GameClock;
+import helpers.GameLoadHelper;
 import helpers.Helper;
 import helpers.MouseAndKeyboardHandler;
+import helpers.GameSaveHelper;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,9 +15,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
@@ -68,6 +76,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	private JButton bPause;
 	private JButton bReturn;
 	private JButton bStartWave;
+	private JButton bSaveGame;
 	private JToggleButton bSpread;
 	private JToggleButton bFire;
 	private JToggleButton bIceBeam;
@@ -109,7 +118,10 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	
 	//and we have a list of subjects that this class (as an IObserver) watches.
 	ArrayList<Subject> subjects;
-
+	// file chooser for saving game.
+	JFileChooser fc = new JFileChooser("F:/workspace/SOEN6441-Project-master/src/res");
+	
+	GameLoadHelper loadHelper;
 	
 	
 	
@@ -136,10 +148,57 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		updateInfoLabelText();
 		MouseAndKeyboardHandler handler = new MouseAndKeyboardHandler(this);
 		gamePanel.addMouseListener(handler);
-		gamePanel.addMouseMotionListener(handler);
-
-		
+		gamePanel.addMouseMotionListener(handler);	
 	}
+    
+  /**
+   * Constructor with 2 parameters.
+   * @param map
+   * @param fileName
+   */
+    public GameController(TDMap map, String fileName)
+	{
+		setPanelAndButtonProperties();
+		loadHelper = new GameLoadHelper(fileName, map);
+		loadHelper.loadGame();
+		setInitialValues(loadHelper.getWaveNumber(), loadHelper.getLives(), loadHelper.getMoney(), loadHelper.getCredit());	
+		this.tdMap = map;
+		
+		artist.setGridHeight(map.getGridHeight());
+		artist.setGridWidth(map.getGridWidth());
+		//add the map back into the drawable entities
+		drawableEntities.add(tdMap);
+		//setTowers(loadHelper);
+		
+		//start the timer
+		timer = new Timer(GameApplicationFrame.TIMEOUT,this);
+		timer.start();
+		
+		//initialize arraylists
+		updateInfoLabelText();
+		MouseAndKeyboardHandler handler = new MouseAndKeyboardHandler(this);
+		gamePanel.addMouseListener(handler);
+		gamePanel.addMouseMotionListener(handler);	
+		int m = loadHelper.getMoney();
+		for(int i = 0; i < loadHelper.getTowers().size(); i++){
+			selectedTowerToBuild = loadHelper.getTowers().get(i).getName();
+		
+			reactToLeftClick(loadHelper.getPos().get(i));
+			gamePlayer.setMoney(m);
+			int size = towersOnMap.size();
+			selectedTower = towersOnMap.get(size-1);
+			for(int j = 0; j < loadHelper.getTowers().get(i).getLevel()-1; j++){
+				doUpgrade();
+				gamePlayer.setMoney(m);
+			}
+			waveStartMoney = gamePlayer.getMoney();
+			updateInfoLabelText();
+		}
+	}
+    
+    /**
+     * Set panel and buttons.
+     */
     private void setPanelAndButtonProperties(){
 		//So we set this to be our game panel (for mouse click purposes)
 		gamePanel = this;
@@ -152,6 +211,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		bReturn.addActionListener(this);
 		bStartWave = this.getControlPanel().getStartWaveButton();
 		bStartWave.addActionListener(this);
+		bSaveGame = this.getControlPanel().getSaveGameButton();
+		bSaveGame.addActionListener(this);
 		bSpread = this.getControlPanel().getSpreadButton();
 		bSpread.addActionListener(this);
 		bFire = this.getControlPanel().getFireButton();
@@ -178,7 +239,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		cbStrategies.addItemListener(this);
 		
 	}
-	/*
+	
+    /**
 	 * sets the initial values of the variables for the game. 
 	 * Also initializes arrays and gets the instances of the singleton classes.
 	 */
@@ -213,11 +275,52 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		bNone.doClick(); //start by having no tower selected
 	}
 
+	/**
+	 * sets the initial values of the variables from a file. 
+	 * Also initializes arrays and gets the instances of the singleton classes.
+	 * @param wNumber
+	 * @param lives
+	 * @param money
+	 * @param credit
+	 */
+	private void setInitialValues(int wNumber, int lives, int money, int credit){
+		//get the instances of our singleton helpers
+		artist = Artist_Swing.getInstance();
+		clock = GameClock.getInstance();
+		//also get our singleton player
+		gamePlayer = Player.getInstance();
+		gamePlayer.setMoney(money);
+		gamePlayer.setLives(lives);
+		gamePlayer.setCredit(credit);
+		
+		clock.pause(); //start the game off paused
+		gamePaused = true; //game is paused
+		gameOver = false; //game is not over
+		//initialize arraylists
+		subjects = new ArrayList<Subject>();
+		helpers = new ArrayList<Helper>();
+		drawableEntities = new ArrayList<DrawableEntity>();
+		towersOnMap = new ArrayList<Tower>();
+		//we start on wavenumber
+		waveNumber = wNumber;
+		
+		//we start with the money before any is spend
+		waveStartMoney = gamePlayer.getMoney();
+		waveStartLives = gamePlayer.getLives();
+		waveStartPoint = gamePlayer.getCredit();
+		//default tower to build
+		selectedTowerToBuild = "None";
+
+		//add into a list of helpers (currently for UML diagram)
+		helpers.add(artist);
+		helpers.add(clock);
+		bNone.doClick(); //start by having no tower selected
+	}
+	
     /**
      * sets the JFrame that the game is displayed on
      * @param mFrame
      */
-	
     public void setMainFrame(JFrame mFrame){
 		mainFrame = mFrame;
 	}
@@ -256,6 +359,28 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
   		}
   		
   	}
+  	
+ // Save the current game.
+  	/**
+  	 * Save the current game.
+  	 * @return booleanValue
+  	 */
+ 	private boolean saveGame(){
+
+ 		int returnVal = fc.showDialog(this, "Save");
+ 		if(returnVal == JFileChooser.APPROVE_OPTION){ //if they choose to save, save it
+			File file = fc.getSelectedFile();
+			String mapFile = file.getPath()+".TDMap";
+			String gameFile = file.getPath() + ".GInfo";
+			// Save map first
+			tdMap.writeMaptoFile(mapFile);
+			// save other game info
+			GameSaveHelper sgh = new GameSaveHelper(gameFile, "name", waveNumber, waveStartMoney, waveStartLives, gamePlayer.getCredit(), towersOnMap);
+			sgh.saveGame();
+			
+		}
+ 		return true;
+ 	}
 
   	public void setPlaybackSpeed(){
 		clock.setDeltaTime(1);
@@ -324,6 +449,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				doReturnToMainMenu();
 			}else if(arg0.getSource() == bStartWave ){
 				doStartWave();
+			}else if(arg0.getSource() == bSaveGame ){
+				doSaveGame();
 			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread || arg0.getSource() ==bNone){
 				doSelectTower(arg0);
 			}else if(arg0.getSource() == bUpgrade){
@@ -359,8 +486,13 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			clock.unPause();
 			gamePaused =false;
 			bStartWave.setEnabled(false);
+			bSaveGame.setEnabled(false);
 			startNewWave();
 		}
+	
+	private void doSaveGame(){
+		saveGame();
+	}
 		
 		//when upgrade is clicked
 		private void doUpgrade(){
@@ -440,7 +572,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}
 			this.getControlPanel().setTowerLogLabelText(logText);
 		}
-
+	
+	
 	//This method is called from the click handler when we get a click at a point
 
 	/**
@@ -519,7 +652,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		towersOnMap.add(t);
 		drawableEntities.add(t);
 		this.updateInfoLabelText();
-		Draw();
+		Draw();	
 	}
 	
 	private void updateSelectedTowerInfoAndButtons(){
@@ -683,6 +816,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				//if no critters are left, allow the player to start a new wave
 				if(anyCrittersLeft == false){
 					bStartWave.setEnabled(true);
+					bSaveGame.setEnabled(true);
 				}
 				//if it isn't Game Over, then update the information labels.
 				if(!gameOver){
@@ -719,11 +853,6 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	    	gamePlayer.setLives(waveStartLives);
 	    	gamePlayer.setMoney(waveStartMoney);
 	    }
-	
-	
-	
-
-
 
 	
 }

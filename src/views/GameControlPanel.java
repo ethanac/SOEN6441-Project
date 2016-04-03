@@ -61,6 +61,7 @@ public class GameControlPanel extends JPanel  {
 	//our general control panel will have general info (lives, money)
 	//this also includes main menu button, pausing, speeding up game, etc.
 	JButton bStartWave = new JButton("Start Wave!");
+	JButton bSaveGame = new JButton("Save game"); // new button
 	JLabel lblInfo = new JLabel("| Lives = " + ", Money = " + ", Points =  " + ", Wavenumber =  |");
 	JButton bPause = new JButton("Pause");
 	JButton bReturn = new JButton("Main Menu");
@@ -119,6 +120,7 @@ public class GameControlPanel extends JPanel  {
 		generalControlPanel.add(bCritInfo);
 		generalControlPanel.add(cbStrategy);
 		generalControlPanel.add(bStartWave);
+		generalControlPanel.add(bSaveGame);
 		generalControlPanel.add(lblInfo);
 		generalControlPanel.add(bPause);
 		generalControlPanel.add(bReturn);
@@ -200,10 +202,19 @@ public class GameControlPanel extends JPanel  {
     /**
      *	Getter of start wave button
      *  Interface for future build, to be continue
-     *  @return null
+     *  @return bStartWave
      */
     public JButton getStartWaveButton(){
 		return bStartWave;
+	}
+    
+    /**
+     *	Getter of save game button
+     *  New 
+     *  @return bSaveGame
+     */
+    public JButton getSaveGameButton(){ 
+		return bSaveGame;   // new
 	}
 
     /**

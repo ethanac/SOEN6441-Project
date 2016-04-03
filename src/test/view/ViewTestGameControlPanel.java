@@ -104,16 +104,16 @@ public class ViewTestGameControlPanel {
 		}
 	}
 
-	/**
-	 * test SetTowerInfoLabelText
-	 */
-	@Test
-	public void testSetTowerInfoLabelText() {
-		for(int i=0; i<100; i++){
-			Agcp.get(i).setTowerInfoLabelText(info[i%5]);
-			assertEquals(info[i%5], Agcp.get(i).getTowerInfo());
-		}
-	}
+//	/**
+//	 * test SetTowerInfoLabelText
+//	 */
+//	@Test
+//	public void testSetTowerInfoLabelText() {
+//		for(int i=0; i<100; i++){
+//			Agcp.get(i).setTowerInfoLabelText(info[i%5]);
+//			assertEquals(info[i%5], Agcp.get(i).getTowerInfo());
+//		}
+//	}
 	
 	/**
 	 * test SetInfoLabelText
@@ -245,13 +245,13 @@ public class ViewTestGameControlPanel {
 		}
     }
     
-    /**
-     * test getSpeedSlider.
-     * For build 2 speedSlider is null.
-     */
-    public void testGetSpeedSlider() {
-    		for(int i=0; i<100; i++){
-			assertNull(Agcp.get(i).getSpeedSlider());
-		}
-    }
+//    /**
+//     * test getSpeedSlider.
+//     * For build 2 speedSlider is null.
+//     */
+//    public void testGetSpeedSlider() {
+//    		for(int i=0; i<100; i++){
+//			assertNull(Agcp.get(i).getSpeedSlider());
+//		}
+//    }
 }

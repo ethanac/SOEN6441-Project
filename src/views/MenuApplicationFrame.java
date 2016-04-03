@@ -3,6 +3,14 @@ package views;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,7 +20,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import helpers.GameLoadHelper;
+import models.Critter;
+import models.MapTile;
+import models.Point;
 import models.TDMap;
+import models.Tower;
+import models.Tower_Fire;
+import models.Tower_IceBeam;
+import models.Tower_Laser;
+import models.Tower_SpreadShot;
 
 /**
  *  This class refers to the Main Menu of the Tower Defense game.
@@ -46,15 +63,20 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
     public static final int TIMEOUT = 30 ;
 
 	final JFileChooser fc = new JFileChooser();
+	final JFileChooser gameFc = new JFileChooser();
 	JPanel mainPanel = new JPanel();
 	JButton bPlay = new JButton("Play a game");
 	JButton bCreateMap = new JButton("Edit a map");
 	JButton bQuit = new JButton("Quit");
 	JButton bLoadMap = new JButton("Load a map");
 	JButton bDefault = new JButton("Default");
+	JButton bLoadGame = new JButton("Load a game");
 	TDMap mapToLoad;
+	String fPath = "";  // file path of the game info.
+	boolean ifLoad = false;
+	ArrayList<Tower> towersOnMap = new ArrayList<Tower>();
 	JLabel lblMapToLoad = new JLabel("MAP: Default");
-
+	
 	
     /**
      *  Default Constructor to initialize the Main Menu to the stereotypical menu.
@@ -66,6 +88,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		bQuit.addActionListener(this);
 		bLoadMap.addActionListener(this);
 		bDefault.addActionListener(this);
+		bLoadGame.addActionListener(this);
 		mapToLoad = new TDMap("src/res/Try1.TDMap"); //set default map
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "TDMap");
 		fc.setFileFilter(filter);
@@ -79,7 +102,10 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == bPlay){
 				this.dispose();
-				new GameApplicationFrame(mapToLoad);
+				if(!ifLoad)
+					new GameApplicationFrame(mapToLoad);
+				else
+					new GameApplicationFrame(mapToLoad, fPath);
 			}else if(e.getSource() == bCreateMap){
 				this.dispose();
 				new MapEditorApplicationFrame(mapToLoad);
@@ -99,8 +125,33 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 				this.setMapName("Default");
 				mapToLoad = new TDMap("src/res/Try1.TDMap");
 				bDefault.setEnabled(false);
+			}else if(e.getSource() == bLoadGame){
+				// Firstly load the map.
+				int returnVal = gameFc.showOpenDialog(this); 
+		        if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            String filePath = gameFc.getSelectedFile().getPath();
+		            fPath = filePath;
+		            mapToLoad = new TDMap(filePath.substring(0, filePath.length()-5)+"TDMap");
+		            this.setMapName(filePath);
+		            bDefault.setEnabled(true);
+		            ifLoad = true;
+		        }
+					
 			}
+		}
+	
+	/**
+	 * builds a tower t and puts it in the drawable entities to be drawn.
+	 * @param t  Tower to draw
+	 */
+	private void buildTower(Tower t){
+		towersOnMap.add(t);
+//		drawableEntities.add(t);
+//		this.updateInfoLabelText();
+//		Draw();
+		
 	}
+	
 		
 	/**
 	 * 	Initialize the Main Menu of the game
@@ -116,6 +167,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		mainPanel.add(bPlay);
 		mainPanel.add(bCreateMap);
 		mainPanel.add(bLoadMap);
+		mainPanel.add(bLoadGame);   // new
 		mainPanel.add(bQuit);
 		mainPanel.add(lblMapToLoad);
 		mainPanel.add(bDefault);
