@@ -96,7 +96,9 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		bLoadGame.addActionListener(this);
 		mapToLoad = new TDMap("src/res/Try1.TDMap"); //set default map
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "TDMap");
+		FileNameExtensionFilter gfilter = new FileNameExtensionFilter("Game Info Files", "GInfo");
 		fc.setFileFilter(filter);
+		gameFc.setFileFilter(gfilter);
 	}
 
     /**
