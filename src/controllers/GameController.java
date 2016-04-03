@@ -959,34 +959,6 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	    	gamePlayer.setMoney(waveStartMoney);
 	    }
 
-		 /*
-	      * Ends the game by disabling buttons, and pausing the clock.
-	      */
-			private void endGame(){
-				gameOver = true;
-				gamePaused =true;
-				clock.pause();
-				this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
-				disableAllGameButtons();
-			}
-			/*
-			 * disables all of the game buttons
-			 */
-			private void disableAllGameButtons(){
-				bStartWave.setEnabled(false);
-				bPause.setEnabled(false);
-				bUpgrade.setEnabled(false);
-				bSell.setEnabled(false);
-				cbStrategies.setEnabled(false);
-			}
-				/*
-			     * resets the player's stats (so that a new game can be started with the same instance
-			    */
-			    private void resetPlayerWaveStats() {
-			    	gamePlayer.setLives(waveStartLives);
-			    	gamePlayer.setMoney(waveStartMoney);
-			    }
-
 			public static int getWaveNumber(){
 				return waveNumber;
 
