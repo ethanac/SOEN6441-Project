@@ -46,6 +46,10 @@ public abstract class Tower implements DrawableEntity{
 	private Timestamp updateTime1;
 	private Timestamp updateTime2;
 	private Timestamp updateTime3;
+	private long ct;
+	private long t1 = -1;
+	private long t2 = -1;
+	private long t3 = -1;
 	 
 	
     /**
@@ -62,7 +66,8 @@ public abstract class Tower implements DrawableEntity{
 		strategy = new Closest();
 		enabled = true;
 		selected = false;
-		createTime = new Timestamp(System.currentTimeMillis());
+		ct = System.currentTimeMillis();
+		createTime = new Timestamp(ct);
 		
 	}
 	
@@ -334,6 +339,7 @@ public abstract class Tower implements DrawableEntity{
      * upgrade the towers values and level
      */
     public void upgradeTower(){
+    	long time = System.currentTimeMillis();
     	//upgrades the tower based on properties
 		if(level == 1){
 			level = level + 1;
@@ -342,7 +348,8 @@ public abstract class Tower implements DrawableEntity{
 			rateOfFire = rateOfFire + level;
 			sellPrice = sellPrice*2;
 			range = (int)(1.5*range);
-			updateTime1 =  new Timestamp(System.currentTimeMillis());
+			t1 = time;
+			updateTime1 =  new Timestamp(time);
 		}else if(level == 2){
 			level = level + 1;
 			upCost = upCost*3;
@@ -350,7 +357,8 @@ public abstract class Tower implements DrawableEntity{
 			rateOfFire = rateOfFire + level;
 			sellPrice = sellPrice*2;
 			range = (int)(1.5*range);
-			updateTime2 =  new Timestamp(System.currentTimeMillis());
+			t2 = time;
+			updateTime2 =  new Timestamp(time);
 		}else if(level == 3){
 			level = level + 1;
 			upCost = upCost*3;
@@ -358,11 +366,26 @@ public abstract class Tower implements DrawableEntity{
 			rateOfFire = rateOfFire + level;
 			sellPrice = sellPrice*2;
 			range = (int)(1.5*range);
-			updateTime3 =  new Timestamp(System.currentTimeMillis());
+			t3 = time;
+			updateTime3 =  new Timestamp(time);
 		}
-		
-
 	}
+    
+    /**
+     * Set update times using time info read from a file.
+     * @param order
+     * @param time
+     */
+    public void setUpgradTimes(int order, long time){
+    	if(order == 0)
+    		createTime = new Timestamp(time);
+    	else if(order == 1)
+    		updateTime1 = new Timestamp(time);
+    	else if(order == 2)
+    		updateTime2 = new Timestamp(time);
+    	else
+    		updateTime3 = new Timestamp(time);
+    }
     
     /**
      * Show the tower info at the game control panel
@@ -374,7 +397,6 @@ public abstract class Tower implements DrawableEntity{
      * 
      * @return result
      */
-
     public String toString1(){
 		String result = "";
 		String level = "";
@@ -389,6 +411,11 @@ public abstract class Tower implements DrawableEntity{
 		
 		return result;
 	}
+    
+    /**
+     * Get the log text of the tower.
+     * @return result
+     */
     public String toString2(){
 		String result = "";
 		String createTime = "";
@@ -424,7 +451,7 @@ public abstract class Tower implements DrawableEntity{
     	String towerP = position.getX() + ":" + position.getY();
     	String name = this.getName();
     	String level = this.getLevel()+"";
-    	result = towerP+","+name+","+level;
+    	result = towerP+","+name+","+level + "," + ct + ":" + t1 + ":" + t2 + ":" + t3;
     	
     	return result;
     }

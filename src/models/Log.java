@@ -17,11 +17,11 @@ import views.GameApplicationFrame;
   
 public class Log { 
 	
-	Date date = new Date();   //»ñÈ¡µ±Ç°Ê±¼ä  
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //¶¨ÒåÎÄ¼þÄÚÈÝÊ±¼ä¸ñÊ½  
-	String formatDate = sdf.format(date);   //°Ñµ±Ç°Ê±¼äÒÔ¶¨ÒåµÄ¸ñÊ½ ¸ñÊ½»¯  
-    String name = "D:/"+GameApplicationFrame.APP_NAME+".txt";   //»ñµÃÎÄ¼þÃû  
-	
+	Date date = new Date();   //ï¿½ï¿½È¡ï¿½ï¿½Ç°Ê±ï¿½ï¿½  
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ê½  
+	String formatDate = sdf.format(date);   //ï¿½Ñµï¿½Ç°Ê±ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ä¸ï¿½Ê½ ï¿½ï¿½Ê½ï¿½ï¿½  
+    //String name = "D:/"+GameApplicationFrame.APP_NAME+".txt";   //ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½  
+	String name = "/Users/Ethan/Desktop/"+ GameApplicationFrame.APP_NAME + ".txt";
 	
     
     public void createFile() throws ParseException, IOException{  
@@ -29,7 +29,7 @@ public class Log {
     	   File f = new File(name);
     	   f.delete();
     	   RandomAccessFile out_rand = new RandomAccessFile(name,"rw"); 
-    	   out_rand.writeBytes(formatDate + " Game Started! \n");  //Ð´ÈëÊ±¼ä  
+    	   out_rand.writeBytes(formatDate + " Game Started! \n");  //Ð´ï¿½ï¿½Ê±ï¿½ï¿½  
     	   out_rand.close();  
        }catch (IOException e) {   
            e.printStackTrace();   
@@ -39,11 +39,11 @@ public class Log {
     
     public void startWave() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " Wave " + GameController.getWaveNumber() + " start! \n");   
             randomFile.close();   
@@ -53,11 +53,11 @@ public class Log {
     }   
     public void endWave() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " Wave " + GameController.getWaveNumber() + " end! \n");   
             randomFile.close();   
@@ -68,11 +68,11 @@ public class Log {
     
     public void buildTower() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);  
             randomFile.writeBytes(formatDate + " The " + GameController.selectedTowerToBuild() + " Tower has been build. " +"\n");   
             randomFile.close();   
@@ -84,11 +84,11 @@ public class Log {
     
     public void updateTower() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " The " + GameController.getUpdateTowerName() + " Tower at " + GameController.getUpdateTowerPosition() + " has been updated to level " + (GameController.getUpdateTowerLevel()+1) + "\n ");   
             randomFile.close();   
@@ -99,11 +99,11 @@ public class Log {
 
     public void sellTower() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " The " + GameController.getSellTowerName() + " Tower at " + GameController.getSellTowerPosition() + " has been sold.\n ");   
             randomFile.close();   
@@ -113,11 +113,11 @@ public class Log {
     }
     public void pause() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " Game paused.\n ");   
             randomFile.close();   
@@ -128,11 +128,11 @@ public class Log {
     
     public void replay() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " Game restart.\n ");   
             randomFile.close();   
@@ -143,11 +143,11 @@ public class Log {
     
     public void endGame() throws ParseException, IOException{  
     	try {   
-            // ´ò¿ªÒ»¸öËæ»ú·ÃÎÊÎÄ¼þÁ÷£¬°´¶ÁÐ´·½Ê½   
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ê½   
             RandomAccessFile randomFile = new RandomAccessFile(name, "rw");   
-            // ÎÄ¼þ³¤¶È£¬×Ö½ÚÊý   
+            // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ö½ï¿½ï¿½ï¿½   
             long fileLength = randomFile.length();   
-            // ½«Ð´ÎÄ¼þÖ¸ÕëÒÆµ½ÎÄ¼þÎ²¡£   
+            // ï¿½ï¿½Ð´ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¼ï¿½Î²ï¿½ï¿½   
             randomFile.seek(fileLength);   
             randomFile.writeBytes(formatDate + " Game Over.\n ");   
             randomFile.close();   

@@ -32,6 +32,7 @@ public class GameLoadHelper {
 	private TDMap map;
 	private ArrayList<Critter> crittersInWave;
 	private ArrayList<Integer> prices;
+	private ArrayList<String> times;
 	
 	/**
 	 * Constructor
@@ -50,6 +51,7 @@ public class GameLoadHelper {
 		pArray = new ArrayList<Point>();
 		prices = new ArrayList<Integer>();
 		file = new File(fileName);
+		times = new ArrayList<String>();
 		this.map = map;
 	}
 	
@@ -110,6 +112,14 @@ public class GameLoadHelper {
 	}
 	
 	/**
+	 * Getter of update times.
+	 * @return times
+	 */
+	public ArrayList<String> getTimes(){
+		return times;
+	}
+	
+	/**
 	 * Save game info like wave number, money, lives and towers to file.
 	 */
 	public void loadGame(){
@@ -118,6 +128,7 @@ public class GameLoadHelper {
  		String towerName = "";
  		String pos = "";
  		String tlevel = "";
+ 		String upTimes = "";
 		try{
  			Scanner sc = new Scanner(new BufferedReader(new FileReader(file)));
  			waveNumber = Integer.parseInt(sc.nextLine());
@@ -130,11 +141,12 @@ public class GameLoadHelper {
  	 			pos = tInfo[0];
  	 			towerName = tInfo[1];
  	 			tlevel = tInfo[2];
+ 	 			upTimes = tInfo[3];
  				xPos = Integer.parseInt(pos.split(":")[0]);
  				yPos = Integer.parseInt(pos.split(":")[1]);
  				pArray.add(new Point(xPos, yPos));
  				level = Integer.parseInt(tlevel);
-
+ 				times.add(upTimes);
  				getTowerInfo(xPos, yPos, towerName, level);
  			}
  			sc.close();

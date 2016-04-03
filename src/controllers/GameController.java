@@ -214,8 +214,16 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				doUpgrade();
 				gamePlayer.setMoney(m);
 			}
+			String[] times = loadHelper.getTimes().get(i).split(":");
+			for(int k = 0; k < times.length; k++){
+				if(times[k] == "-1")
+					break;
+				selectedTower.setUpgradTimes(k, Long.parseLong(times[k]));
+			}
+			
 			waveStartMoney = gamePlayer.getMoney();
 			updateInfoLabelText();
+			updateTowerLogText();
 		}
 	}
 
