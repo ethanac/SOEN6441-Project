@@ -49,13 +49,15 @@ public class GameApplicationFrame extends JFrame {
      */
     public static final int TIMEOUT = 30;                          		
 	GameController gameController;
+	private String userName = "";
 		
     /**
      *	Constructor of GameApplicationFrame
      *  @param tdMap
      */
-    public  GameApplicationFrame(TDMap tdMap){
+    public  GameApplicationFrame(TDMap tdMap, String uname){
 		gameController = new GameController(tdMap);
+		gameController.setUserName(uname);
 		init();
 		gameController.setMainFrame(this);
 	}
@@ -64,8 +66,9 @@ public class GameApplicationFrame extends JFrame {
      *	Constructor of GameApplicationFrame
      *  @param tdMap
      */
-    public  GameApplicationFrame(TDMap tdMap, String fPath){
+    public  GameApplicationFrame(TDMap tdMap, String fPath, String uname){
 		gameController = new GameController(tdMap, fPath);
+		gameController.setUserName(uname);
 		init();
 		gameController.setMainFrame(this);
 	}
@@ -85,7 +88,8 @@ public class GameApplicationFrame extends JFrame {
 		add(controlPanel);
 		
 		setSize(PIXELWIDTH,PIXELHEIGHT);	
-		setTitle(APP_NAME);       												
+		//setTitle(APP_NAME); 
+		setTitle(APP_NAME + ": " + gameController.getUserName());
 		this.setResizable(false);
 		//set the x button as the default close operation
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);					
@@ -93,7 +97,5 @@ public class GameApplicationFrame extends JFrame {
 		setVisible(true);
 		
 	}
-
-
 
 }

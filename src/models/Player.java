@@ -16,6 +16,7 @@ public class Player {
 	private int lives = STARTINGLIVES;
 	private int money = STARTINGMONEY;
 	private int credit = STARTINGCREDIT;
+	private String userName = "";
 	//and we apply singleton pattern to ensure only one player
 	private static Player playerInstance = new Player();
 	
@@ -34,7 +35,15 @@ public class Player {
     public static Player getInstance(){
 		return playerInstance;
 	}
-
+    
+    /**
+     * Get the user name.
+     * @return userName
+     */
+    public String getName(){
+    	return userName;
+    }
+    
     /**
      * The method to get the life value of this player.
      * 
@@ -88,6 +97,14 @@ public class Player {
     public void setCredit(int c){
 		credit = c;
 	}
+    
+    /**
+     * Set the user name.
+     * @param name
+     */
+    public void setUserName(String name){
+    	userName = name;
+    }
 
     /**
      * The method to add some money to the money of this player

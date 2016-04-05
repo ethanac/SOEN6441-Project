@@ -22,7 +22,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.io.IOException;
 import java.text.ParseException;
 
 
@@ -146,7 +145,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 	private static String sellTowerPosition;
 
-
+	private String userName = "";
 
     /**
      * @param map   This takes a TDMap object as the map on
@@ -323,7 +322,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		gamePlayer.setMoney(money);
 		gamePlayer.setLives(lives);
 		gamePlayer.setCredit(credit);
-
+		gamePlayer.setUserName(userName);
+		
 		clock.pause(); //start the game off paused
 		gamePaused = true; //game is paused
 		gameOver = false; //game is not over
@@ -1002,5 +1002,21 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				sellTowerPosition = "(" + sellTowerPositionX + ", " + sellTowerPositionY + ")";
 				return sellTowerPosition;
 			}
+		
+		/**
+		 * Set user name.
+		 * @param uName
+		 */
+		public void setUserName(String uName){
+			this.userName = uName;
+		}
+		
+		/**
+		 * Get user name.
+		 * @return userName
+		 */
+		public String getUserName(){
+			return this.userName;
+		}
 
 }

@@ -109,10 +109,10 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == bPlay){
 				this.dispose();
-				if(!ifLoad)
-					new GameApplicationFrame(mapToLoad);
-				else
-					new GameApplicationFrame(mapToLoad, fPath);
+//				if(!ifLoad)
+//					new GameApplicationFrame(mapToLoad);
+//				else
+					new UserFrame(mapToLoad, fPath);
 				Log start = new Log();
 				try {
 					start.createFile();
@@ -156,18 +156,6 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 
 			}
 		}
-
-	/**
-	 * builds a tower t and puts it in the drawable entities to be drawn.
-	 * @param t  Tower to draw
-	 */
-	private void buildTower(Tower t){
-		towersOnMap.add(t);
-//		drawableEntities.add(t);
-//		this.updateInfoLabelText();
-//		Draw();
-
-	}
 
 
 	/**
