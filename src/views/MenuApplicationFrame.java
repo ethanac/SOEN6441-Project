@@ -109,10 +109,7 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == bPlay){
 				this.dispose();
-//				if(!ifLoad)
-//					new GameApplicationFrame(mapToLoad);
-//				else
-					new UserFrame(mapToLoad, fPath);
+				new UserFrame(mapToLoad, fPath);
 				Log start = new Log();
 				try {
 					start.createFile();
