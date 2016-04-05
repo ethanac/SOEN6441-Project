@@ -66,6 +66,8 @@ public class TDMap implements DrawableEntity{
     //used to test address of TDMap,deletable after testing
 	public boolean existedMapPath;
 	
+	//Map name
+	public String mapName = "";
 
     /**
      * This is the constructor without parameter.

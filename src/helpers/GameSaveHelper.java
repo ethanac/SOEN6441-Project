@@ -21,6 +21,7 @@ public class GameSaveHelper {
 	private int credit = 0;
 	private ArrayList<Tower> towers;
 	private File file;
+	private String mapName = "";
 	
 	/**
 	 * Constructor
@@ -29,13 +30,14 @@ public class GameSaveHelper {
 		towers = new ArrayList<Tower>();
 	}
 	
-	public GameSaveHelper(String fileName, String name, int waveNumber, int lives, int money, int credit, ArrayList<Tower> t){
+	public GameSaveHelper(String fileName, String name, int waveNumber, int lives, int money, int credit, String mapname, ArrayList<Tower> t){
 		file = new File(fileName);
 		this.name = name;
 		this.waveNumber = waveNumber;
 		this.lives = lives;
 		this.money = money;
 		this.credit = credit;
+		this.mapName = mapname;
 		towers = t;
 	}
 	
@@ -90,6 +92,7 @@ public class GameSaveHelper {
  			out.println(this.money);
  			out.println(this.lives);
  			out.println(this.credit);
+ 			out.println(this.mapName);
  			for(Tower t : towers){
  				newInfo = t.infoToSave();
  				out.println(newInfo);
@@ -98,7 +101,7 @@ public class GameSaveHelper {
  			out.close();
  		}
  		catch(IOException e){
- 			System.out.print("hehe");
+ 			System.out.print("save helper error.");
  		}
 	}
 }

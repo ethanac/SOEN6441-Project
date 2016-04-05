@@ -22,10 +22,12 @@ import java.util.Scanner;
  *
  */
 public class GameLoadHelper {
+	public static final int TOP_NUMBER = 5;
 	private int waveNumber = 0;
 	private int lives = 10;
 	private int money = 0;
 	private int credit = 0;
+	private String mapName = "";
 	private ArrayList<Tower> towers;
 	private ArrayList<Point> pArray;
 	private File file;
@@ -33,6 +35,8 @@ public class GameLoadHelper {
 	private ArrayList<Critter> crittersInWave;
 	private ArrayList<Integer> prices;
 	private ArrayList<String> times;
+	private ArrayList<String> topUser;
+	private ArrayList<Integer> topScore;
 	
 	/**
 	 * Constructor
@@ -52,6 +56,8 @@ public class GameLoadHelper {
 		prices = new ArrayList<Integer>();
 		file = new File(fileName);
 		times = new ArrayList<String>();
+		topUser = new ArrayList<String>(TOP_NUMBER);
+		topScore = new ArrayList<Integer>(TOP_NUMBER);
 		this.map = map;
 	}
 	
@@ -87,6 +93,14 @@ public class GameLoadHelper {
 		return credit;
 	}
 	
+	/**
+	 * Getter of map name.
+	 * @return mapName
+	 */
+	public String getMapName(){
+		return mapName;
+	}
+	
 	/** 
 	 * Getter of an array list of towers
 	 * @return towers
@@ -120,6 +134,22 @@ public class GameLoadHelper {
 	}
 	
 	/**
+	 * Getter of top users.
+	 * @return topUser
+	 */
+	public ArrayList<String> getTopUser(){
+		return topUser;
+	}
+	
+	/**
+	 * Getter of top socores.
+	 * @return topScore
+	 */
+	public ArrayList<Integer> getTopScore(){
+		return topScore;
+	}
+	
+	/**
 	 * Save game info like wave number, money, lives and towers to file.
 	 */
 	public void loadGame(){
@@ -129,12 +159,15 @@ public class GameLoadHelper {
  		String pos = "";
  		String tlevel = "";
  		String upTimes = "";
+ 		File topFile;
 		try{
  			Scanner sc = new Scanner(new BufferedReader(new FileReader(file)));
+ 			
  			waveNumber = Integer.parseInt(sc.nextLine());
  			lives = Integer.parseInt(sc.nextLine());
  			money = Integer.parseInt(sc.nextLine());
  			credit = Integer.parseInt(sc.nextLine());
+ 			mapName = sc.nextLine();
  			
  			while(sc.hasNextLine() && (newline = sc.nextLine()) != null){
  				String[] tInfo = newline.split(",");
@@ -150,9 +183,17 @@ public class GameLoadHelper {
  				getTowerInfo(xPos, yPos, towerName, level);
  			}
  			sc.close();
+ 			topFile = new File(mapName + ".topf");
+ 			Scanner top5 = new Scanner(new BufferedReader(new FileReader(topFile)));
+ 			while(top5.hasNextLine() && (newline = top5.nextLine()) != null){
+ 				String[] record = newline.split(":");
+ 				topUser.add(record[0]);
+ 				topScore.add(Integer.parseInt(record[1]));
+ 			}
+ 			top5.close();
  		}
  		catch(IOException e){
- 			System.out.print("hehe");
+ 			System.out.print("load helper error.");
  		}
 	}
  		

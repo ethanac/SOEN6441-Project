@@ -15,13 +15,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 
 
@@ -35,6 +39,8 @@ import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -49,6 +55,7 @@ import views.GameApplicationFrame;
 import views.GameControlPanel;
 import views.MapPanel;
 import views.MenuApplicationFrame;
+import views.TopListFrame;
 
 /**
  *  This is the main Game Controller, as the name suggests.
@@ -127,7 +134,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 	// file chooser for saving game.
 	JFileChooser fc = new JFileChooser("F:/workspace/SOEN6441-Project-master/src/res");
-
+	JFileChooser scoreFc = new JFileChooser();
 	GameLoadHelper loadHelper;
 
 
@@ -146,6 +153,10 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	private static String sellTowerPosition;
 
 	private String userName = "";
+	private final int TOP_NUMBER = 5;
+	
+	private ArrayList<String> topUser = new ArrayList<String>(5);
+	private ArrayList<Integer> topScore = new ArrayList<Integer>(5);
 
     /**
      * @param map   This takes a TDMap object as the map on
@@ -156,7 +167,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		setPanelAndButtonProperties();
 		setInitialValues();
 		this.tdMap = map;
-
+		getTopList();
+		
 		artist.setGridHeight(map.getGridHeight());
 		artist.setGridWidth(map.getGridWidth());
 		//add the map back into the drawable entities
@@ -185,6 +197,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		loadHelper.loadGame();
 		setInitialValues(loadHelper.getWaveNumber(), loadHelper.getLives(), loadHelper.getMoney(), loadHelper.getCredit());
 		this.tdMap = map;
+		tdMap.mapName = loadHelper.getMapName();
+		getTopList();
 
 		artist.setGridHeight(map.getGridHeight());
 		artist.setGridWidth(map.getGridWidth());
@@ -322,6 +336,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		gamePlayer.setMoney(money);
 		gamePlayer.setLives(lives);
 		gamePlayer.setCredit(credit);
+		
 		gamePlayer.setUserName(userName);
 		
 		clock.pause(); //start the game off paused
@@ -406,7 +421,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			// Save map first
 			tdMap.writeMaptoFile(mapFile);
 			// save other game info
-			GameSaveHelper sgh = new GameSaveHelper(gameFile, "name", waveNumber, waveStartMoney, waveStartLives, gamePlayer.getCredit(), towersOnMap);
+			GameSaveHelper sgh = new GameSaveHelper(gameFile, "name", waveNumber, waveStartMoney, waveStartLives, gamePlayer.getCredit(), tdMap.mapName, towersOnMap);
 			sgh.saveGame();
 
 		}
@@ -947,7 +962,9 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		gamePaused =true;
 		clock.pause();
 		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
+		saveTopList();
 		disableAllGameButtons();
+		new TopListFrame(topUser, topScore);
 	}
 	/*
 	 * disables all of the game buttons
@@ -1018,5 +1035,84 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		public String getUserName(){
 			return this.userName;
 		}
-
+		
+		/**
+		 * Check if this user's score is in the top 5.
+		 */
+		private void ifTop5(){
+			if(topUser.size() > 0 && topUser.get(0) != null){
+				int bound = TOP_NUMBER;
+				if(topUser.size() < TOP_NUMBER)
+					bound = topUser.size();
+				for(int i = 0; i < bound; i++){
+					if(gamePlayer.getCredit() >= topScore.get(i)){				
+						topScore.add(i, gamePlayer.getCredit());
+						topUser.add(i, this.userName);
+						break;
+					}
+					else if(i == bound -1){
+						topScore.add(gamePlayer.getCredit());
+						topUser.add(this.userName);
+					}
+				}
+					
+			}
+			else{
+				topScore.add(gamePlayer.getCredit());
+				topUser.add(this.userName);
+			}
+		}
+		
+		/**
+		 * Save the top score list to file.
+		 */
+		private void saveTopList(){
+			ifTop5();
+			String record = "";
+			File topFile = new File(tdMap.mapName + ".topf");
+			for(int i = 0; i < TOP_NUMBER; i++){
+				if(i < topUser.size())
+					record += topUser.get(i) + ":" + topScore.get(i) + "\n";
+				else
+					break;
+			}
+			try {
+				if(topFile.exists() && !topFile.isDirectory())
+					Files.write(Paths.get(topFile.getPath()), record.getBytes());
+				else if(!topFile.exists()){
+					topFile.createNewFile();
+					Files.write(Paths.get(topFile.getPath()), record.getBytes(), StandardOpenOption.APPEND);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		/**
+		 * Get top 5 list.
+		 */
+		private void getTopList(){
+			String newline = "";
+			File topFile = new File(tdMap.mapName + ".topf");
+			if(topFile.exists()){
+	 			Scanner top5;
+				try {
+					top5 = new Scanner(new BufferedReader(new FileReader(topFile)));
+					while(top5.hasNextLine() && (newline = top5.nextLine()) != null){
+		 				String[] record = newline.split(":");
+		 				topUser.add(record[0]);
+		 				topScore.add(Integer.parseInt(record[1]));
+		 			}
+		 			top5.close();
+	//	 			for(int i = 0; i< topUser.size(); i++){
+	//	 				System.out.println(topUser.get(i) + " " + topScore.get(i));
+	//	 			}
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
+			else;
+		}
 }

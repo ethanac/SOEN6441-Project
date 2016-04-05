@@ -11,6 +11,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.security.Timestamp;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -36,6 +42,9 @@ import models.TDMap;
  */
 public class MapEditorController extends MapPanel implements ActionListener, MouseListener {
 
+	//Constants
+	private final String LOG_EDITED = "Map has been edited.";
+	private final String LOG_CREATED = "Map has been created.";
 	//declare game specific variables
 
     /**
@@ -157,9 +166,24 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 			if(validateMap()){
 			if(returnVal ==JFileChooser.APPROVE_OPTION){ //if they choose to save, save it
 				File file = fc.getSelectedFile();
+				File logFile = new File(file.getPath() + ".maplog");
+				String logText = "";
 				//we write it to a file
 				tdMap.writeMaptoFile(file.getPath() +".TDMap");
+				try {
+					if(logFile.exists() && !logFile.isDirectory()){
+						logText = new Date(System.currentTimeMillis()).toString() + ": " + LOG_EDITED + "\n";
+					    Files.write(Paths.get(logFile.getPath()), logText.getBytes(), StandardOpenOption.APPEND);
+					}
+					else if(!logFile.exists()){
+						logFile.createNewFile();
+						logText = new Date(System.currentTimeMillis()).toString() + ": " + LOG_CREATED + "\n";
+						Files.write(Paths.get(logFile.getPath()), logText.getBytes(), StandardOpenOption.APPEND);
+					}
+				}catch (IOException ioe) {
+					ioe.printStackTrace();
 				}
+			}
 			}
 		}
 		//bSelectStart forces user to select the start point

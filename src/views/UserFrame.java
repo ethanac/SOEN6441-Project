@@ -40,7 +40,6 @@ public class UserFrame extends JFrame implements ActionListener{
 	JTextField tField = new JTextField("YourName",30);
 	
 	private String title = "User name";
-	private GameController gc;
 	private String fPath = "";
 	private TDMap mapToLoad;
 	
