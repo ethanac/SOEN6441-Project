@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
  * @author Meng Yao
  * @author Xingjian Zhang
  * 
- * @version 1.0.0
+ * @version 3.0.0
  */
 public class MapEditorApplicationFrame extends JFrame{
 
@@ -39,7 +39,6 @@ public class MapEditorApplicationFrame extends JFrame{
   
     public static final String APP_NAME = "Map Editor";
 
-   
     public static final int TIMEOUT = 30;
 	private MapControlPanel controlPanel;
 	private MapPanel mapPanel;
@@ -83,9 +82,4 @@ public class MapEditorApplicationFrame extends JFrame{
 		setVisible(true);
 		
 	}
-	
-	
-
-
-
 }

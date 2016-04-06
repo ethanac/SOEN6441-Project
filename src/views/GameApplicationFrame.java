@@ -21,7 +21,7 @@ import java.util.ArrayList;
  *	It creates a game controller and initialize the main game frame.
  * 
  * 	@author Xingjian Zhang
- *  @version 1.0.0
+ *  @version 3.0.0
  */
 public class GameApplicationFrame extends JFrame {
 

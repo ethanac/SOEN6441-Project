@@ -461,24 +461,44 @@ public abstract class Tower implements DrawableEntity{
     	return result;
     }
 
+    /**
+     * This method is to get updateTime3
+     * @return updateTime3
+     */
     private Timestamp getUpdateTime3() {
 		return updateTime3;
 	}
 
+    /**
+     * This method is to get updateTime2
+     * @return updateTime2
+     */
 	private Timestamp getUpdateTime2() {
 		
 		return updateTime2;
 	}
 
+	/**
+     * This method is to get updateTime1
+     * @return updateTime1
+     */
 	private Timestamp getUpdateTime1() {
 		
 		return updateTime1;
 	}
 
+	/**
+     * This method is to get CreateTime
+     * @return createTime
+     */
 	private Timestamp getCreateTime() {
 		return createTime;
 	}
 
+	/**
+	 * This method is to get damage
+	 * @return damage
+	 */
 	public double getDamage(){	
 		return damage;
 	}

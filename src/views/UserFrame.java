@@ -19,6 +19,7 @@ import models.TDMap;
  * This class is used for getting user name from the user.
  * The user name is passed to GameController.
  * @author Hao Zhang
+ * @version 3.0.0
  *
  */
 public class UserFrame extends JFrame implements ActionListener{

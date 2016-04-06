@@ -12,6 +12,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
 
+/**
+ * This method is to display frame of top5 list
+ * @author Zhoujian Lan
+ * @version 3.0.0
+ *
+ */
 public class TopListFrame extends JFrame implements ActionListener{
 
 	private final int TOP_NUMBER = 5;
@@ -26,7 +32,11 @@ public class TopListFrame extends JFrame implements ActionListener{
 	ArrayList<Integer> topScore;
 	private String title = "Top 5";
 	
-	
+	/**
+	 * frame of top list
+	 * @param users
+	 * @param scores
+	 */
 	public TopListFrame(ArrayList<String> users, ArrayList<Integer> scores){
 		topUser = users;
 		topScore = scores;
@@ -34,11 +44,18 @@ public class TopListFrame extends JFrame implements ActionListener{
 		bClose.addActionListener(this);
 	}
 	
+	/**
+	 * Get and respond to an action
+	 * @param e
+	 */
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == bClose)
 			this.dispose();
 	}
 	
+	/**
+	 * initialization
+	 */
 	private void init(){
 	
 		getTopList();

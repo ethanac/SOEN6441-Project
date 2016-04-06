@@ -16,6 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * This method is to create a frame of viewing log
+ * @author Zhoujian Lan
+ * @version 3.0.0
+ *
+ */
 public class LogViewFrame extends JFrame implements ActionListener{
 	JFrame mainFrame = new JFrame();
 	JPanel mainPanel = new JPanel();
@@ -38,6 +44,10 @@ public class LogViewFrame extends JFrame implements ActionListener{
 		bViewByWave.addActionListener(this);
 	}
 	
+	/**
+	 * Get and respond to an action
+	 * @param e
+	 */
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == bViewAll){
 			getLog("all");
@@ -57,6 +67,9 @@ public class LogViewFrame extends JFrame implements ActionListener{
 		}
 	}
 	
+	/**
+	 * initialization
+	 */
 	public void init(){
 		sp.setBounds(20,30, 100, 40);
 		sp.setVisible(true);
@@ -81,6 +94,10 @@ public class LogViewFrame extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	
+	/**
+	 * This method is to get log
+	 * @param option
+	 */
 	public void getLog(String option){
 		try{
 			log.setText("");

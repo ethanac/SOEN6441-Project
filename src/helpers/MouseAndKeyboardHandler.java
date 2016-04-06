@@ -44,18 +44,30 @@ public class MouseAndKeyboardHandler extends Helper implements MouseListener, Mo
 			gameController.reactToLeftClick(new Point(event.getX(),event.getY()));
 		}
 	}
-	
+	/**
+	 * @param event
+	 */
 	public void mousePressed(MouseEvent event){}
 	
+	/**
+	 * @param event 
+	 */
 	public void mouseReleased(MouseEvent event){}
 	
+	/**
+	 * @param event
+	 */
 	public void mouseEntered(MouseEvent event){}
-		
+	
+	/**
+	 * @param event
+	 */
 	public void mouseExited(MouseEvent event){}
 	
 	//edit
 	/**
-	 * check whether the mouse is moved 
+	 * check whether the mouse is moved
+	 * @param event 
 	 */
 	public void mouseMoved(MouseEvent event){
 		//we want to let the game controller know if the mouse is moved
@@ -63,5 +75,8 @@ public class MouseAndKeyboardHandler extends Helper implements MouseListener, Mo
 
 	}
 
+	/**
+	 * @param event
+	 */
 	public void mouseDragged(MouseEvent event){}
 }

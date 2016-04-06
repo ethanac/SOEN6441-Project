@@ -42,7 +42,7 @@ import models.Tower_SpreadShot;
  *  to create a new game map according to his preference.
  *
  *  @author Xingjian Zhang
- *  @version 1.0.0
+ *  @version 3.0.0
  */
 public class MenuApplicationFrame extends JFrame implements ActionListener{
 
@@ -200,6 +200,11 @@ public class MenuApplicationFrame extends JFrame implements ActionListener{
 		this.repaint();
 	}
 
+    /**
+     * get name of map
+     * @param name
+     * @return name
+     */
     public String getMapName(String name){
     	return name;
     }

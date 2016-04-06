@@ -25,7 +25,7 @@ import models.Tower_SpreadShot;
  *  and <code>generalControlPanel</code>
  * 	
  *  @author Xingjian Zhang
- *  @version 1.0.0
+ *  @version 3.0.0
  */
 public class GameControlPanel extends JPanel  {
 	private final int buttonSize = 90;
@@ -278,7 +278,4 @@ public class GameControlPanel extends JPanel  {
    public JButton getCritterInfoButton(){
    	return this.bCritInfo;
    }
-
-
-
 }
