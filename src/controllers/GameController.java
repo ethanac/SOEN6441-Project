@@ -169,6 +169,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		this.tdMap = map;
 		getTopList();
 		
+		
 		artist.setGridHeight(map.getGridHeight());
 		artist.setGridWidth(map.getGridWidth());
 		//add the map back into the drawable entities
@@ -183,6 +184,9 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		MouseAndKeyboardHandler handler = new MouseAndKeyboardHandler(this);
 		gamePanel.addMouseListener(handler);
 		gamePanel.addMouseMotionListener(handler);
+		JFrame list = new TopListFrame(topUser, topScore);
+		list.setAlwaysOnTop(true);
+		list.repaint();
 	}
 
   /**
@@ -238,6 +242,9 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			updateInfoLabelText();
 			updateTowerLogText();
 		}
+		JFrame list = new TopListFrame(topUser, topScore);
+		list.setAlwaysOnTop(true);
+		list.repaint();
 	}
 
     /**
