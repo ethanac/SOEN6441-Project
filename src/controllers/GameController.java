@@ -53,6 +53,7 @@ import strategies.Weakest;
 //import strategies.*;
 import views.GameApplicationFrame;
 import views.GameControlPanel;
+import views.LogViewFrame;
 import views.MapPanel;
 import views.MenuApplicationFrame;
 import views.TopListFrame;
@@ -88,6 +89,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	private JButton bReturn;
 	private JButton bStartWave;
 	private JButton bSaveGame;
+	private JButton bViewLog;
 	private JToggleButton bSpread;
 	private JToggleButton bFire;
 	private JToggleButton bIceBeam;
@@ -264,6 +266,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		bStartWave.addActionListener(this);
 		bSaveGame = this.getControlPanel().getSaveGameButton();
 		bSaveGame.addActionListener(this);
+		bViewLog = this.getControlPanel().getViewLogButton();
+		bViewLog.addActionListener(this);
 		bSpread = this.getControlPanel().getSpreadButton();
 		bSpread.addActionListener(this);
 		bFire = this.getControlPanel().getFireButton();
@@ -546,6 +550,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}else if(arg0.getSource() == bViewLog){
+				doViewLog();
 			}else if(arg0.getSource() == bUpgrade){
 				doUpgrade();
 				Log update = new Log();
@@ -603,6 +609,10 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 	private void doSaveGame(){
 		saveGame();
+	}
+	
+	private void doViewLog(){
+		new LogViewFrame();
 	}
 
 		//when upgrade is clicked
@@ -1112,9 +1122,6 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		 				topScore.add(Integer.parseInt(record[1]));
 		 			}
 		 			top5.close();
-	//	 			for(int i = 0; i< topUser.size(); i++){
-	//	 				System.out.println(topUser.get(i) + " " + topScore.get(i));
-	//	 			}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

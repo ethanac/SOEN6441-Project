@@ -2,8 +2,6 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -15,7 +13,7 @@ import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
 
 public class TopListFrame extends JFrame implements ActionListener{
-	private final int NUMBEROFSPACE = 10;
+
 	private final int TOP_NUMBER = 5;
 	JFrame mainFrame = new JFrame();
 	JPanel mainPanel = new JPanel();
