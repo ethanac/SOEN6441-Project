@@ -23,7 +23,7 @@ import views.GameControlPanel;
  *  The test for GameControlPanel class in the view package.
  * 
  *	@author HaoZhang
- *	@version 1.1.0
+ *	@version 3.0.0
  */
 public class ViewTestGameControlPanel {
 	private ArrayList<GameControlPanel> Agcp = new ArrayList<>();
@@ -32,7 +32,7 @@ public class ViewTestGameControlPanel {
 			"I am the Tower Info 3",
 			"I am the Tower Info 4",
 			"I am the Tower Info 5"
-};
+			};
 
 	/**
 	 *  Initializing an ArrayList of TDMap.

@@ -18,7 +18,7 @@ import views.MapControlPanel;
  *  The test for MapControlPanel class in the view package.
  * 
  *	@author HaoZhang
- *	@version 1.1.0
+ *	@version 3.0.0
  */
 public class ViewTestMapControlPanel {
 	
@@ -33,7 +33,7 @@ public class ViewTestMapControlPanel {
 						"I am string 3",
 						"I am string 4",
 						"I am string 5"
-	};
+						};
 	
 	/**
 	 *  Initializing an ArrayList of TDMap.
