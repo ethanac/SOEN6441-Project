@@ -59,7 +59,7 @@ public class ModelTestTDMap {
 	public void testInvalidMapPath(){
 		
 		assertFalse(testTDMap2.existedMapPath);
-		
+
 	}
 	
 	/**
