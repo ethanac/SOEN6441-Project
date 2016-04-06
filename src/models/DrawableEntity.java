@@ -7,7 +7,7 @@ import java.awt.Graphics;
  * This is so that all entities have an updateAndDraw() method, for chronology.
  * 
  * @author HaoZhang
- * @version v1.0.0
+ * @version 3.0.0
  */
 public interface DrawableEntity {
 

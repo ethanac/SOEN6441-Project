@@ -7,7 +7,7 @@ import java.time.*;
  * @author Meng Yao
  * @author Zhoujian Lan 
  * 
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class GameClock extends Helper {
 	//dTime is the amount of time that occurs per tick. E.g. to pause game, dTime = 0
@@ -24,7 +24,7 @@ public class GameClock extends Helper {
 
     /**
      *Getter of an instance
-     * @return
+     * @return clock
      */
     	public static GameClock getInstance(){
 		return clock;
@@ -33,7 +33,7 @@ public class GameClock extends Helper {
 
     /**
      *Getter of deltaTime
-     * @return
+     * @return dTime
      */
     	public int deltaTime(){
 		return dTime;

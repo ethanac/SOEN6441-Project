@@ -4,7 +4,7 @@ package models;
  * This class defines the position of a grid using a pair of x and y.
  * 
  * @author HaoZhang
- * @version v1.0.0
+ * @version 3.0.0
  */
 public class Point {
 	private int x;

@@ -6,7 +6,7 @@ package helpers;
 * @author Meng Yao
 * @author Zhoujian Lan
 * 
-* @version 2.0.0
+* @version 3.0.0
 */
 public class Helper {
 	//this is an empty class that was used as a box for our UML diagram.

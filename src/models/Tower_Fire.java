@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * It extends the Tower class.
  * 
  * @author HaoZhang
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class Tower_Fire extends Tower {
 	//properties for the fire tower

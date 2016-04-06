@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *  @author MengYao 
  *  @author Zhoujian Lan
  *  
- *  @version 1.0.0
+ *  @version 3.0.0
  */
 public class Artist_Swing extends Helper{
 	
@@ -262,11 +262,5 @@ public class Artist_Swing extends Helper{
 		g2d.setStroke(new BasicStroke(2));
 		//and we draw the line
 		g2d.drawLine(tow.getPosX() +tileWidth/2, tow.getPosY() + tileHeight/2, crit.getPixelPosition().getX() + crit.getSize()/2, crit.getPixelPosition().getY() + crit.getSize()/2);
-	}
-	
-
-    
-	
-
-	
+	}	
 }

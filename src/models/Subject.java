@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * This class is designed for future function related to Observer.
  * 
  * @author HaoZhang
- * @version v1.0.0
+ * @version 3.0.0
  */
 public abstract class Subject {
 	ArrayList<IObserver> observers = new ArrayList<IObserver>();

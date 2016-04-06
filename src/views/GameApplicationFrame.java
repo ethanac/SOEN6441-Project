@@ -49,7 +49,6 @@ public class GameApplicationFrame extends JFrame {
      */
     public static final int TIMEOUT = 30;                          		
 	GameController gameController;
-	private String userName = "";
 		
     /**
      *	Constructor of GameApplicationFrame

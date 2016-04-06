@@ -18,7 +18,7 @@ import java.util.LinkedList;
  * @author Meng Yao
  * @author Zhoujian Lan
  * 
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class TDMap implements DrawableEntity{
 	//final variables
@@ -66,6 +66,8 @@ public class TDMap implements DrawableEntity{
     //used to test address of TDMap,deletable after testing
 	public boolean existedMapPath;
 	
+	//Map name
+	public String mapName = "";
 
     /**
      * This is the constructor without parameter.
@@ -369,22 +371,21 @@ public class TDMap implements DrawableEntity{
         end2= j;
         setAsPath(i,j);
     }
-
-
-/**
-*
-* This method will return true if the Map is connected, and false
-* otherwise.
-* The way it is implemented is by applying a BREADTH-FIRST search algorithm
-* from the starting cell and then checking if the ending cell has been
-* explored or not. If the ending cell has been explored, then the PATH is
-* valid. This BFS also explores the shortest path from the End Cell to the
-* Start Cell to get rid of Loops.
-* This method also initializes the boolean isMapValid to a T/F value.
-* 
-* @return isMapValid If the path on the map connects the start point and the end point, return true;
-* 					 Otherwise, return false.
-*/
+    
+    /**
+    *
+    * This method will return true if the Map is connected, and false
+    * otherwise.
+    * The way it is implemented is by applying a BREADTH-FIRST search algorithm
+    * from the starting cell and then checking if the ending cell has been
+    * explored or not. If the ending cell has been explored, then the PATH is
+    * valid. This BFS also explores the shortest path from the End Cell to the
+    * Start Cell to get rid of Loops.
+    * This method also initializes the boolean isMapValid to a T/F value.
+    * 
+    * @return isMapValid If the path on the map connects the start point and the end point, return true;
+    * 					 Otherwise, return false.
+    */
     public boolean verifyMap(){
         LinkedList<Integer> explored= new LinkedList<>();
         LinkedList<Integer> frontier= new LinkedList<>();

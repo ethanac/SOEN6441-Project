@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * It extends the Tower class.
  * 
  * @author HaoZhang
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class Tower_Laser extends Tower{
 	static int buyCost = 200;
@@ -42,6 +42,4 @@ public class Tower_Laser extends Tower{
     public static int getBuyPrice(){	
 		return buyCost;
 	}
-
-	
 }

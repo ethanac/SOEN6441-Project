@@ -19,6 +19,7 @@ import strategies.*;
  * Set the basic info for Towers
  * 
  * @author Hao Zhang
+ * @version 3.0.0
  * 
  */
 public abstract class Tower implements DrawableEntity{
@@ -284,7 +285,11 @@ public abstract class Tower implements DrawableEntity{
 		return critterDistance;
 	}
 	
-	//checking if a critter is in range of a tower
+	/**
+	 * checking if a critter is in range of a tower
+	 * @param a
+	 * @return
+	 */
 	private boolean inRange(Critter a){
 		boolean result = true;
 		//finds the distance between a creep and a tower.
@@ -477,6 +482,4 @@ public abstract class Tower implements DrawableEntity{
 	public double getDamage(){	
 		return damage;
 	}
-	
-
 }

@@ -18,22 +18,24 @@ import controllers.GameController;
  *@author Meng Yao
  *@author Zhoujian Lan
  *
- *@version 2.0.0
+ *@version 3.0.0
  */
 public class MouseAndKeyboardHandler extends Helper implements MouseListener, MouseMotionListener{
 	
 	//we need to know the gameController that we are helping
 	private GameController gameController;
-		
-    /**
-     *
-     * @param gameController
-     */
+	
+	/**
+	 * 
+	 * @param gameController
+	 */
     public MouseAndKeyboardHandler(GameController gameController){
     	//we set the gameController
 		this.gameController = gameController;
 	}
-    //on mouse click, we alert the game controller
+    /**
+     * on mouse click, we alert the game controller
+     */
 	public void mouseClicked(MouseEvent event){
 		//we also want to let the game controller know if it was left or right
 		if(SwingUtilities.isRightMouseButton(event)){
@@ -60,7 +62,7 @@ public class MouseAndKeyboardHandler extends Helper implements MouseListener, Mo
 		gameController.reactToMouseMove(new Point(event.getX(),event.getY()));
 
 	}
-	
+
 	public void mouseDragged(MouseEvent event){}
 
 }

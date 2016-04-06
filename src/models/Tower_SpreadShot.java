@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * It extends the tower class.
  * 
  * @author HaoZhang
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class Tower_SpreadShot extends Tower {
 	private int amountOfTargets = 3;
@@ -76,5 +76,4 @@ public class Tower_SpreadShot extends Tower {
     public static int getBuyPrice(){	
 		return buyCost;
 	}
-
 }

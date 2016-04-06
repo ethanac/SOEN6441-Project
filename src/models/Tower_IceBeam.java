@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * It extends the Tower class.
  * 
  * @author HaoZhang
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class Tower_IceBeam extends Tower {
 	//properties for the ice beam tower
@@ -69,5 +69,4 @@ public class Tower_IceBeam extends Tower {
 			this.slowFactor = this.slowFactor + 0.1;
     	}
     }
-
 }

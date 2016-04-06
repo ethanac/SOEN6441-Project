@@ -6,6 +6,9 @@ import java.awt.Color;
 /**
  * The Cyan critter.
  * Circle critter is average, run of the mill critter
+ * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 
 public class Critter_Cyan extends Critter{
@@ -33,6 +36,4 @@ public class Critter_Cyan extends Critter{
 		name = "Circle Critter";
 		cColor = Color.CYAN;
 	}
-
-	
 }

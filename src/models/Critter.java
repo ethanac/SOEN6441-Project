@@ -9,6 +9,9 @@ import java.util.ArrayList;
 /**
  * Critter abstract class from which all critters extend. Has certain attributes and methods including 
  * taking a step, getting damaged, etc.
+ * 
+ * @author Zhoujian Lan 
+ * @version 3.0.0
  */
 
 public abstract class Critter extends Subject implements DrawableEntity {
@@ -130,7 +133,6 @@ public abstract class Critter extends Subject implements DrawableEntity {
      * The integer index of pixel path.
      */
     protected int intIndexInPixelPath;
-
 
     /**
      * The constructor of Critter.
@@ -472,6 +474,8 @@ public abstract class Critter extends Subject implements DrawableEntity {
 	
 	/**
 	 * Moves the critter to a given position and draws it as it moves.
+	 * @param index
+	 * @param g
 	 */
 	private void moveAndDrawCritter(int index, Graphics g){
 		//if we have not moved, we just draw the critter (if paused for instance)
@@ -513,43 +517,38 @@ public abstract class Critter extends Subject implements DrawableEntity {
 				this.notifyObs();
 			}
 	}
+    	
+    	/**
+         * Slow the critter.
+         * @param sFactor  The slow factor.
+         * @param sTime  The lasting time.
+         */
+        public void slowCritter(double sFactor, int sTime){
+        	//set the slow factor and slow time
+    		this.setSlowFactor(sFactor);
+    		this.slowTime = sTime;
+    	}
 
-    /**
-     * Slow the critter.
-     * @param sFactor  The slow factor.
-     * @param sTime  The lasting time.
-     */
-    public void slowCritter(double sFactor, int sTime){
-    	//set the slow factor and slow time
-		this.setSlowFactor(sFactor);
-		this.slowTime = sTime;
-	}
-
-    /**
-     * Set DOT amount and DOT time.
-     * @param dot  The value of DOT.
-     * @param damageOverTimeLength  The value of DOT time.
-     */
-    public void damageOverTimeCritter(double dot, int damageOverTimeLength) {
-    	//set the damage over time factor and time
-		this.setDOTAmount(dot);
-		this.dotTime = damageOverTimeLength;
-		
-	}
-	
-	/**
-	 * Convert the health points and regen to string.
-	 * @return result  Return the string of hp and regen.
-	 */
-	public String toString(){
-		String result = "";
-		result += "\nHP: " + currHitPoints + "/" + maxHitPoints + "\n";
-		result += "Regen = " + this.regen + "\n";
-		return result;
-	}
-
-
-
-
-	
+        /**
+         * Set DOT amount and DOT time.
+         * @param dot  The value of DOT.
+         * @param damageOverTimeLength  The value of DOT time.
+         */
+        public void damageOverTimeCritter(double dot, int damageOverTimeLength) {
+        	//set the damage over time factor and time
+    		this.setDOTAmount(dot);
+    		this.dotTime = damageOverTimeLength;
+    		
+    	}
+    	
+    	/**
+    	 * Convert the health points and regen to string.
+    	 * @return result  Return the string of hp and regen.
+    	 */
+    	public String toString(){
+    		String result = "";
+    		result += "\nHP: " + currHitPoints + "/" + maxHitPoints + "\n";
+    		result += "Regen = " + this.regen + "\n";
+    		return result;
+    	}
 }

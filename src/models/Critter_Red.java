@@ -6,6 +6,9 @@ import java.awt.Color;
 /**
  * The red critter.
  * Red Critters are weak. 
+ * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 
 public class Critter_Red extends Critter{

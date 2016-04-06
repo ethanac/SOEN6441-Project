@@ -5,7 +5,7 @@ package models;
  *  Applying singleton pattern to ensure there is only one player at any time.
  *  
  *  @author HaoZhang
- *  @version v1.0.0
+ *  @version 3.0.0
  */
 public class Player {
 	//Final constants (changed for balancing game)
@@ -166,7 +166,7 @@ public class Player {
      * The value of money is set to STARTINGMONEY.
      */
     public void resetStats(){
-    	//reset the stats of the player
+    	//reset the states of the player
 		lives = STARTINGLIVES;
 		money = STARTINGMONEY;
 		credit = STARTINGCREDIT;
