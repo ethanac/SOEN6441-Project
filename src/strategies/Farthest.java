@@ -9,12 +9,13 @@ import models.Tower;
 /**
  *
  * finds the Critter that is farthest along the path
- * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 public class Farthest implements IStrategy {
 
     /**
-     *
+     * This method is to find farthest critter target
      * @param tower
      * @param g1
      * @return
@@ -35,6 +36,10 @@ public class Farthest implements IStrategy {
         }
        return(farthest_enemy);
 	}
+    
+    /**
+     * @return "Farthest"
+     */
 	public String toString(){
 		return "Farthest";
 	}

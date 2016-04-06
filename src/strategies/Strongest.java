@@ -9,12 +9,14 @@ import models.Tower;
 /**
  *
  * finds the strongest enemy
+ * @author Zhoujian Lan 
+ * @version 3.0.0
  * 
  */
 public class Strongest implements IStrategy {
 
     /**
-     *
+     * This method is to find strongest critter target
      * @param tower
      * @param g1
      * @return
@@ -38,6 +40,9 @@ public class Strongest implements IStrategy {
        return(strongest_enemy);				 	 // Tower attacks this critter
 		
 	}
+    /**
+     * return "Strongest"
+     */
 	public String toString(){
 		return "Strongest";
 	}

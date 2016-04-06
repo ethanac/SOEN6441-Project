@@ -9,12 +9,13 @@ import models.Tower;
 /**
  *
  * finds the weakest enemy
- * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 public class Weakest implements IStrategy {
 
     /**
-     *
+     * This method is to find weakest critter target
      * @param tower
      * @param g1
      * @return
@@ -37,9 +38,12 @@ public class Weakest implements IStrategy {
         }
         
        // System.out.println(weakest_enemy);
-       return(weakest_enemy);				 	 // Tower attacks this critter
-		
+       return(weakest_enemy);				 	 // Tower attacks this critter	
 	}
+    
+    /**
+     * @return "Weakest"
+     */
 	public String toString(){
 		return "Weakest";
 	}

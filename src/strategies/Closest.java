@@ -8,7 +8,8 @@ import models.Tower;
 
 /**
  * finds the target based on who is closest
- * 
+ * @author Zhoujian Lan 
+ * @version 3.0.0
  */
 public class Closest implements IStrategy {
 
