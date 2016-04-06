@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.text.StyledDocument;
 
 public class TopListFrame extends JFrame implements ActionListener{
 	private final int NUMBEROFSPACE = 10;
@@ -19,10 +21,13 @@ public class TopListFrame extends JFrame implements ActionListener{
 	JPanel mainPanel = new JPanel();
 	JPanel controlPanel = new JPanel();
 	JTextArea topList = new JTextArea();
+	JTextPane listPane = new JTextPane();
+	StyledDocument doc = listPane.getStyledDocument();
 	JButton bClose = new JButton("close");
 	ArrayList<String> topUser;
 	ArrayList<Integer> topScore;
 	private String title = "Top 5";
+	
 	
 	public TopListFrame(ArrayList<String> users, ArrayList<Integer> scores){
 		topUser = users;
@@ -39,6 +44,7 @@ public class TopListFrame extends JFrame implements ActionListener{
 	private void init(){
 	
 		getTopList();
+		
 		mainPanel.setDoubleBuffered(true);
 		mainPanel.add(topList);
 		mainPanel.setVisible(true);
@@ -60,19 +66,21 @@ public class TopListFrame extends JFrame implements ActionListener{
 	 * Get the top 5 list.
 	 */
 	private void getTopList(){
-		String list = "Name" + String.format("%" + NUMBEROFSPACE + "s", " ") + "Score\n";
+		topList.append(String.format("%-20s %10s\n\n", "Name", "Score"));
 		if(topUser.size() > 0){
 			for(int i=0; i< TOP_NUMBER; i++){
 				if(i < topUser.size() && topUser.get(i) != null)
-					list += topUser.get(i) + String.format("%" + (NUMBEROFSPACE-topUser.get(i).length()+"name".length()) + "s", " ") + topScore.get(i) +"\n"; 
+					topList.append( String.format("%-20s %10s\n", topUser.get(i), topScore.get(i))); 
 				else
 					break;
 			}
 		}
 		else{
-			list = "No record found!";
+			topList.append( "No record found!");
 		}
-		topList.setText(list);
+		//topList.setText(list);
+		topList.setVisible(true);
 		topList.setEditable(false);
+
 	}
 }
