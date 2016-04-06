@@ -6,6 +6,9 @@ import java.awt.Color;
 /**
  * The boss critter.
  * infinity critter is BOSS critter. Hard to kill, but high rewards.
+ * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 
 public class Critter_Yellow extends Critter{

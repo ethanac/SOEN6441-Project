@@ -49,14 +49,14 @@ public class MouseAndKeyboardHandler extends Helper implements MouseListener, Mo
 	
 	public void mouseReleased(MouseEvent event){}
 	
-	public void mouseEntered(MouseEvent event){
-		
-	}
+	public void mouseEntered(MouseEvent event){}
 		
 	public void mouseExited(MouseEvent event){}
 	
 	//edit
-	
+	/**
+	 * check whether the mouse is moved 
+	 */
 	public void mouseMoved(MouseEvent event){
 		//we want to let the game controller know if the mouse is moved
 		gameController.reactToMouseMove(new Point(event.getX(),event.getY()));
@@ -64,5 +64,4 @@ public class MouseAndKeyboardHandler extends Helper implements MouseListener, Mo
 	}
 
 	public void mouseDragged(MouseEvent event){}
-
 }

@@ -6,6 +6,9 @@ import java.awt.Color;
 /**
  * The white critter.
  * White critter is fast but weak compared to other critters
+ * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 
 public class Critter_White extends Critter{

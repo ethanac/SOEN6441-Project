@@ -11,7 +11,10 @@ import controllers.GameController;
 import views.GameApplicationFrame;  
   
 /** 
+ * This method is to set different kinds of logs
  * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  * 
  */  
   
@@ -22,8 +25,6 @@ public class Log {
 	String formatDate = sdf.format(date);   //�ѵ�ǰʱ���Զ���ĸ�ʽ ��ʽ��  
     //String name = "D:/"+GameApplicationFrame.APP_NAME+".txt";   //����ļ���  
 	String name = "/Users/Ethan/Desktop/"+ GameApplicationFrame.APP_NAME + ".txt";
-	
-    
     public void createFile() throws ParseException, IOException{  
        try{
     	   File f = new File(name);
@@ -33,10 +34,14 @@ public class Log {
     	   out_rand.close();  
        }catch (IOException e) {   
            e.printStackTrace();   
-       }   
-        
+       }    
     }
     
+    /**
+     * set log of startWave
+     * @throws ParseException
+     * @throws IOException
+     */
     public void startWave() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -50,7 +55,13 @@ public class Log {
         } catch (IOException e) {   
             e.printStackTrace();   
         }   
-    }   
+    }
+    
+    /**
+     * Set log of endWave
+     * @throws ParseException
+     * @throws IOException
+     */
     public void endWave() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -66,6 +77,11 @@ public class Log {
         }   
     } 
     
+    /**
+     * set log of buildTower
+     * @throws ParseException
+     * @throws IOException
+     */
     public void buildTower() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -82,6 +98,11 @@ public class Log {
     	
     }  
     
+    /**
+     * set log of updateTower
+     * @throws ParseException
+     * @throws IOException
+     */
     public void updateTower() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -97,6 +118,11 @@ public class Log {
         }   
     }
 
+    /**
+     * set log of sellTower
+     * @throws ParseException
+     * @throws IOException
+     */
     public void sellTower() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -111,6 +137,12 @@ public class Log {
             e.printStackTrace();   
         }   
     }
+    
+    /**
+     * set log of pause
+     * @throws ParseException
+     * @throws IOException
+     */
     public void pause() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -126,6 +158,11 @@ public class Log {
         }   
     }
     
+    /**
+     * set log of replay
+     * @throws ParseException
+     * @throws IOException
+     */
     public void replay() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   
@@ -141,6 +178,11 @@ public class Log {
         }   
     }
     
+    /**
+     * set log of endGame
+     * @throws ParseException
+     * @throws IOException
+     */
     public void endGame() throws ParseException, IOException{  
     	try {   
             // ��һ����������ļ���������д��ʽ   

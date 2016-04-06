@@ -6,6 +6,9 @@ import java.awt.Color;
 /**
  * The orange critter.
  * Critter X is completely resistant to effects from towers. Average apart from that.
+ * 
+ * @author Zhoujian Lan 
+ * @version 3.0.0
  */
 
 public class Critter_Orange extends Critter {

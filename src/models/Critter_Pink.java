@@ -6,6 +6,9 @@ import java.awt.Color;
 /**
  * The pink critter.
  * Pink critter is Strong but slow
+ * 
+ * @author Zhoujian Lan
+ * @version 3.0.0
  */
 
 public class Critter_Pink extends Critter{
