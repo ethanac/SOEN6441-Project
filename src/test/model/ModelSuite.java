@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for model testing
  * 
  * @author Xingjian Zhang
- * @version 1.0.0
+ * @version 3.0.0
  */
 @RunWith(Suite.class)
 @SuiteClasses({ ModelTestTDMap.class, ModelTestTower.class, ModelTestCritter.class })

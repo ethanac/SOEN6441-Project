@@ -25,7 +25,7 @@ import models.TDMap;
  *  The test for Critter class and other classes that extend it in models
  * 
  *	@author Xingjian Zhang
- *	@version 2.0.0
+ *	@version 3.0.0
  */
 public class ModelTestCritter {
 
@@ -321,6 +321,4 @@ public class ModelTestCritter {
 		assertEquals("\nHP: 140.0/140.0\nRegen = 0.0\n", testWhiteCritter.toString());
 		assertEquals("\nHP: 150.0/150.0\nRegen = 2.0\n", testYellowCritter.toString());
 	}
-
-	
 }

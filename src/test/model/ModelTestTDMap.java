@@ -12,7 +12,7 @@ import models.TDMap;;
  *  The test for TDMap class in models
  * 
  *	@author Xingjian Zhang
- *	@version 2.0.0
+ *	@version 3.0.0
  */
 public class ModelTestTDMap {
 
@@ -79,8 +79,6 @@ public class ModelTestTDMap {
 	public void testVerifyMap_valid(){
 
 		assertTrue(testTDMap1.verifyMap()&&testTDMap2.verifyMap());
-
-		
 	}
 	
 	/**
@@ -102,10 +100,7 @@ public class ModelTestTDMap {
 	 */
 	@Test
 	public void testGetPointsOfShortestPath(){
-
 		assertEquals(78,testTDMap1.getPointsOfShortestPath().size());
 		assertEquals(43,testTDMap2.getPointsOfShortestPath().size());
-		
 	}
-	
 }

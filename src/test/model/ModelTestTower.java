@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * The test for Tower class and other classes that extend it in models
  *
  * @author Xingjian Zhang
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class ModelTestTower {
 
@@ -207,7 +207,6 @@ public class ModelTestTower {
 		assertNotNull(iceTower.getStrategy());
 		assertNotNull(laserTower.getStrategy());
 		assertNotNull(spreadTower.getStrategy());
-	
 	}
 
 	/**
@@ -220,7 +219,6 @@ public class ModelTestTower {
 		assertEquals(iceTower.getUpPrice(), 350);
 		assertEquals(laserTower.getUpPrice(), 600);
 		assertEquals(spreadTower.getUpPrice(), 2000);
-	
 	}
 
 	/**
@@ -254,8 +252,7 @@ public class ModelTestTower {
 	public void testSetEnabled(){
 		
 		fireTower.setEnabled(false);
-		assertFalse(fireTower.getEnabled());
-		
+		assertFalse(fireTower.getEnabled());	
 	}
 
 	/**
@@ -277,7 +274,6 @@ public class ModelTestTower {
 		
 		fireTower.upgradeTower();
 		assertEquals(fireTower.getLevel(), 2);
-		
 	}
 
 	/**
@@ -314,8 +310,6 @@ public class ModelTestTower {
 		assertEquals(fireTower.getMaxTowerLevel(),4);
 		assertEquals(iceTower.getMaxTowerLevel(),4);
 		assertEquals(laserTower.getMaxTowerLevel(),4);
-		assertEquals(spreadTower.getMaxTowerLevel(),4);
-		
+		assertEquals(spreadTower.getMaxTowerLevel(),4);	
 	}
-	
 }
