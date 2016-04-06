@@ -138,7 +138,8 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	JFileChooser fc = new JFileChooser("F:/workspace/SOEN6441-Project-master/src/res");
 	JFileChooser scoreFc = new JFileChooser();
 	GameLoadHelper loadHelper;
-
+	
+	private int n = 0;
 
 	private static int sellTowerPositionX;
 	private static int sellTowerPositionY;
@@ -316,7 +317,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		towersOnMap = new ArrayList<Tower>();
 		//we start on wavenumber 0
 		waveNumber = 0;
-
+		n = 0;
 		//we start with the money before any is spent
 		waveStartMoney = gamePlayer.getMoney();
 		waveStartLives = gamePlayer.getLives();
@@ -360,7 +361,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		towersOnMap = new ArrayList<Tower>();
 		//we start on wavenumber
 		waveNumber = wNumber;
-
+		n = wNumber;
 		//we start with the money before any is spend
 		waveStartMoney = gamePlayer.getMoney();
 		waveStartLives = gamePlayer.getLives();
@@ -988,13 +989,16 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				}
 				//if no critters are left, allow the player to start a new wave
 				if(anyCrittersLeft == false){
-					Log waveEnd = new Log();
-					try {
-						waveEnd.endWave();
-					} catch (ParseException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
+					if(n == GameController.waveNumber-1){
+						n++;
+						Log waveEnd = new Log();
+						try {
+							waveEnd.endWave();
+						} catch (ParseException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 					bStartWave.setEnabled(true);
 					bSaveGame.setEnabled(true);
