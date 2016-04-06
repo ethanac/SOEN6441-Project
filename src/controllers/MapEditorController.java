@@ -31,7 +31,7 @@ import models.TDMap;
  *  
  * @author Meng Yao
  * 
- * @version 1.0.0
+ * @version 3.0.0
  *  
  */
 public class MapEditorController extends MapPanel implements ActionListener, MouseListener {
@@ -42,7 +42,7 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
      *  The Map Panel. It deals with tiles, that can either be Path or Tower
      *  tiles.
      */
-    	protected MapPanel mapPanel;
+    protected MapPanel mapPanel;
 
     /**
      *  The Map Control Panel that is displayed at the bottom of the screen.
@@ -102,7 +102,7 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	}
 
     /**
-     *
+     *set main frame
      * @param mFrame
      */
     public void setMainFrame(JFrame mFrame){
@@ -110,23 +110,23 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	}
 	
     /**
-     *
-     * @return
+     * @return controlPanel
      */
     public MapControlPanel getControlPanel(){
 		return controlPanel;
 	}
 
     /**
-     *
-     * @return
+     * 
+     * @return mapPanel
      */
     public MapPanel getPlayPanel(){
 		return mapPanel;
 	}
 	
-	
-	
+    /**
+     * @param e
+     */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//bReturn = go back to main menu.
@@ -181,12 +181,15 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	}
 	
     /**
-     *
+     * This method is to repaint map panel
      */
     public void Draw() {
 		mapPanel.repaint();
 	}
 	
+    /**
+     * @param g
+     */
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -197,22 +200,33 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 	}
 	
     /**
-     *
-     * @return
+     * get tdMap
+     * @return tdMap
      */
     public TDMap getTDMap() {
 		return this.tdMap;
 	}
 
-  //  @Override
+    /**
+     * update tdMap
+     */
+    //  @Override
     public void TDMapUpdated() {
 		Draw();
 	}
 
-  //  @Override
+    /**
+     * reinitialized tdMap
+     */
+    //  @Override
     public void TDMapReinitialized() {
 		TDMapUpdated();
 	}
+    
+    /**
+     * check the map is whether validate
+     * @return
+     */
     private boolean validateMap() {
 		TDMap tdMap = this.getTDMap();
 		if (hasStartPoint() == true && hasEndPoint()== true && tdMap.verifyMap() ) {
@@ -227,7 +241,10 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 
 	}
 
-    
+    /**
+     * This method is to create a map
+     * @param e 
+     */
 	@Override
 	public void mouseClicked(MouseEvent e) {		
 		
@@ -276,6 +293,11 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 		}
 		
 	}
+	
+	/**
+	 * check whether has end point
+	 * @return
+	 */
 	private boolean hasEndPoint() {
 		if(this.countEnd >= 1){
 			return true;
@@ -286,14 +308,18 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 		
 	}
 
-	/*
+	/**
 	 * Checks to see if we have a good start or end point (lying on one edge)
+	 * @param xGridPos yGridPos
 	 */
 	private boolean goodStartOrEnd(int xGridPos, int yGridPos) {
 		//we return true if any of our coordinates are on the boundaries.
 		return (xGridPos == 0 || yGridPos == 0 || xGridPos == tdMap.getGridWidth() -1 || yGridPos == tdMap.getGridHeight() -1);
 	}
-	//Sets the control panel to be enabled or diabled (for setting start or end)
+	/**
+	 * Sets the control panel to be enabled or diabled (for setting start or end)
+	 * @param b
+	 */
 	private void setControlPanelEnabled(boolean b) {
 		Component[] components = this.controlPanel.getComponents();
 		//go through components and disable all of them (except labels)
@@ -303,7 +329,10 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 			}
 		}
 	}
-	
+	/**
+	 * check whether has start point
+	 * @return
+	 */
 	public boolean hasStartPoint(){
 		if(this.countStart >= 1){
 			return true;
@@ -314,21 +343,36 @@ public class MapEditorController extends MapPanel implements ActionListener, Mou
 		
 	}
 
+	/**
+	 * @param e
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * @param e
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * @param e
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * @param e
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub

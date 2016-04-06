@@ -58,7 +58,7 @@ import views.MenuApplicationFrame;
  *
  *  @author Meng Yao
  *
- *  @version 1.0.0
+ *  @version 3.0.0
  *
  */
 public class GameController extends MapPanel implements ActionListener, ChangeListener, ItemListener, IObserver {
@@ -68,7 +68,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
     /**
      *  The Map Panel. It deals with the Tiles, Towers and the Path.
      */
-    	protected MapPanel gamePanel;
+    protected MapPanel gamePanel;
 
     /**
      *  The Game Control Panel that is displayed at the bottom of the screen.
@@ -172,12 +172,12 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		gamePanel.addMouseListener(handler);
 		gamePanel.addMouseMotionListener(handler);
 	}
-
-  /**
-   * Constructor with 2 parameters.
-   * @param map
-   * @param fileName
-   */
+    
+    /**
+     * Constructor with 2 parameters.
+     * @param map
+     * @param fileName
+     */
     public GameController(TDMap map, String fileName)
 	{
 		setPanelAndButtonProperties();
@@ -225,7 +225,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			updateTowerLogText();
 		}
 	}
-
+    
     /**
      * Set panel and buttons.
      */
@@ -355,7 +355,9 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
     public void setMainFrame(JFrame mFrame){
 		mainFrame = mFrame;
 	}
-  //starts a new wave
+    /**
+     * starts a new wave
+     */
   	private void startNewWave(){
   		this.setPlaybackSpeed();
   		//increment the wave number
@@ -391,7 +393,6 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
   	}
 
- // Save the current game.
   	/**
   	 * Save the current game.
   	 * @return booleanValue
@@ -412,14 +413,18 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		}
  		return true;
  	}
-
+ 	
+ 	/**
+ 	 * This method is to set the speed of play back
+ 	 */
   	public void setPlaybackSpeed(){
 		clock.setDeltaTime(1);
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 * @param g
 	 */
 	@Override
 	public void paintComponent(Graphics g){
@@ -433,10 +438,9 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 	}
 
-
-
-
-	//Below are all button click methods: They are called when the buttons are clicked
+	/**
+	 * Below are all button click methods: They are called when the buttons are clicked
+	 */
 	private void doPause(){
 		if(gamePaused == false){
 			clock.pause();
@@ -464,14 +468,19 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}
 		}
 	}
-	//when main menu is clicked
+	/**
+	 * when main menu is clicked
+	 */
 	private void doReturnToMainMenu(){
 		mainFrame.dispose();
 		new MenuApplicationFrame();
 		Player.getInstance().resetStats();
 	}
 
-	//when one of the tower buttons is clicked
+	/**
+	 * when one of the tower buttons is clicked
+	 * @param arg0
+	 */
 	private void doSelectTower(ActionEvent arg0){
 		if(drawableEntities.contains(towerBeingPreviewed)){
 			drawableEntities.remove(towerBeingPreviewed);
@@ -483,9 +492,10 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 	//end of button calls
 
-	/*
+	/**
 	 * This method is called every time the timer times out, or when a button is clicked!(non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 * @param arg0
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -567,10 +577,16 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
 
 	}
+	
+	/**
+	 * This method is to display the information of Critters
+	 */
 	private void doDisplayCritterInfo(){
 		JOptionPane.showMessageDialog(null, Critter.CRITTERMESSAGE, "Critters", JOptionPane.PLAIN_MESSAGE);
 	}
-	//when start wave is clicked
+	/**
+	 * when start wave is clicked
+	 */
 	private void doStartWave(){
 			clock.unPause();
 			gamePaused =false;
@@ -578,49 +594,61 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			bSaveGame.setEnabled(false);
 			startNewWave();
 		}
+	
 
+	/**
+	 * This method is to save game
+	 */
 	private void doSaveGame(){
 		saveGame();
 	}
+	
+	/**
+	 * when upgrade is clicked
+	 */
+	private void doUpgrade(){
+		updateTowerName = this.selectedTower.getName();
+		updateTowerLevel = this.selectedTower.getLevel();
+		updateTowerPositionX = this.selectedTower.getPosX();
+		updateTowerPositionY = this.selectedTower.getPosY();
+		spendMoney(this.selectedTower.getUpPrice());
+		this.selectedTower.upgradeTower();
+		this.updateSelectedTowerInfoAndButtons();
 
-		//when upgrade is clicked
-		private void doUpgrade(){
-			updateTowerName = this.selectedTower.getName();
-			updateTowerLevel = this.selectedTower.getLevel();
-			updateTowerPositionX = this.selectedTower.getPosX();
-			updateTowerPositionY = this.selectedTower.getPosY();
-			spendMoney(this.selectedTower.getUpPrice());
-			this.selectedTower.upgradeTower();
-			this.updateSelectedTowerInfoAndButtons();
-
+	}
+	
+	/**
+	 * when sell is clicked
+	 */
+	private void doSell(){
+		//give the player the money by spending the negative amount.
+		sellTowerName = this.selectedTower.getName();
+		sellTowerPositionX = this.selectedTower.getPosX();
+		sellTowerPositionY = this.selectedTower.getPosY();
+		this.spendMoney((-1)*selectedTower.getSellPrice());
+		//remove this tower from our two lists, and delete it
+		towersOnMap.remove(selectedTower);
+		drawableEntities.remove(selectedTower);
+		selectedTower = null;
+		if(selectedTile != null){
+			selectedTile.setTowerOnTile(null);
 		}
-		//when sell is clicked
-		private void doSell(){
-			//give the player the money by spending the negative amount.
-			sellTowerName = this.selectedTower.getName();
-			sellTowerPositionX = this.selectedTower.getPosX();
-			sellTowerPositionY = this.selectedTower.getPosY();
-			this.spendMoney((-1)*selectedTower.getSellPrice());
-			//remove this tower from our two lists, and delete it
-			towersOnMap.remove(selectedTower);
-			drawableEntities.remove(selectedTower);
-			selectedTower = null;
-			if(selectedTile != null){
-				selectedTile.setTowerOnTile(null);
-			}
-			//update buttons
-			this.updateSelectedTowerInfoAndButtons();
-			this.Draw(); //redraw
-		}
+		//update buttons
+		this.updateSelectedTowerInfoAndButtons();
+		this.Draw(); //redraw
+	}
 
-	//calls the repaint method
+	/**
+	 * calls the repaint method
+	 */
 	private void Draw(){
 		gamePanel.repaint();
 	}
 
-
-
-	//spends a certain amount of money of the Player
+	/**
+	 * spends a certain amount of money of the Player
+	 * @param amount
+	 */
 	private void spendMoney(int amount){
 		gamePlayer.addToMoney((-1)*amount);
 		this.waveStartMoney -=amount;
@@ -628,7 +656,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	}
     /**
      *
-     * @return
+     * @return controlPanel
      */
     public GameControlPanel getControlPanel(){
 		return controlPanel;
@@ -636,16 +664,21 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 
     /**
      *
-     * @return
+     * @return gamePanel
      */
     public MapPanel getPlayPanel(){
 		return gamePanel;
 	}
-    //updates the info text
+    
+    /**
+     * updates the info text
+     */
 	private void updateInfoLabelText(){
 		this.getControlPanel().setInfoLabelText("| Lives = " + gamePlayer.getLives()+ ", Money = " + gamePlayer.getMoney()+ ", Credit = " + gamePlayer.getCredit()+", Wavenumber = " + waveNumber + " |");
 	}
-	//updates the tower info text
+	/**
+	 * updates the tower info text
+	 */
 	private void updateTowerInfoText(){
 		String infoText = "";
 		if(selectedTower != null){ //we print the tower's tostring, and show the prices
@@ -657,18 +690,19 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		}
 		this.getControlPanel().setTowerInfoLabelText(infoText);
 	}
-	//updates the tower Log text
-		private void updateTowerLogText(){
-			String logText = "";
-			if(selectedTower != null){ //we print the tower's tostring, and show the prices
-				logText = selectedTower.toString2();
+	/**
+	 * updates the tower Log text
+	 */
+	private void updateTowerLogText(){
+		String logText = "";
+		if(selectedTower != null){ //we print the tower's tostring, and show the prices
+			logText = selectedTower.toString2();
 
-			}else{
-				logText = "No tower selected";
-			}
-			this.getControlPanel().setTowerLogLabelText(logText);
+		}else{
+			logText = "No tower selected";
 		}
-
+		this.getControlPanel().setTowerLogLabelText(logText);
+	}
 
 	//This method is called from the click handler when we get a click at a point
 
@@ -741,107 +775,106 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			selectedTile = tileAtClick;
 		}
 	}
-	/*
-	 * builds a tower t and puts it in the drawable entities to be drawn.
-	 */
-	private void buildTower(Tower t){
-		towersOnMap.add(t);
-		drawableEntities.add(t);
-		this.updateInfoLabelText();
-		Draw();
-	}
+    	
+    	/**
+    	 * builds a tower t and puts it in the drawable entities to be drawn.
+    	 */
+    	private void buildTower(Tower t){
+    		towersOnMap.add(t);
+    		drawableEntities.add(t);
+    		this.updateInfoLabelText();
+    		Draw();
+    	}
+    	
+    	/**
+    	 * This method is to update selected tower information and buttons
+    	 */
+    	private void updateSelectedTowerInfoAndButtons(){
+    		if(selectedTower != null){
+    			//we only want to enable upgrades if they have enough money and if the tower isn't at max level
+    			if(selectedTower.getLevel() < Tower.getMaxTowerLevel() && gamePlayer.getMoney() >= selectedTower.getUpPrice()){
+    				bUpgrade.setEnabled(true);
+    			}else{
+    				bUpgrade.setEnabled(false);
+    			}
+    			//we always want to enable the sell button.
+    			bSell.setEnabled(true);
+    			cbStrategies.setEnabled(true);
+    			cbStrategies.setSelectedItem(selectedTower.getStrategy().toString());
+    		}else{
+    			bUpgrade.setEnabled(false);
+    			bSell.setEnabled(false); //if there is no tower, don't allow them to sell it.
+    			cbStrategies.setEnabled(false);
+    			bSell.setText("Sell");
+    			bUpgrade.setText("Upgrade");
+    		}
+    		updateTowerInfoText();
+    		updateTowerLogText();
 
-	private void updateSelectedTowerInfoAndButtons(){
-		if(selectedTower != null){
-			//we only want to enable upgrades if they have enough money and if the tower isn't at max level
-			if(selectedTower.getLevel() < Tower.getMaxTowerLevel() && gamePlayer.getMoney() >= selectedTower.getUpPrice()){
-				bUpgrade.setEnabled(true);
-			}else{
-				bUpgrade.setEnabled(false);
-			}
-			//we always want to enable the sell button.
-			bSell.setEnabled(true);
-			cbStrategies.setEnabled(true);
-			cbStrategies.setSelectedItem(selectedTower.getStrategy().toString());
-		}else{
-			bUpgrade.setEnabled(false);
-			bSell.setEnabled(false); //if there is no tower, don't allow them to sell it.
-			cbStrategies.setEnabled(false);
-			bSell.setText("Sell");
-			bUpgrade.setText("Upgrade");
-		}
-		updateTowerInfoText();
-		updateTowerLogText();
+    	}
 
-	}
+    	/**
+        * updates the tower log text
+        * @param point
+        */
+    	public void reactToMouseMove(Point point){
+    		//first, get the point of the grid where we clicked.
+    		double XPixels = tdMap.getGridWidth()*tdMap.tileWidth_Pixel;
+    		double YPixels = tdMap.getGridHeight()*tdMap.tileHeight_Pixel;
+    		double xRatio = ((double)point.getX())/(XPixels);
+    		double yRatio = ((double)point.getY())/(YPixels);
+    		int xGridPos = (int) Math.floor(xRatio * tdMap.getGridWidth());
+    		int yGridPos = (int) Math.floor(yRatio * tdMap.getGridHeight());
+    		//tile at movement
+    		MapTile tileAtClick = tdMap.getTile(xGridPos, yGridPos);
+    		int tileType = tileAtClick.getTileValue();
+    		//make sure it is not a path position,
+    		if(tileType == TDMap.PATH){
+    			//do nothing if it is a path position. (maybe we will add a feature here?)
+    		}else if(tileAtClick.getTowerOnTile() == null){ //If there is no TOWER already at this position, build one
+    			Point adjustedTowerPoint = tdMap.getPosOfBlock_pixel(xGridPos, yGridPos);
+    			Tower towToPreview= null;
+    			//int moneyToSpend = 0;
+    			int playerMoney = gamePlayer.getMoney();
+    			//check which tower we want to place --This could be nicer (if we can somehow get the classtype?)
+    			if(selectedTowerToBuild.equalsIgnoreCase("Spread")){
+    				if(playerMoney >= Tower_SpreadShot.getBuyPrice()){
+    					towToPreview =new Tower_SpreadShot("Spread", adjustedTowerPoint, crittersInWave);
+    				}
+    			}else if(selectedTowerToBuild.equalsIgnoreCase("Fire")){
+    				if(playerMoney >= Tower_Fire.getBuyPrice()){
+    					towToPreview = new Tower_Fire("Fire", adjustedTowerPoint, crittersInWave);
+    				}
+    			}else if(selectedTowerToBuild.equalsIgnoreCase("IceBeam")){
+    				if(playerMoney >= Tower_IceBeam.getBuyPrice()){
+    					towToPreview = new Tower_IceBeam("IceBeam", adjustedTowerPoint, crittersInWave);
+    				}
+    			}else if(selectedTowerToBuild.equalsIgnoreCase("Laser")){
+    				if(playerMoney >= Tower_Laser.getBuyPrice()){
+    					towToPreview = new Tower_Laser("Laser", adjustedTowerPoint, crittersInWave);
+    				}
+    			}else if(selectedTowerToBuild.equalsIgnoreCase("None")){
+    				//no tower = don't do anything.
+    			}else{
+    				System.out.println("Error: No appropriate tower type (coding error)");
+    			}
+    			if(towToPreview!= null){
+    				if(drawableEntities.contains(towerBeingPreviewed)){
+    					drawableEntities.remove(towerBeingPreviewed);
+    				}
+    				towerBeingPreviewed = towToPreview;
+    				Color oldColor = towerBeingPreviewed.getColor();
+    				//System.out.println("Color is " + oldColor.getRed() + ", " + oldColor.getBlue() + ", " + oldColor.getGreen());
+    				Color newColor = new Color(Math.max(oldColor.getRed()-100,0),Math.max(oldColor.getGreen()-100,0),Math.max(oldColor.getBlue()-100,0));
 
-	//updates the tower log text
-
-	/**
-    *
-    * @param point
-    */
-   public void reactToMouseMove(Point point){
-		//first, get the point of the grid where we clicked.
-		double XPixels = tdMap.getGridWidth()*tdMap.tileWidth_Pixel;
-		double YPixels = tdMap.getGridHeight()*tdMap.tileHeight_Pixel;
-		double xRatio = ((double)point.getX())/(XPixels);
-		double yRatio = ((double)point.getY())/(YPixels);
-		int xGridPos = (int) Math.floor(xRatio * tdMap.getGridWidth());
-		int yGridPos = (int) Math.floor(yRatio * tdMap.getGridHeight());
-		//tile at movement
-		MapTile tileAtClick = tdMap.getTile(xGridPos, yGridPos);
-		int tileType = tileAtClick.getTileValue();
-		//make sure it is not a path position,
-		if(tileType == TDMap.PATH){
-			//do nothing if it is a path position. (maybe we will add a feature here?)
-		}else if(tileAtClick.getTowerOnTile() == null){ //If there is no TOWER already at this position, build one
-			Point adjustedTowerPoint = tdMap.getPosOfBlock_pixel(xGridPos, yGridPos);
-			Tower towToPreview= null;
-			//int moneyToSpend = 0;
-			int playerMoney = gamePlayer.getMoney();
-			//check which tower we want to place --This could be nicer (if we can somehow get the classtype?)
-			if(selectedTowerToBuild.equalsIgnoreCase("Spread")){
-				if(playerMoney >= Tower_SpreadShot.getBuyPrice()){
-					towToPreview =new Tower_SpreadShot("Spread", adjustedTowerPoint, crittersInWave);
-				}
-			}else if(selectedTowerToBuild.equalsIgnoreCase("Fire")){
-				if(playerMoney >= Tower_Fire.getBuyPrice()){
-					towToPreview = new Tower_Fire("Fire", adjustedTowerPoint, crittersInWave);
-				}
-			}else if(selectedTowerToBuild.equalsIgnoreCase("IceBeam")){
-				if(playerMoney >= Tower_IceBeam.getBuyPrice()){
-					towToPreview = new Tower_IceBeam("IceBeam", adjustedTowerPoint, crittersInWave);
-				}
-			}else if(selectedTowerToBuild.equalsIgnoreCase("Laser")){
-				if(playerMoney >= Tower_Laser.getBuyPrice()){
-					towToPreview = new Tower_Laser("Laser", adjustedTowerPoint, crittersInWave);
-				}
-			}else if(selectedTowerToBuild.equalsIgnoreCase("None")){
-				//no tower = don't do anything.
-			}else{
-				System.out.println("Error: No appropriate tower type (coding error)");
-			}
-			if(towToPreview!= null){
-				if(drawableEntities.contains(towerBeingPreviewed)){
-					drawableEntities.remove(towerBeingPreviewed);
-				}
-				towerBeingPreviewed = towToPreview;
-				Color oldColor = towerBeingPreviewed.getColor();
-				//System.out.println("Color is " + oldColor.getRed() + ", " + oldColor.getBlue() + ", " + oldColor.getGreen());
-				Color newColor = new Color(Math.max(oldColor.getRed()-100,0),Math.max(oldColor.getGreen()-100,0),Math.max(oldColor.getBlue()-100,0));
-
-				towerBeingPreviewed.setColor(newColor);
-				towerBeingPreviewed.setEnabled(false);
-				drawableEntities.add(towerBeingPreviewed);
-			}
-		}else{ //if there is a tower on this block
-			//don't do anything if there is a tower on the block
-		}
-	}
-
-
-
+    				towerBeingPreviewed.setColor(newColor);
+    				towerBeingPreviewed.setEnabled(false);
+    				drawableEntities.add(towerBeingPreviewed);
+    			}
+    		}else{ //if there is a tower on this block
+    			//don't do anything if there is a tower on the block
+    		}
+    	}
 
 	    /**
 	     *
@@ -870,10 +903,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}
 		}
 
-		/*
+		/**
 		 * (non-Javadoc)
 		 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
-		 *This method is called everytime the slider changes.
+		 * This method is called everytime the slider changes.
+		 * @param e
 		 */
 		@Override
 		public void stateChanged(ChangeEvent e) {
@@ -885,11 +919,11 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 	     *  This will update the game whenever one of the subjects (Critters)of the Game Controller is changed,
 	     *  e.g. if a critter dies or a tower is upgraded.
 	     */
-	    	public void observerUpdate(){
-			if(gamePaused ==false){
-				//we want to reset the wave stats, and then  check each critter to see what happended
-				resetPlayerWaveStats();
-				boolean anyCrittersLeft = false;
+		public void observerUpdate(){
+    		if(gamePaused ==false){
+    			//we want to reset the wave states, and then  check each critter to see what happended
+    			resetPlayerWaveStats();
+    			boolean anyCrittersLeft = false;
 				//go through subjects and see if we have a critter
 				for(Subject s : subjects){
 					if(s instanceof Critter){
@@ -913,7 +947,6 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-
 							}
 						}
 					}
@@ -938,85 +971,114 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				}
 			}
 		}
-
-	 /*
-      * Ends the game by disabling buttons, and pausing the clock.
-      */
-	private void endGame(){
-		gameOver = true;
-		gamePaused =true;
-		clock.pause();
-		this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
-		disableAllGameButtons();
-	}
-	/*
-	 * disables all of the game buttons
-	 */
-	private void disableAllGameButtons(){
-		bStartWave.setEnabled(false);
-		bPause.setEnabled(false);
-		bUpgrade.setEnabled(false);
-		bSell.setEnabled(false);
-		cbStrategies.setEnabled(false);
-	}
-		/*
-	     * resets the player's stats (so that a new game can be started with the same instance
-	    */
-	    private void resetPlayerWaveStats() {
-	    	gamePlayer.setLives(waveStartLives);
-	    	gamePlayer.setMoney(waveStartMoney);
-	    }
-
-			public static int getWaveNumber(){
+		
+		/**
+	     * Ends the game by disabling buttons, and pausing the clock.
+	     */
+		private void endGame(){
+			gameOver = true;
+			gamePaused =true;
+			clock.pause();
+			this.getControlPanel().setInfoLabelText("GAME OVER. You reached wave " + waveNumber + " with Money: " + gamePlayer.getMoney() +", Credits: " + gamePlayer.getCredit());
+			disableAllGameButtons();
+		}
+		/**
+		 * disables all of the game buttons
+		 */
+		private void disableAllGameButtons(){
+			bStartWave.setEnabled(false);
+			bPause.setEnabled(false);
+			bUpgrade.setEnabled(false);
+			bSell.setEnabled(false);
+			cbStrategies.setEnabled(false);
+		}
+		   /**
+		    * resets the player's states (so that a new game can be started with the same instance
+		    */
+		    private void resetPlayerWaveStats() {
+		    	gamePlayer.setLives(waveStartLives);
+		    	gamePlayer.setMoney(waveStartMoney);
+		    }
+		    
+		    /**
+		     * This method is to get wave number
+		     * @return waveNumber
+		     */
+		    public static int getWaveNumber(){
 				return waveNumber;
 
 			}
+		    
+		    /**
+		     * This method is to build selected tower
+		     * @return selectedTowerToBuild
+		     */
 			public static String selectedTowerToBuild() {
 
 				return selectedTowerToBuild;
 			}
 
+			/**
+			 * This method is to get updated tower name
+			 * @return updateTowerName
+			 */
 			public static String getUpdateTowerName() {
 
 				return updateTowerName;
 			}
 
+			/**
+			 * This method is to get sold tower name
+			 * @return sellTowerName
+			 */
 			public static String getSellTowerName() {
 
 				return sellTowerName;
 			}
 
+			/**
+			 * This method is to get updated tower level
+			 * @return updateTowerLevel
+			 */
 			public static int getUpdateTowerLevel() {
 
 				return updateTowerLevel;
 			}
 
+			/**
+			 * This is method is to get updated tower position
+			 * @return updateTowerPosition
+			 */
 			public static String getUpdateTowerPosition() {
 
 				updateTowerPosition = "(" + updateTowerPositionX + ", " + updateTowerPositionY + ")";
 				return updateTowerPosition;
 			}
 
+			/**
+			 * This method is to get sold tower position
+			 * @return sellToerPosition
+			 */
 			public static String getSellTowerPosition() {
 
 				sellTowerPosition = "(" + sellTowerPositionX + ", " + sellTowerPositionY + ")";
 				return sellTowerPosition;
 			}
-		
-		/**
-		 * Set user name.
-		 * @param uName
-		 */
-		public void setUserName(String uName){
-			this.userName = uName;
-		}
-		
-		/**
-		 * Get user name.
-		 * @return userName
-		 */
-		public String getUserName(){
-			return this.userName;
-		}
+			
+			/**
+			 * Set user name.
+			 * @param uName
+			 */
+			public void setUserName(String uName){
+				this.userName = uName;
+			}
+			
+			/**
+			 * Get user name.
+			 * @return userName
+			 */
+			public String getUserName(){
+				return this.userName;
+			}
 
-}
+	}
