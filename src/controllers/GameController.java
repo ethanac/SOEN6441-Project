@@ -551,7 +551,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 				}
 			}else if(arg0.getSource() == bSaveGame ){
 				doSaveGame();
-			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread || arg0.getSource() ==bNone){
+			}else if(arg0.getSource() == bFire || arg0.getSource() == bLaser || arg0.getSource() == bIceBeam || arg0.getSource() == bSpread ){
 				doSelectTower(arg0);
 				Log tower = new Log();
 				try {
