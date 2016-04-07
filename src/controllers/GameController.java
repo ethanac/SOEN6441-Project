@@ -1011,7 +1011,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 			}
 		}
 
-	 /*
+	 /**
       * Ends the game by disabling buttons, and pausing the clock.
       */
 	private void endGame(){
@@ -1023,7 +1023,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		disableAllGameButtons();
 		new TopListFrame(topUser, topScore);
 	}
-	/*
+	/**
 	 * disables all of the game buttons
 	 */
 	private void disableAllGameButtons(){
@@ -1033,7 +1033,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		bSell.setEnabled(false);
 		cbStrategies.setEnabled(false);
 	}
-		/*
+		/**
 	     * resets the player's stats (so that a new game can be started with the same instance
 	    */
 	    private void resetPlayerWaveStats() {
