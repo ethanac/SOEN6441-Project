@@ -58,8 +58,11 @@ public class ModelTestTower {
 		iceTower = new Tower_IceBeam("Ice", p[1], testCritters);
 		laserTower = new Tower_Laser("Laser", p[2], testCritters);
 		spreadTower = new Tower_SpreadShot("Spread", p[3], testCritters);
+		towerClosestStrategy = new Closest();
+		towerFarthestStrategy = new Farthest();
+		towerStrongestStrategy = new Strongest();
+		towerWeakestStrategy = new Weakest();
 		
-		//towerTest.setColor(red);
 
 	}
 	
@@ -203,10 +206,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetStrategy(){
 
-		assertNotNull(fireTower.getStrategy());
-		assertNotNull(iceTower.getStrategy());
-		assertNotNull(laserTower.getStrategy());
-		assertNotNull(spreadTower.getStrategy());
+		assertEquals(fireTower.getStrategy().toString(),"Closest");
+		assertEquals(iceTower.getStrategy().toString(),"Closest");
+		assertEquals(laserTower.getStrategy().toString(),"Closest");
+		assertEquals(spreadTower.getStrategy().toString(),"Closest");
 	}
 
 	/**
@@ -260,9 +263,15 @@ public class ModelTestTower {
 	 */
 	@Test
 	public void testSetStrategy(){
-		
+
+		fireTower.setStrategy(towerClosestStrategy);
+		assertEquals(fireTower.getStrategy().toString(), "Closest");
 		fireTower.setStrategy(towerFarthestStrategy);
-		assertEquals(fireTower.getStrategy(), towerFarthestStrategy);
+		assertEquals(fireTower.getStrategy().toString(), "Farthest");
+		fireTower.setStrategy(towerStrongestStrategy);
+		assertEquals(fireTower.getStrategy().toString(), "Strongest");
+		fireTower.setStrategy(towerWeakestStrategy);
+		assertEquals(fireTower.getStrategy().toString(), "Weakest");
 		
 	}
 
@@ -312,4 +321,5 @@ public class ModelTestTower {
 		assertEquals(laserTower.getMaxTowerLevel(),4);
 		assertEquals(spreadTower.getMaxTowerLevel(),4);	
 	}
+	
 }

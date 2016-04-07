@@ -86,7 +86,7 @@ public class ViewTestGameControlPanel {
 	 */
 	@Test
 	public void testGetControlPanelHeight(){
-		int CONTROLPANELHEIGHT = 150;
+		int CONTROLPANELHEIGHT = 250;
 		for(int i=0; i<100; i++){
 			assertEquals(CONTROLPANELHEIGHT, GameControlPanel.getControlPanelHeight());
 		}
@@ -97,7 +97,7 @@ public class ViewTestGameControlPanel {
 	 */
 	@Test
 	public void testGetInfoLabel() {
-		JLabel lblInfo = new JLabel("| Lives = " + ", Money = " + ", Wavenumber =  |");
+		JLabel lblInfo = new JLabel("| Lives = " + ", Money = " + ", Points =  " + ", Wavenumber =  |");
 		for(int i=0; i<100; i++){
 			JLabel b = (Agcp.get(i).getInfoLabel());
 			assertEquals(b.getText(), lblInfo.getText());

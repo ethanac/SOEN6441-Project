@@ -43,6 +43,17 @@ public class ModelTestTDMap {
 	}
 	
 	/**
+	 *  Test for reading a map
+	 */
+	@Test
+	public void testReadMapFromFile(){
+		
+		assertNotNull(testTDMap1);
+		assertNotNull(testTDMap2);
+		
+	}
+	
+	/**
 	 *  Test for valid map path
 	 */
 	@Test

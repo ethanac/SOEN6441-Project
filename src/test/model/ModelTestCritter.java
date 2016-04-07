@@ -224,12 +224,12 @@ public class ModelTestCritter {
 	@Test
 	public void testGetSize(){
 		
-		assertEquals(5, testCyanCritter.getSize(), 0);
-		assertEquals(5, testOrangeCritter.getSize(), 0);
-		assertEquals(5, testPinkCritter.getSize(), 0);
-		assertEquals(5, testRedCritter.getSize(), 0);
-		assertEquals(5, testWhiteCritter.getSize(), 0);
-		assertEquals(5, testYellowCritter.getSize(), 0);
+		assertEquals(6, testCyanCritter.getSize(), 0);
+		assertEquals(6, testOrangeCritter.getSize(), 0);
+		assertEquals(6, testPinkCritter.getSize(), 0);
+		assertEquals(6, testRedCritter.getSize(), 0);
+		assertEquals(6, testWhiteCritter.getSize(), 0);
+		assertEquals(6, testYellowCritter.getSize(), 0);
 		
 	}
 	
