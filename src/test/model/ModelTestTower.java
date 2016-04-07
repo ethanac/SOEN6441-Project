@@ -85,10 +85,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetSellPrice(){
 		
-		assertEquals(fireTower.getSellPrice(), 100);
-		assertEquals(iceTower.getSellPrice(), 75);
-		assertEquals(laserTower.getSellPrice(), 80);
-		assertEquals(spreadTower.getSellPrice(), 400);
+		assertEquals(100, fireTower.getSellPrice());
+		assertEquals(75, iceTower.getSellPrice());
+		assertEquals(80, laserTower.getSellPrice());
+		assertEquals(400, spreadTower.getSellPrice());
 		
 	}
 
@@ -98,10 +98,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetColor(){
 		
-		assertEquals(fireTower.getColor(), red);
-		assertEquals(iceTower.getColor(), white);
-		assertEquals(laserTower.getColor(), black);
-		assertEquals(spreadTower.getColor(), yellow);
+		assertEquals(red, fireTower.getColor());
+		assertEquals(white, iceTower.getColor());
+		assertEquals(black, laserTower.getColor());
+		assertEquals(yellow, spreadTower.getColor());
 	
 	}
 
@@ -111,10 +111,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetDamage(){
 		
-		assertEquals(fireTower.getDamage(), 0.2, 0);
-		assertEquals(iceTower.getDamage(), 0.25, 0);
-		assertEquals(laserTower.getDamage(), 0.5, 0);
-		assertEquals(spreadTower.getDamage(), 0.8, 0);
+		assertEquals(0.2, fireTower.getDamage(), 0);
+		assertEquals(0.25, iceTower.getDamage(), 0);
+		assertEquals(0.5, laserTower.getDamage(), 0);
+		assertEquals(0.8, spreadTower.getDamage(), 0);
 		
 	}
 
@@ -137,10 +137,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetLevel(){
 		
-		assertEquals(fireTower.getLevel(), 1);
-		assertEquals(iceTower.getLevel(), 1);
-		assertEquals(laserTower.getLevel(), 1);
-		assertEquals(spreadTower.getLevel(), 1);
+		assertEquals(1, fireTower.getLevel());
+		assertEquals(1, iceTower.getLevel());
+		assertEquals(1, laserTower.getLevel());
+		assertEquals(1, spreadTower.getLevel());
 	
 	}
 
@@ -150,10 +150,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetName(){
 
-		assertEquals(fireTower.getName(), "Fire");
-		assertEquals(iceTower.getName(), "Ice");
-		assertEquals(laserTower.getName(), "Laser");
-		assertEquals(spreadTower.getName(), "Spread");
+		assertEquals("Fire", fireTower.getName());
+		assertEquals("Ice", iceTower.getName());
+		assertEquals("Laser", laserTower.getName());
+		assertEquals("Spread", spreadTower.getName());
 	
 	}
 
@@ -163,14 +163,14 @@ public class ModelTestTower {
 	@Test
 	public void testGetPosition(){
 		
-		assertEquals(fireTower.getPosX(), 1);
-		assertEquals(fireTower.getPosY(), 0);
-		assertEquals(iceTower.getPosX(), 1);
-		assertEquals(iceTower.getPosY(), 1);
-		assertEquals(laserTower.getPosX(), 1);
-		assertEquals(laserTower.getPosY(), 2);
-		assertEquals(spreadTower.getPosX(), 1);
-		assertEquals(spreadTower.getPosY(), 3);	
+		assertEquals(1, fireTower.getPosX());
+		assertEquals(0, fireTower.getPosY());
+		assertEquals(1, iceTower.getPosX());
+		assertEquals(1, iceTower.getPosY());
+		assertEquals(1, laserTower.getPosX());
+		assertEquals(2, laserTower.getPosY());
+		assertEquals(1, spreadTower.getPosX());
+		assertEquals(3, spreadTower.getPosY());	
 		
 	}
 
@@ -180,10 +180,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetRange(){
 
-		assertEquals(fireTower.getRange(), 100);
-		assertEquals(iceTower.getRange(), 100);
-		assertEquals(laserTower.getRange(), 250);
-		assertEquals(spreadTower.getRange(), 200);
+		assertEquals(100, fireTower.getRange());
+		assertEquals(100, iceTower.getRange());
+		assertEquals(250, laserTower.getRange());
+		assertEquals(200, spreadTower.getRange());
 	
 	}
 
@@ -193,10 +193,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetShotColor(){
 
-		assertEquals(fireTower.getShotColor(), red);
-		assertEquals(iceTower.getShotColor(), white);
-		assertEquals(laserTower.getShotColor(), black);
-		assertEquals(spreadTower.getShotColor(), yellow);
+		assertEquals(red, fireTower.getShotColor());
+		assertEquals(white, iceTower.getShotColor());
+		assertEquals(black, laserTower.getShotColor());
+		assertEquals(yellow, spreadTower.getShotColor());
 	
 	}
 
@@ -206,10 +206,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetStrategy(){
 
-		assertEquals(fireTower.getStrategy().toString(),"Closest");
-		assertEquals(iceTower.getStrategy().toString(),"Closest");
-		assertEquals(laserTower.getStrategy().toString(),"Closest");
-		assertEquals(spreadTower.getStrategy().toString(),"Closest");
+		assertEquals("Closest", fireTower.getStrategy().toString());
+		assertEquals("Closest", iceTower.getStrategy().toString());
+		assertEquals("Closest", laserTower.getStrategy().toString());
+		assertEquals("Closest", spreadTower.getStrategy().toString());
 	}
 
 	/**
@@ -218,10 +218,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetUpPrice(){
 
-		assertEquals(fireTower.getUpPrice(), 400);
-		assertEquals(iceTower.getUpPrice(), 350);
-		assertEquals(laserTower.getUpPrice(), 600);
-		assertEquals(spreadTower.getUpPrice(), 2000);
+		assertEquals(400, fireTower.getUpPrice());
+		assertEquals(350, iceTower.getUpPrice());
+		assertEquals(600, laserTower.getUpPrice());
+		assertEquals(2000, spreadTower.getUpPrice());
 	}
 
 	/**
@@ -244,7 +244,7 @@ public class ModelTestTower {
 	public void testSetColor(){
 		
 		fireTower.setColor(black);
-		assertEquals(fireTower.getColor(),black);	
+		assertEquals(black, fireTower.getColor());	
 		
 	}
 
@@ -265,13 +265,13 @@ public class ModelTestTower {
 	public void testSetStrategy(){
 
 		fireTower.setStrategy(towerClosestStrategy);
-		assertEquals(fireTower.getStrategy().toString(), "Closest");
+		assertEquals("Closest", fireTower.getStrategy().toString());
 		fireTower.setStrategy(towerFarthestStrategy);
-		assertEquals(fireTower.getStrategy().toString(), "Farthest");
+		assertEquals("Farthest", fireTower.getStrategy().toString());
 		fireTower.setStrategy(towerStrongestStrategy);
-		assertEquals(fireTower.getStrategy().toString(), "Strongest");
+		assertEquals("Strongest", fireTower.getStrategy().toString());
 		fireTower.setStrategy(towerWeakestStrategy);
-		assertEquals(fireTower.getStrategy().toString(), "Weakest");
+		assertEquals("Weakest", fireTower.getStrategy().toString());
 		
 	}
 
@@ -282,7 +282,7 @@ public class ModelTestTower {
 	public void testUpgradeTower(){
 		
 		fireTower.upgradeTower();
-		assertEquals(fireTower.getLevel(), 2);
+		assertEquals(2, fireTower.getLevel());
 	}
 
 	/**
@@ -291,10 +291,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetBuyPrice(){
 		 
-		assertEquals(fireTower.getBuyPrice(), 200);
-		assertEquals(iceTower.getBuyPrice(), 150);
-		assertEquals(laserTower.getBuyPrice(), 200);
-		assertEquals(spreadTower.getBuyPrice(), 900);
+		assertEquals(200, fireTower.getBuyPrice());
+		assertEquals(150, iceTower.getBuyPrice());
+		assertEquals(200, laserTower.getBuyPrice());
+		assertEquals(900, spreadTower.getBuyPrice());
 	}
 
 	/**
@@ -303,10 +303,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetDefaultStrategy(){
 		
-		assertEquals(fireTower.getDefaultStrategy(),"Closest");
-		assertEquals(iceTower.getDefaultStrategy(), "Closest");
-		assertEquals(laserTower.getDefaultStrategy(), "Closest");
-		assertEquals(spreadTower.getDefaultStrategy(), "Closest");
+		assertEquals("Closest", fireTower.getDefaultStrategy());
+		assertEquals("Closest", iceTower.getDefaultStrategy());
+		assertEquals("Closest", laserTower.getDefaultStrategy());
+		assertEquals("Closest", spreadTower.getDefaultStrategy());
 		
 	}
 
@@ -316,10 +316,10 @@ public class ModelTestTower {
 	@Test
 	public void testGetMaxTowerLevel(){
 		
-		assertEquals(fireTower.getMaxTowerLevel(),4);
-		assertEquals(iceTower.getMaxTowerLevel(),4);
-		assertEquals(laserTower.getMaxTowerLevel(),4);
-		assertEquals(spreadTower.getMaxTowerLevel(),4);	
+		assertEquals(4, fireTower.getMaxTowerLevel());
+		assertEquals(4, iceTower.getMaxTowerLevel());
+		assertEquals(4, laserTower.getMaxTowerLevel());
+		assertEquals(4, spreadTower.getMaxTowerLevel());	
 	}
 	
 }

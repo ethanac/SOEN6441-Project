@@ -202,7 +202,7 @@ public class GameController extends MapPanel implements ActionListener, ChangeLi
 		setPanelAndButtonProperties();
 		loadHelper = new GameLoadHelper(fileName, map);
 		loadHelper.loadGame();
-		setInitialValues(loadHelper.getWaveNumber(), loadHelper.getLives(), loadHelper.getMoney(), loadHelper.getCredit());
+		setInitialValues(loadHelper.getWaveNumber(), loadHelper.getMoney(), loadHelper.getLives(), loadHelper.getCredit());
 		this.tdMap = map;
 		tdMap.mapName = loadHelper.getMapName();
 		getTopList();

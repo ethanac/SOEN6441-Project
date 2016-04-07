@@ -25,7 +25,7 @@ import java.util.Scanner;
 public class GameLoadHelper {
 	public static final int TOP_NUMBER = 5;
 	private int waveNumber = 0;
-	private int lives = 10;
+	private int lives = 0;
 	private int money = 0;
 	private int credit = 0;
 	private String mapName = "";
@@ -165,8 +165,8 @@ public class GameLoadHelper {
  			Scanner sc = new Scanner(new BufferedReader(new FileReader(file)));
  			
  			waveNumber = Integer.parseInt(sc.nextLine());
- 			lives = Integer.parseInt(sc.nextLine());
  			money = Integer.parseInt(sc.nextLine());
+ 			lives = Integer.parseInt(sc.nextLine());
  			credit = Integer.parseInt(sc.nextLine());
  			mapName = sc.nextLine();
  			
@@ -194,7 +194,7 @@ public class GameLoadHelper {
  			top5.close();
  		}
  		catch(IOException e){
- 			System.out.print("load helper error.");
+ 			//System.out.print("load helper error.");
  		}
 	}
 	
